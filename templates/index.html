@@ -14,55 +14,68 @@
         </div>
     </section>
 
-    <section class="destaques">
-        <h2>Veículos em Destaque</h2>
-        
-        <div class="lista-carros">
+    <div class="container-interno">
+
+        <section class="destaques">
+            <h2>Veículos em Destaque</h2>
             
-            {% for carro in veiculos %}
+            <div class="lista-carros">
                 
-                <div class="carro-card">
-                    
-                    {% if carro.foto_url %}
-                        <img src="{{ url_for('static', filename='img/' + carro.foto_url) }}" alt="{{ carro.nome }}">
-                    {% else %}
-                        <div class="carro-placeholder-img"></div>
-                    {% endif %}
-                    
-                    <h3>{{ carro.nome }}</h3>
-                    <p>{{ carro.descricao }} (Ano: {{ carro.ano }})</p>
-                    
-                    <span class="preco">R$ {{ "%.2f"|format(carro.preco_diaria) }} /dia</span>
-                    <a href="{{ url_for('pagina_detalhe_veiculo', carro_id=carro.id) }}" class="btn-alugar">Ver Detalhes</a>
-                </div>
+                {% for carro in veiculos %}
 
+    <div class="carro-card">
+        <div class="carro-card-img">
+            {% if carro.foto_url %}
+                <img src="{{ url_for('static', filename='img/' + carro.foto_url) }}" alt="{{ carro.nome }}">
             {% else %}
-                <p>Nenhum veículo cadastrado no momento. Volte em breve!</p>
-
-            {% endfor %}
-            
+                <div class="carro-placeholder-img"></div>
+            {% endif %}
         </div>
-    </section>
 
-    <section class="como-funciona">
-        <h2>Alugar nunca foi tão fácil</h2>
-        <div class="passos-container">
-            <div class="passo-card">
-                <span>1</span>
-                <h3>Escolha o Carro</h3>
-                <p>Navegue em nosso catálogo e encontre o carro perfeito para você.</p>
+        <div class="carro-card-content">
+            <h3>{{ carro.nome }}</h3>
+            <p class="subtitulo">{{ carro.modelo }} (Ano: {{ carro.ano }})</p>
+
+            <ul class="features">
+                <li>✓ Câmbio Automático (CVT)</li>
+                <li>✓ Motor Turbo Flex</li>
+                <li>✓ Ar-Condicionado Digital</li>
+                <li>✓ Central Multimídia</li>
+            </ul>
+
+            <div class="bloco-preco">
+                <span class="preco">R$ {{ "%.2f"|format(carro.preco_diaria) }} /dia</span>
             </div>
-            <div class="passo-card">
-                <span>2</span>
-                <h3>Reserve Online</h3>
-                <p>Preencha seus dados e faça o pagamento com 100% de segurança.</p>
-            </div>
-            <div class="passo-card">
-                <span>3</span>
-                <h3>Retire e Aproveite</h3>
-                <p>Retire o carro na data marcada e aproveite sua viagem!</p>
-            </div>
+
+            <a href="{{ url_for('pagina_detalhe_veiculo', carro_id=carro.id) }}" class="btn-alugar">Ver Detalhes</a>
         </div>
-    </section>
+    </div>
+    {% else %}
+    <p>Nenhum veículo cadastrado no momento. Volte em breve!</p>
+{% endfor %}
+                
+            </div>
+        </section>
     
-{% endblock %}
+        <section class="como-funciona">
+            <h2>Alugar nunca foi tão fácil</h2>
+            <div class="passos-container">
+                <div class="passo-card">
+                    <span>1</span>
+                    <h3>Escolha o Carro</h3>
+                    <p>Navegue em nosso catálogo e encontre o carro perfeito para você.</p>
+                </div>
+                <div class="passo-card">
+                    <span>2</span>
+                    <h3>Reserve Online</h3>
+                    <p>Preencha seus dados e faça o pagamento com 100% de segurança.</p>
+                </div>
+                <div class="passo-card">
+                    <span>3</span>
+                    <h3>Retire e Aproveite</h3>
+                    <p>Retire o carro na data marcada e aproveite sua viagem!</p>
+                </div>
+            </div>
+        </section>
+
+    </div> {% endblock %}

@@ -45,11 +45,15 @@
                         <span class="preco-reserva">R$ {{ "%.2f"|format(reserva.preco_total) }}</span>
                     </p>
                 </div>
-                <div class="reserva-acao">
-                    {% if reserva.status == 'Confirmada' %}
-                        <a href="#" class="btn-cancelar">Cancelar</a>
-                    {% endif %}
-                </div>
+               <div class="reserva-acao">
+    {% if reserva.status == 'Confirmada' %}
+        <form action="{{ url_for('cancelar_reserva', reserva_id=reserva.id) }}" method="POST">
+            <button type="submit" class="btn-cancelar">Cancelar</button>
+        </form>
+    {% else %}
+        <span class="status-cancelada">---</span>
+    {% endif %}
+</div>
             </div>
         {% else %}
             <p>Você ainda não fez nenhuma reserva.</p>

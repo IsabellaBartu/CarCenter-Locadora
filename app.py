@@ -4,7 +4,7 @@ from cryptography.fernet import Fernet
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
 from functools import wraps
-from datetime import datetime # <-- A IMPORTAÇÃO QUE FALTAVA!
+from datetime import datetime
 
 # ==================================
 # 2. CONFIGURAÇÃO DO APP
@@ -36,7 +36,7 @@ def admin_required(f):
     return decorated_function
 
 # ==================================
-# 4. MODELOS DO BANCO DE DADOS (Com Reserva!)
+# 4. MODELOS DO BANCO DE DADOS
 # ==================================
 class Feedback(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -44,7 +44,7 @@ class Feedback(db.Model):
     nome = db.Column(db.String(100), nullable=True)
     comentario = db.Column(db.String(500), nullable=False)
     
-    is_available = db.Column(db.Boolean, nullable=False, default=True)
+    # Eu removi o 'is_available' daqui, ele pertence ao Veiculo!
     def __repr__(self):
         return f'<Feedback {self.id}: {self.rating} estrelas>'
 
@@ -57,10 +57,19 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(120), unique=True, nullable=False)
     telefone = db.Column(db.String(20), nullable=True)
     cnh = db.Column(db.String(20), unique=True, nullable=True)
+    endereco = db.Column(db.String(255), nullable=True)
+    cidade = db.Column(db.String(100), nullable=True)
+    estado = db.Column(db.String(50), nullable=True)
+    cep = db.Column(db.String(10), nullable=True)
     
+    # Relação com Reservas
+    reservas_cliente = db.relationship('Reserva', backref='cliente', lazy=True)
+
     def __repr__(self):
         return f'<User {self.username}>'
 
+# --- BUG DE INDENTAÇÃO CORRIGIDO ---
+# A 'class Veiculo' foi movida para o nível principal
 class Veiculo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(100), nullable=False)
@@ -72,10 +81,15 @@ class Veiculo(db.Model):
     placa = db.Column(db.String(10), unique=True, nullable=True)
     cor = db.Column(db.String(50), nullable=True)
     
+    # O status de inventário que você queria!
+    is_available = db.Column(db.Boolean, nullable=False, default=True) 
+    
+    # Relação com Reservas
+    reservas_veiculo = db.relationship('Reserva', backref='veiculo_alugado', lazy=True)
+    
     def __repr__(self):
         return f'<Veiculo {self.nome}>'
 
-# --- O "MOLDE" DE RESERVA QUE FALTAVA ---
 class Reserva(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     data_reserva = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
@@ -103,12 +117,12 @@ def load_user(user_id):
 @app.route('/')
 def homepage():
     try:
-        todos_veiculos = Veiculo.query.all()
+        # Mostra apenas os carros disponíveis na homepage!
+        todos_veiculos = Veiculo.query.filter_by(is_available=True).all()
     except Exception as e:
         todos_veiculos = []
     return render_template('index.html', veiculos=todos_veiculos)
 
-# --- ROTA DE PAGAMENTO (QUE LÊ A SESSÃO) ---
 @app.route('/pagamento')
 @login_required 
 def pagina_pagamento():
@@ -120,18 +134,11 @@ def pagina_pagamento():
 @app.route('/processar-pagamento', methods=['POST'])
 @login_required
 def processar_pagamento():
-    
-    # 1. Puxe os dados da reserva da memória (session)
     reserva_dados = session.get('reserva')
-    
-    # 2. Verifique se a reserva ainda existe na memória
     if not reserva_dados:
-        print("Erro: Usuário tentou pagar sem uma reserva na sessão.")
         return redirect(url_for('pagina_veiculos'))
         
-    # --- INÍCIO DA LÓGICA DE SALVAR E BLOQUEAR ---
     try:
-        # 3. Crie o objeto "Reserva" (SALVANDO)
         nova_reserva = Reserva(
             data_inicio = datetime.strptime(reserva_dados['data_inicio'], '%Y-%m-%d').date(),
             data_fim = datetime.strptime(reserva_dados['data_fim'], '%Y-%m-%d').date(),
@@ -139,25 +146,18 @@ def processar_pagamento():
             user_id = current_user.id,
             veiculo_id = reserva_dados['carro_id']
         )
-        
-        # 4. SALVE A RESERVA NO BANCO DE DADOS
         db.session.add(nova_reserva)
-        db.session.commit()
-        print(f"Nova reserva {nova_reserva.id} salva no banco!")
         
-        # 5. BLOQUEIA O CARRO NO INVENTÁRIO (O que você queria!)
+        # BLOQUEIA O CARRO NO INVENTÁRIO
         carro_reservado = Veiculo.query.get(reserva_dados['carro_id'])
         carro_reservado.is_available = False # Marque como indisponível
-        db.session.commit() # Salve essa mudança também!
-        print(f"Veículo '{carro_reservado.nome}' marcado como INDISPONÍVEL.")
-            
+        
+        db.session.commit() # Salva as duas mudanças (Reserva e Veiculo)
+        
     except Exception as e:
-        # Se falhar, desfaz a transação e mostra o erro
         db.session.rollback()
-        print(f"Erro ao SALVAR reserva no banco: {e}")
         return "Houve um erro ao salvar sua reserva."
     
-    # 6. LIMPE A MEMÓRIA E REDIRECIONE PARA O SUCESSO
     session.pop('reserva', None)
     return redirect(url_for('pagina_pagamento_sucesso'))
 
@@ -168,11 +168,27 @@ def pagina_feedback():
 @app.route('/processar-feedback', methods=['POST'])
 def processar_feedback():
     if request.method == 'POST':
-        # ... (código de processar feedback) ...
-        pass # (Resumido para economizar espaço)
+        rating = request.form['rating']
+        nome = request.form['nome_feedback']
+        comentario = request.form['comentario_feedback']
+        if nome:
+            nome_criptografado = cipher.encrypt(nome.encode()).decode()
+        else:
+            nome_criptografado = None
+        novo_feedback = Feedback(
+            rating=rating,
+            nome=nome_criptografado,
+            comentario=comentario
+        )
+        try:
+            db.session.add(novo_feedback)
+            db.session.commit()
+            return redirect(url_for('homepage'))
+        except Exception as e:
+            print(e)
+            return "Erro ao salvar"
     return redirect(url_for('homepage'))
 
-# --- ROTA DE ADMIN (QUE ADICIONA CARRO) ---
 @app.route('/admin', methods=['GET', 'POST'])
 @admin_required
 def pagina_admin():
@@ -188,7 +204,8 @@ def pagina_admin():
         
         novo_veiculo = Veiculo(
             nome=nome, modelo=modelo, ano=int(ano), preco_diaria=float(preco),
-            descricao=descricao, foto_url=foto, placa=placa, cor=cor
+            descricao=descricao, foto_url=foto, placa=placa, cor=cor,
+            is_available=True  # Salva como DISPONÍVEL!
         )
         try:
             db.session.add(novo_veiculo)
@@ -226,32 +243,24 @@ def pagina_admin():
 def toggle_veiculo_status(carro_id):
     try:
         carro = Veiculo.query.get_or_404(carro_id)
-        
-        # Inverte o valor (Se for True, vira False, e vice-versa)
         carro.is_available = not carro.is_available 
         db.session.commit()
-        
-        print(f"Status do carro {carro.nome} alterado para {carro.is_available}")
-        
     except Exception as e:
-        print(f"Erro ao alterar status do veículo: {e}")
         db.session.rollback()
-
-    # Redireciona de volta para o painel
     return redirect(url_for('pagina_admin'))
 
-# --- ROTA DE PERFIL (QUE LÊ AS RESERVAS!) ---
 @app.route('/perfil')
 @login_required
 def pagina_perfil():
     try:
         reservas_do_usuario = db.session.query(Reserva, Veiculo).join(Veiculo).filter(Reserva.user_id == current_user.id).order_by(Reserva.data_inicio.desc()).all()
+
     except Exception as e:
         print(f"Erro ao buscar reservas: {e}")
         reservas_do_usuario = []
+
     return render_template('perfil.html', reservas=reservas_do_usuario)
 
-# --- ROTA DE INICIAR RESERVA (QUE SALVA NA SESSÃO) ---
 @app.route('/iniciar-reserva', methods=['POST'])
 @login_required
 def iniciar_reserva():
@@ -276,7 +285,7 @@ def iniciar_reserva():
             return "Erro ao processar as datas."
 
         session['reserva'] = {
-            'carro_id': carro_id, # <-- O ID que faltava
+            'carro_id': carro_id,
             'carro_nome': carro.nome,
             'carro_foto': carro.foto_url,
             'data_inicio': data_inicio_str,
@@ -286,7 +295,6 @@ def iniciar_reserva():
         }
         return redirect(url_for('pagina_pagamento'))
 
-# --- ROTAS DE LOGIN/LOGOUT/REGISTER (JÁ ESTAVAM OK) ---
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
@@ -319,50 +327,49 @@ def register():
         tel_form = request.form.get('telCadastro')
         cnh_form = request.form.get('cnhCliente')
         senha_form = request.form.get('senhaCadastro')
+        end_form = request.form.get('enderecoCadastro')
+        cidade_form = request.form.get('cidadeCadastro')
+        estado_form = request.form.get('estadoCadastro')
+        cep_form = request.form.get('cepCadastro')
+        
         user_exists = User.query.filter_by(email=email_form).first()
-        if user_exists:
-            return "Erro ao criar usuário. Esse email já existe."
+        if user_exists: return "Erro ao criar usuário. Esse email já existe."
         if cnh_form:
              cnh_exists = User.query.filter_by(cnh=cnh_form).first()
-             if cnh_exists:
-                 return "Erro ao criar usuário. Essa CNH já está cadastrada."
+             if cnh_exists: return "Erro ao criar usuário. Essa CNH já está cadastrada."
+
         hashed_password = bcrypt.generate_password_hash(senha_form).decode('utf-8')
+        
         new_user = User(
             username=email_form, email=email_form, nome=nome_form,
-            telefone=tel_form, cnh=cnh_form, password_hash=hashed_password
+            telefone=tel_form, cnh=cnh_form, password_hash=hashed_password,
+            endereco=end_form, cidade=cidade_form, estado=estado_form, cep=cep_form
         ) 
         try:
-            db.session.add(new_user)
-            db.session.commit()
-            login_user(new_user) 
-            return redirect(url_for('pagina_cadastro_sucesso')) 
+            db.session.add(new_user); db.session.commit()
+            login_user(new_user); return redirect(url_for('pagina_cadastro_sucesso'))
         except Exception as e:
             db.session.rollback(); print(f"Erro ao criar usuário: {e}")
             return "Erro ao criar usuário, tente novamente."
     return render_template('clientes.html') 
 
-# --- ROTAS DE PÁGINAS ESTÁTICAS (JÁ ESTAVAM OK) ---
 @app.route('/sobre')
 def pagina_sobre():
     return render_template('sobre.html')
 
 @app.route('/veiculo/<int:carro_id>')
 def pagina_detalhe_veiculo(carro_id):
-    # 1. Busca no banco o carro com AQUELE ID
     try:
-        # get_or_404 é um atalho que já dá erro 404 se não achar
         carro = Veiculo.query.get_or_404(carro_id)
     except Exception as e:
-        print(e)
-        return redirect(url_for('homepage')) # Se não achar, volta pra Home
-    
-    # 2. Mostra a nova página de detalhes e envia os dados do carro
+        return redirect(url_for('homepage'))
     return render_template('detalhe_veiculo.html', carro=carro)
 
 @app.route('/veiculos')
 def pagina_veiculos():
     try:
-        todos_veiculos = Veiculo.query.all()
+        # Mostra apenas os carros disponíveis!
+        todos_veiculos = Veiculo.query.filter_by(is_available=True).all()
     except Exception as e:
         todos_veiculos = []
     return render_template('veiculos.html', veiculos=todos_veiculos)
@@ -379,6 +386,52 @@ def pagina_cadastro_sucesso():
 @app.route('/pagamento-sucesso')
 def pagina_pagamento_sucesso():
     return render_template('pagamento-sucesso.html')
+
+@app.route('/cancelar_reserva/<int:reserva_id>', methods=['POST'])
+@login_required 
+def cancelar_reserva(reserva_id):
+    try:
+        reserva = Reserva.query.get_or_404(reserva_id)
+        if reserva.user_id != current_user.id:
+            return "Acesso negado. Esta não é sua reserva."
+            
+        carro_id = reserva.veiculo_id
+        carro = Veiculo.query.get(carro_id)
+        reserva.status = 'Cancelada'
+        carro.is_available = True
+        db.session.commit()
+        
+    except Exception as e:
+        db.session.rollback()
+        return "Erro ao cancelar reserva. Tente novamente."
+    return redirect(url_for('pagina_perfil'))
+
+@app.route('/admin/delete_veiculo/<int:carro_id>', methods=['POST'])
+@admin_required
+def delete_veiculo(carro_id):
+    # --- O RECHEIO INTEIRO PRECISA DE 1 RECUO (TAB) ---
+    try:
+        # 1. Encontra o carro no banco
+        carro_para_deletar = Veiculo.query.get_or_404(carro_id)
+        
+        # 2. Verifique se há reservas ativas
+        reservas_ativas = Reserva.query.filter_by(veiculo_id=carro_id, status='Confirmada').first()
+        if reservas_ativas:
+            print("Tentativa de deletar carro com reservas ativas.")
+            return redirect(url_for('pagina_admin'))
+
+        # 3. Se não há reservas, pode deletar
+        db.session.delete(carro_para_deletar)
+        db.session.commit()
+        print(f"Veículo '{carro_para_deletar.nome}' DELETADO do banco.")
+        
+    except Exception as e:
+        print(f"Erro ao deletar veículo: {e}")
+        db.session.rollback()
+
+    # Redireciona o usuário de volta para o painel
+    return redirect(url_for('pagina_admin'))
+
 
 # ==================================
 # 7. INICIA O SERVIDOR

@@ -1,48 +1,28 @@
-/* static/css/style.css - VERSÃO ATUALIZADA */
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* === 1. FUNDO NOVO (IMAGEM + EFEITO FOSCO) === */
 body {
-    position: relative; 
-    background-image: url('../img/cye.png'); /* A IMAGEM! */
-    background-size: cover;  
-    background-position: center;
-    background-repeat: no-repeat;
-    font-family: Arial, sans-serif;
-    color: white;
-    margin: 0;
-    padding: 0;
+    /* 1. O FUNDO RIDÍCULO SAIU! */
+    background-color:#ececec; /* Fundo cinza bem claro (limpo) */
+    color: #333; /* Texto escuro */
+
+    font-family: 'Montserrat', Arial, sans-serif;
+    color: #333;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+
+    /* O EFEITO FOSCO 'body::before' FOI REMOVIDO! */
 }
 
-body::before {
-    content: "";
-    position: fixed; 
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    backdrop-filter: blur(5px);
-    background-color: rgba(0, 0, 0, 0.4);
-    z-index: -1; /* Fica atrás de tudo */
-}
-/* ============================================== */
-
-
-/* === 2. HEADER E FOOTER (VERMELHOS) === */
 header {
-    background: #E7284B; /* Header vermelho */
-    padding: 18px;
+    background: #E7284B; /* Nosso header vermelho */
+    padding: 18px 30px; /* 30px de espaço nas laterais */
     text-align: center;
-    border-radius: 12px;
-    margin: 30px; /* Margem para "flutuar" */
+
 }
 
 header .logo {
@@ -72,33 +52,37 @@ nav a:hover {
 }
 
 footer {
-    background-color: #E7284B; /* Rodapé vermelho */
+    background-color: #E7284B; /* Nosso rodapé vermelho */
     text-align: center;
-    padding: 20px;
-    margin: 30px;
+    padding: 20px 30px;
     margin-top: auto; 
-    border-radius: 12px;
+
+    /* 2. O "RETÂNGULO" SUMIU! */
+    margin: 0;
+    border-radius: 0;
+
     font-size: 0.9em;
-    color: white; /* Texto branco */
+    color: white;
 }
 footer p {
     color: white;
 }
-/* ======================================== */
+.container-interno {
+    width: 90%;
+    max-width: 1200px; /* O limite antigo do 'main' */
+    margin: 0 auto; /* Centraliza o conteúdo */
+}
 
-
-/* === 3. CONTEÚDO PRINCIPAL (ROXO) === */
 main {
     flex-grow: 1; 
-    padding: 30px;
-    width: 90%;
-    max-width: 1200px;
-    margin: 20px auto;
-    background-color: #17063D; /* FUNDO ROXO! */
-    border-radius: 8px;
-}
-/* ======================================== */
 
+    /* 2. O "RETÂNGULO" SUMIU! */
+    width: 100%; /* Ocupa a tela toda */
+    max-width: 100%; /* Remove o limite */
+    margin: 0; /* Remove a margem */
+    border-radius: 0; 
+    padding: 40px 0; /* Damos espaço em cima/baixo */
+}
 
 /* === 4. FORMULÁRIOS (FUNDO PRETO/ROXO) === */
 .form-pagamento,
@@ -226,67 +210,147 @@ main {
 }
 
 /* CARDS DE CARRO (Já estava bom) */
-.destaques {
+destaques {
     padding: 30px 0;
 }
+
+.destaques {
+    padding: 30px 0;
+    /* (MUITO MAIS ESPAÇO!) Para o carro flutuar */
+    margin-top: 100px; 
+}
+
 .destaques h2 {
     text-align: center;
-    font-size: 2.2em;
-    color: #E7284B;
-    margin-bottom: 30px;
+    font-size: 2.8em; /* (MAIOR) */
+    color: #333;
+    margin-bottom: 100px; /* (MAIOR) */
+    font-weight: 700;
 }
+
 .lista-carros {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
+    gap: 40px; 
 }
+
+/* O CARD (MAIOR) */
 .carro-card {
-    background-color: #333;
-    border: 1px solid #555;
-    border-radius: 8px;
-    overflow: hidden;
+    background: #ffffff;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    border-radius: 16px; 
     display: flex;
     flex-direction: column;
     transition: transform 0.3s, box-shadow 0.3s;
+    position: relative; /* Base para o z-index */
+    
+    /* (MAIOR!) Espaço interno para o texto, 
+       para o carro ter onde vazar */
+    padding-top: 60px; /* <--- PONTO CHAVE 1 */
 }
+
 .carro-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+    transform: translateY(-10px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
 }
-.carro-card img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
+
+/* A IMAGEM (O "VAZADO" 3D) */
+.carro-card-img {
+    height: 280px;
+    position: absolute;
+    top: -145px; 
+    left:0;
+    right:0;
+    z-index: 2;
+
+    /* A MÁGICA DA CENTRALIZAÇÃO (AGORA CORRETA) */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 15px; /* Adiciona um respiro nas laterais */
 }
-.carro-card h3 {
-    font-size: 1.4em;
-    color: #E7284B;
-    padding: 20px 20px 10px 20px;
+
+.carro-card-img img {
+    width: auto; /* Deixa a imagem ter seu tamanho natural */
+    height: 100%; /* Altura máxima é o container */
+    max-width: 110%; /* Mas não pode ser maior que o container */
+    object-fit: contain;
 }
-.carro-card p {
-    font-size: 0.9em;
-    color: #ccc;
-    padding: 0 20px 20px 20px;
+
+/* O CONTEÚDO (Fica atrás) */
+.carro-card-content {
+    padding: 30px; /* (MAIOR) */
+    display: flex;
+    flex-direction: column;
     flex-grow: 1;
+    position: relative;
+    z-index: 1;
 }
-.carro-card .preco {
-    font-size: 1.5em;
-    font-weight: bold;
-    color: white;
-    padding: 0 20px 15px 20px;
+
+.carro-card-content h3 {
+    font-size: 1.8em; /* (MAIOR) */
+    color: #333;
+    font-weight: 700;
+    margin-bottom: 5px;
+    text-align: center;
 }
+
+.carro-card-content .subtitulo {
+    font-size: 1.1em; /* (MAIOR) */
+    color: #777;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+/* As "Features" com checkmark */
+.features {
+    list-style: none;
+    margin-bottom: 25px;
+    color: #555;
+    font-size: 1.1em; /* (MAIOR) */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+/* O Bloco de Preço */
+.bloco-preco {
+    margin-top: auto; 
+    margin-bottom: 25px;
+    text-align: center;
+}
+.bloco-preco .a-partir-de {
+    font-size: 1em; /* (MAIOR) */
+    color: #777;
+}
+.bloco-preco .preco {
+    font-size: 2em; /* (MAIOR) */
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 5px;
+}
+.bloco-preco .detalhe-preco {
+    font-size: 1em; /* (MAIOR) */
+    color: #777;
+}
+
+/* O Botão (MAIOR) */
 .btn-alugar {
     display: block;
-    background-color: #E7284B;
+    background-color: #E7284B; 
     color: white;
     text-align: center;
     text-decoration: none;
-    padding: 15px;
-    font-weight: bold;
+    padding: 20px; /* (MAIOR) */
+    font-weight: 700;
+    border-radius: 8px;
     transition: background-color 0.3s;
+    font-size: 1.3em; /* (MAIOR) */
 }
+
 .btn-alugar:hover {
-    background-color: #ff4d6d;
+    background-color: #8f1a30;
 }
 
 /* COMO FUNCIONA (FUNDO PRETO) */
@@ -939,4 +1003,30 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .btn-toggle-reservar:hover {
     background-color: #cc0000;
+}
+
+/* === ESTILOS DOS BOTÕES DE AÇÕES (ADMIN) === */
+
+/* (NOVO!) O contêiner para os botões ficarem lado a lado */
+.acoes-admin {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+/* (NOVO!) O botão de Excluir */
+.btn-excluir {
+    background-color: #aaa; /* Cinza */
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+.btn-excluir:hover {
+    background-color: #333; /* Cinza escuro */
 }
