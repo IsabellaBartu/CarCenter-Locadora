@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Cadastro de Cliente
+{% endblock %}
+
+{% block content %}
+    
+   <h2>Novo Cadastro de Cliente</h2>
+    <p>Crie sua conta para alugar mais rápido.</p>
+
+    <form class="form-login-register" id="formCadastro" action="{{ url_for('register') }}" method="POST">
+        
+        <label for="nomeCadastro">Nome Completo:</label>
+        <input type="text" id="nomeCadastro" name="nomeCadastro" required>
+        
+        <label for="emailCadastro">Email (será seu login):</label>
+        <input type="email" id="emailCadastro" name="emailCadastro" 
+               placeholder="seu.email@exemplo.com" required>
+        
+        <label for="telCadastro">Telefone:</label>
+        <input type="tel" id="telCadastro" name="telCadastro" 
+               placeholder="(11) 98765-4321" 
+               pattern="\([0-9]{2}\) [0-9]{4,5}-[0-9]{4}" 
+               title="Formato: (XX) XXXXX-XXXX" required>
+        
+        <label for="cnhCliente">CNH (somente números):</label>
+        <input type="text" id="cnhCliente" name="cnhCliente" 
+               placeholder="01234567890" 
+               pattern="[0-9]{11}" 
+               title="Digite os 11 números da sua CNH" required>
+        
+        <label for="senhaCadastro">Senha:</label>
+        <input type="password" id="senhaCadastro" name="senhaCadastro" required>
+        
+        <button type="submit" class="btn-confirmar">Cadastrar</button>
+    </form>
+{% endblock %}

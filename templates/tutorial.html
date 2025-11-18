@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Tutorial de Uso
+{% endblock %}
+
+{% block content %}
+    
+    <h2>Como utilizar nosso site?</h2>
+    
+    <div class="video-container">
+        <iframe 
+            width="560" 
+            height="315" 
+            src="https://www.youtube.com/embed/dOZSE8z-jT8" 
+            title="YouTube video player" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            referrerpolicy="strict-origin-when-cross-origin" 
+            allowfullscreen>
+        </iframe>
+    </div>
+    
+    <hr>
+    
+    <h2>Guia de Utilização (O Nosso Site)</h2>
+    <p>O sistema da <strong>Car Center</strong> foi desenvolvido com foco em segurança e facilidade. 
+    Aqui está como o *nosso* sistema funciona:</p>
+
+    <h3>1. Cadastro (Clientes)</h3>
+    <p>Na página "Cadastro", você cria sua conta de cliente. Pedimos seu Nome, Email, Telefone e CNH. 
+    Seu **email** será seu login. Assim que você se cadastra, você é levado para a sua página de "Meu Perfil".</p>
+
+    <h3>2. Login (Clientes vs. Admin)</h3>
+    <p>Na página "Login", clientes e administradores usam o mesmo formulário.
+    Nosso sistema reconhece seu "cargo" (role):
+    <ul>
+        <li>Se você for <strong>Cliente</strong>, você é levado para a página "Meu Perfil".</li>
+        <li>Se você for <strong>Admin</strong>, você é levado para o "Painel de Admin".</li>
+    </ul>
+    </p>
+
+    <h3>3. Página de Veículos</h3>
+    <p>Aqui você vê toda a nossa frota disponível. Você pode clicar em "Alugar Agora" para ser levado à página de pagamento.</p>
+
+    <h3>4. Feedback (com Estrelas!)</h3>
+    <p>Na página "Avalie-nos", você pode nos dar uma nota de 1 a 5 estrelas e deixar um comentário. 
+    Esses dados são **criptografados (AES)** e enviados com segurança para nossos administradores.</p>
+    
+    <h3>5. Painel de Admin (Oculto e Seguro)</h3>
+    <p>Esta página (que você não vê no menu como cliente) é protegida. Só o <strong>Admin</strong> (criado por nós manualmente) pode acessá-la para ver a lista de todos os usuários e todos os feedbacks.</p>
+
+    <h3>6. Sobre Nós</h3>
+    <p>Conheça a história da empresa e a equipe que fez este site!</p>
+    
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Deixe seu Feedback
+{% endblock %}
+
+{% block content %}
+    <h2>Como foi sua experiência?</h2>
+    <p>Adoramos ouvir sua opinião! Por favor, deixe uma avaliação.</p>
+    
+    <form class="form-feedback" action="{{ url_for('processar_feedback') }}" method="POST">
+        
+        <label>Sua Avaliação (Estrelas):</label>
+        <div class="star-rating">
+            <input type="radio" id="star5" name="rating" value="5" required><label for="star5">★</label>
+            <input type="radio" id="star4" name="rating" value="4"><label for="star4">★</label>
+            <input type="radio" id="star3" name="rating" value="3"><label for="star3">★</label>
+            <input type="radio" id="star2" name="rating" value="2"><label for="star2">★</label>
+            <input type="radio" id="star1" name="rating" value="1"><label for="star1">★</label>
+        </div>
+
+        <label for="nome_feedback">Seu Nome (Opcional):</label>
+        <input type="text" id="nome_feedback" name="nome_feedback" placeholder="Como podemos te chamar?">
+
+        <label for="comentario_feedback">Seu Comentário:</label>
+        <textarea id="comentario_feedback" name="comentario_feedback" rows="5" placeholder="Conte-nos mais..." required></textarea>
+
+        <button type="submit" class="btn-confirmar">Enviar Avaliação</button>
+    </form>
+    
+{% endblock %}

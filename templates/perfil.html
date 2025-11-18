@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Meu Perfil
+{% endblock %}
+
+{% block content %}
+    
+    <h2>Olá, {{ current_user.nome }}!</h2>
+    <p>Bem-vindo(a) ao seu painel. Seu cargo é: <strong>{{ current_user.role }}</strong></p>
+    
+    <hr>
+    
+    <h3>Meu Histórico de Reservas</h3>
+    
+    <div class="reservas-lista">
+        
+        {% for reserva, veiculo in reservas %}
+            <div class="reserva-card">
+                <div class="reserva-img">
+                    {% if veiculo.foto_url %}
+                        <img src="{{ url_for('static', filename='img/' + veiculo.foto_url) }}" alt="{{ veiculo.nome }}">
+                    {% else %}
+                        <div class="carro-placeholder-img"></div>
+                    {% endif %}
+                </div>
+                <div class="reserva-info">
+                    <h4>{{ veiculo.nome }}</h4>
+                    <p>
+                        <strong>Status:</strong> 
+                        {% if reserva.status == 'Confirmada' %}
+                            <span class="status-confirmada">{{ reserva.status }}</span>
+                        {% else %}
+                            <span class="status-cancelada">{{ reserva.status }}</span>
+                        {% endif %}
+                    </p>
+                    <p>
+                        <strong>Período:</strong> 
+                        {{ reserva.data_inicio.strftime('%d/%m/%Y') }}
+                        até
+                        {{ reserva.data_fim.strftime('%d/%m/%Y') }}
+                    </p>
+                    <p>
+                        <strong>Preço Total:</strong> 
+                        <span class="preco-reserva">R$ {{ "%.2f"|format(reserva.preco_total) }}</span>
+                    </p>
+                </div>
+                <div class="reserva-acao">
+                    {% if reserva.status == 'Confirmada' %}
+                        <a href="#" class="btn-cancelar">Cancelar</a>
+                    {% endif %}
+                </div>
+            </div>
+        {% else %}
+            <p>Você ainda não fez nenhuma reserva.</p>
+        {% endfor %}
+        
+    </div>
+    
+{% endblock %}

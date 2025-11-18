@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Cadastro Realizado!
+{% endblock %}
+
+{% block content %}
+    
+    <div class="container-sucesso">
+        <span class="icone-sucesso">✅</span>
+        
+        <h2>Cadastro realizado com sucesso!</h2>
+        
+        {% if current_user.is_authenticated %}
+            <p>Bem-vindo(a) ao Car Center, <strong>{{ current_user.nome }}</strong>!</p>
+        {% else %}
+            <p>Sua conta foi criada com sucesso.</p>
+        {% endif %}
+        
+        <p>Você já está logado. Agora você pode gerenciar seus dados e aluguéis no seu painel.</p>
+        
+        <a href="{{ url_for('pagina_perfil') }}" class="btn-confirmar">Ir para Meu Perfil</a>
+    </div>
+    
+{% endblock %}

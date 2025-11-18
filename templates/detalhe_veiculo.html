@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Detalhes: {{ carro.nome }}
+{% endblock %}
+
+{% block content %}
+    
+    <div class="detalhe-container">
+        <div class="detalhe-imagem">
+            {% if carro.foto_url %}
+                <img src="{{ url_for('static', filename='img/' + carro.foto_url) }}" alt="{{ carro.nome }}">
+            {% else %}
+                <div class="carro-placeholder-img"></div>
+            {% endif %}
+        </div>
+        
+        <div class="detalhe-info" id="area-calculo" data-preco-diaria="{{ carro.preco_diaria }}">
+            
+            <h2>{{ carro.nome }}</h2>
+            <span class="preco-detalhe">R$ {{ "%.2f"|format(carro.preco_diaria) }} /dia</span>
+            
+            <p class="descricao-detalhe">{{ carro.descricao }}</p>
+            
+            <ul class="specs-lista">
+                <li><strong>Modelo:</strong> {{ carro.modelo or 'Não informado' }}</li>
+                <li><strong>Ano:</strong> {{ carro.ano or 'Não informado' }}</li>
+                <li><strong>Cor:</strong> {{ carro.cor or 'Não informada' }}</li>
+            </ul>
+            
+            <hr>
+
+            <form action="{{ url_for('iniciar_reserva') }}" method="POST">
+                
+                <input type="hidden" name="carro_id" value="{{ carro.id }}">
+
+                <h4>Selecione o Período:</h4>
+                <div class="form-linha" style="gap: 20px; display: flex;">
+                    <div class="form-grupo" style="flex: 1;">
+                        <label for="data_inicio">Data de Retirada:</label>
+                        <input type="date" id="data_inicio" name="data_inicio" class="input-calculo" required>
+                    </div>
+                    <div class="form-grupo" style="flex: 1;">
+                        <label for="data_fim">Data de Devolução:</label>
+                        <input type="date" id="data_fim" name="data_fim" class="input-calculo" required>
+                    </div>
+                </div>
+    
+                <div class="total-container">
+                    Total:
+                    <span id="preco-total">R$ 0,00</span>
+                </div>
+                
+                <button type="submit" class="btn-confirmar">
+                    Reservar e Ir para Pagamento
+                </button>
+                
+            </form>
+        </div>
+    </div>
+    
+{% endblock %}

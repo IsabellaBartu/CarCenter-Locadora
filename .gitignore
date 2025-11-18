@@ -1,0 +1,10 @@
+# Ambientes Virtuais
+venv/
+*.env
+
+# Arquivos de Cache e Python
+__pycache__/
+*.pyc
+
+# Arquivos de Banco de Dados Local
+instance/

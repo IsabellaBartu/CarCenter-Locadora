@@ -1,0 +1,942 @@
+/* static/css/style.css - VERSÃO ATUALIZADA */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* === 1. FUNDO NOVO (IMAGEM + EFEITO FOSCO) === */
+body {
+    position: relative; 
+    background-image: url('../img/cye.png'); /* A IMAGEM! */
+    background-size: cover;  
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: Arial, sans-serif;
+    color: white;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+body::before {
+    content: "";
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(5px);
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: -1; /* Fica atrás de tudo */
+}
+/* ============================================== */
+
+
+/* === 2. HEADER E FOOTER (VERMELHOS) === */
+header {
+    background: #E7284B; /* Header vermelho */
+    padding: 18px;
+    text-align: center;
+    border-radius: 12px;
+    margin: 30px; /* Margem para "flutuar" */
+}
+
+header .logo {
+    width: 200px;
+    display: block;
+    margin: 0 auto 15px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+nav a:hover {
+    background-color: #8f1a30; /* Vermelho mais escuro no hover */
+}
+
+footer {
+    background-color: #E7284B; /* Rodapé vermelho */
+    text-align: center;
+    padding: 20px;
+    margin: 30px;
+    margin-top: auto; 
+    border-radius: 12px;
+    font-size: 0.9em;
+    color: white; /* Texto branco */
+}
+footer p {
+    color: white;
+}
+/* ======================================== */
+
+
+/* === 3. CONTEÚDO PRINCIPAL (ROXO) === */
+main {
+    flex-grow: 1; 
+    padding: 30px;
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto;
+    background-color: #17063D; /* FUNDO ROXO! */
+    border-radius: 8px;
+}
+/* ======================================== */
+
+
+/* === 4. FORMULÁRIOS (FUNDO PRETO/ROXO) === */
+.form-pagamento,
+.form-login-register,
+.form-feedback {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 25px;
+    background: #000000; /* FUNDO PRETO! */
+    border-radius: 10px;
+    border: 1px solid #B9BDBD;
+}
+
+.form-pagamento label,
+.form-login-register label,
+.form-feedback label {
+    font-weight: bold;
+    font-size: 0.9em;
+    color: #ccc;
+    margin-bottom: 5px;
+}
+
+.form-pagamento input,
+.form-login-register input,
+.form-feedback input[type="text"],
+.form-feedback textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #B9BDBD;
+    background: #17063D; /* INPUT ROXO! */
+    color: white;
+    font-size: 1.1em;
+    border-radius: 5px;
+}
+
+.form-pagamento input:focus,
+.form-login-register input:focus,
+.form-feedback input[type="text"]:focus,
+.form-feedback textarea:focus {
+    outline: none;
+    border-color: #E7284B;
+    box-shadow: 0 0 10px #e7284b80;
+}
+
+.form-linha {
+    display: flex;
+    gap: 20px;
+}
+.form-grupo {
+    flex: 1;
+}
+
+.btn-confirmar {
+    background-color: #E7284B;
+    color: white;
+    font-size: 1.2em;
+    font-weight: bold;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+.btn-confirmar:hover {
+    background-color: #ff4d6d;
+    transform: scale(1.02);
+}
+
+.form-feedback textarea {
+    resize: vertical;
+}
+
+.error-message {
+    color: #E7284B;
+    background-color: #ffcdd240;
+    border: 1px solid #E7284B;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+/* ======================================== */
+
+
+/* === 5. SEÇÕES DA HOMEPAGE === */
+.hero {
+    margin: -30px -30px 30px -30px; 
+    padding: 100px 30px;
+    background-color: #000000; /* FUNDO PRETO */
+    text-align: center;
+    color: white;
+    border-radius: 8px 8px 0 0;
+}
+.hero h1 {
+    font-size: 2.8em;
+    margin-bottom: 15px;
+    font-weight: bold;
+    color: #E7284B;
+}
+.hero p {
+    font-size: 1.3em;
+    color: #ccc;
+    margin-bottom: 30px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.btn-cta {
+    background-color: #E7284B;
+    color: white;
+    padding: 15px 30px;
+    text-decoration: none;
+    font-size: 1.2em;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+.btn-cta:hover {
+    background-color: #ff4d6d;
+    transform: scale(1.05);
+}
+
+/* CARDS DE CARRO (Já estava bom) */
+.destaques {
+    padding: 30px 0;
+}
+.destaques h2 {
+    text-align: center;
+    font-size: 2.2em;
+    color: #E7284B;
+    margin-bottom: 30px;
+}
+.lista-carros {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+.carro-card {
+    background-color: #333;
+    border: 1px solid #555;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.carro-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+}
+.carro-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+.carro-card h3 {
+    font-size: 1.4em;
+    color: #E7284B;
+    padding: 20px 20px 10px 20px;
+}
+.carro-card p {
+    font-size: 0.9em;
+    color: #ccc;
+    padding: 0 20px 20px 20px;
+    flex-grow: 1;
+}
+.carro-card .preco {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: white;
+    padding: 0 20px 15px 20px;
+}
+.btn-alugar {
+    display: block;
+    background-color: #E7284B;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    padding: 15px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+.btn-alugar:hover {
+    background-color: #ff4d6d;
+}
+
+/* COMO FUNCIONA (FUNDO PRETO) */
+.como-funciona {
+    margin: 30px -30px -30px -30px; 
+    padding: 60px 30px;
+    background-color: #000000; /* FUNDO PRETO! */
+    border-radius: 0 0 8px 8px;
+}
+.como-funciona h2 {
+    text-align: center;
+    font-size: 2.2em;
+    color: white;
+    margin-bottom: 30px;
+}
+.passos-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+.passo-card {
+    background-color: #333;
+    padding: 30px;
+    border-radius: 8px;
+    text-align: center;
+    border: 1px solid #555;
+    border-top: 5px solid #E7284B;
+}
+.passo-card span {
+    display: block;
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #E7284B;
+    margin-bottom: 10px;
+}
+.passo-card h3 {
+    font-size: 1.4em;
+    color: white;
+    margin-bottom: 10px;
+}
+.passo-card p {
+    color: #ccc;
+    font-size: 0.9em;
+}
+/* ============================ */
+
+
+/* === 6. OUTRAS PÁGINAS === */
+/* ESTRELAS (Já estava bom) */
+.star-rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    font-size: 2.5em;
+    gap: 5px;
+}
+.star-rating input[type="radio"] {
+    display: none;
+}
+.star-rating label {
+    color: #555;
+    cursor: pointer;
+    transition: color 0.3s;
+    margin: 0;
+}
+.star-rating:hover label {
+    color: #E7284B;
+}
+.star-rating:hover label:hover ~ label {
+    color: #555;
+}
+.star-rating input[type="radio"]:checked ~ label {
+    color: #E7284B;
+}
+
+/* ADMIN (FUNDO DOS ITENS MUDADO) */
+hr {
+    border: none;
+    border-top: 1px solid #555;
+    margin: 40px 0;
+}
+.feedback-lista {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.feedback-item {
+    background-color: #333; /* Fundo do card (era #1a1a1a) */
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #555;
+    border-left: 5px solid #E7284B;
+}
+.feedback-item h4 {
+    color: #E7284B;
+    margin-bottom: 10px;
+}
+.feedback-item p {
+    margin-bottom: 5px;
+    color: #ccc;
+}
+.feedback-item p.comentario {
+    font-style: italic;
+    font-size: 1.1em;
+    color: white;
+}
+.tabela-admin {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+.tabela-admin th,
+.tabela-admin td {
+    padding: 12px 15px;
+    border: 1px solid #555;
+    text-align: left;
+}
+.tabela-admin th {
+    background-color: #333;
+    color: #E7284B;
+    font-weight: bold;
+}
+.tabela-admin tbody tr:nth-child(even) {
+    background-color: #2a2a2a;
+}
+.tabela-admin strong {
+    color: #E7284B;
+}
+
+/* PÁGINA SOBRE NÓS (Já estava bom) */
+.titulo-equipe {
+  text-align: center;
+  margin-top: 40px;
+  color: #E7284B;
+  font-size: 2.2em;
+}
+.equipe-container {
+  display: flex; 
+  justify-content: center; 
+  flex-wrap: wrap;
+  gap: 30px;
+  margin-top: 30px;
+}
+.membro-equipe {
+  width: 250px;
+  background-color: #333;
+  border: 1px solid #555;
+  border-radius: 8px;
+  text-align: center;
+  padding: 20px;
+  transition: transform 0.3s;
+}
+.membro-equipe:hover {
+    transform: translateY(-5px);
+}
+.membro-equipe img {
+  width: 150px;
+  height: 150px; 
+  object-fit: cover; 
+  border-radius: 50%;
+  margin-bottom: 15px;
+  border: 4px solid #E7284B; 
+}
+.membro-equipe p {
+  color: white; 
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+/* TUTORIAL (Já estava bom) */
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    max-width: 100%;
+    background: #000;
+    margin: 20px 0;
+    border-radius: 8px;
+}
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+main ul { /* Lista no tutorial */
+    list-style-type: disc;
+    margin-left: 40px;
+    margin-bottom: 15px;
+}
+main li { /* Item da lista no tutorial */
+    margin-bottom: 5px;
+}
+/* ============================ */
+
+
+/* === 7. MENU RESPONSIVO (MOBILE) === */
+.menu-hamburger {
+    display: none;
+    font-size: 2em;
+    color: white;
+    cursor: pointer;
+    padding: 10px;
+}
+
+@media (max-width: 768px) {
+    
+    nav ul {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: #333;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        padding: 10px 0;
+        z-index: 100; /* Garante que fique por cima */
+    }
+    nav ul.ativo {
+        display: flex;
+    }
+    nav ul li {
+        width: 100%;
+        text-align: center;
+        padding: 10px 0;
+    }
+    .menu-hamburger {
+        display: block;
+    }
+    header {
+        /* Ajuste para mobile */
+        margin: 15px;
+    }
+    header nav {
+        justify-content: flex-end;
+        position: relative;
+    }
+    
+    /* Colunas únicas no mobile */
+    .lista-carros,
+    .passos-container,
+    .equipe-container {
+        grid-template-columns: 1fr;
+    }
+
+    main {
+        width: 95%;
+        margin: 15px auto;
+        padding: 20px;
+    }
+    
+    footer {
+        margin: 15px;
+    }
+}
+
+/* === ESTILOS DA PÁGINA DE SUCESSO === */
+/* Adicione isso no final do style.css */
+
+.container-sucesso {
+    background-color: #000000; /* Fundo preto (da sua paleta) */
+    padding: 40px;
+    border-radius: 10px;
+    text-align: center;
+    border: 1px solid #555;
+}
+
+.icone-sucesso {
+    font-size: 4em; /* Emoji grande */
+    display: block;
+    margin-bottom: 20px;
+}
+
+.container-sucesso h2 {
+    color: #E7284B; /* Destaque vermelho */
+    font-size: 2.2em;
+    margin-bottom: 15px;
+}
+
+.container-sucesso p {
+    color: #ccc;
+    font-size: 1.2em;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.container-sucesso .btn-confirmar {
+    /* Reutiliza o estilo do botão que já temos! */
+    display: inline-block;
+    width: auto;
+}
+/* === ESTILOS DO FORMULÁRIO DO ADMIN === */
+/* Adicione isso no final do style.css */
+
+.form-admin-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Duas colunas */
+    gap: 20px;
+    background-color: #000; /* Fundo preto (da sua paleta) */
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #555;
+    margin-top: 15px;
+}
+
+.form-grupo-admin,
+.form-grupo-admin-full {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Faz o campo de descrição ocupar as 2 colunas */
+.form-grupo-admin-full {
+    grid-column: 1 / -1;
+}
+
+.form-admin-grid label {
+    font-weight: bold;
+    font-size: 0.9em;
+    color: #ccc;
+    margin-bottom: 8px;
+}
+
+.form-admin-grid input,
+.form-admin-grid textarea {
+    background: #17063D; /* Fundo roxo */
+    border: 1px solid #B9BDBD;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.form-admin-grid textarea {
+    resize: vertical;
+}
+
+.form-admin-grid .btn-confirmar {
+    margin-top: 0;
+    font-size: 1.1em;
+}
+
+.tabela-admin img {
+    width: 100px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+/* === ESTILOS DA PÁGINA DE DETALHES === */
+/* Adicione isso no final do style.css */
+
+.detalhe-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+.detalhe-imagem img {
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid #555;
+}
+
+.detalhe-info h2 {
+    font-size: 2.5em;
+    color: #E7284B;
+    margin-bottom: 10px;
+}
+
+.preco-detalhe {
+    font-size: 2em;
+    font-weight: bold;
+    color: white;
+    display: block;
+    margin-bottom: 20px;
+}
+
+.descricao-detalhe {
+    color: #ccc;
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.specs-lista {
+    list-style: none;
+    padding: 20px;
+    background-color: #000; /* Fundo preto (da sua paleta) */
+    border-radius: 8px;
+    border: 1px solid #555;
+}
+
+.specs-lista li {
+    color: #ccc;
+    font-size: 1.1em;
+    padding: 8px 0;
+    border-bottom: 1px solid #333;
+}
+.specs-lista li:last-child {
+    border-bottom: none;
+}
+.specs-lista li strong {
+    color: white;
+    width: 100px;
+    display: inline-block;
+}
+
+.detalhe-info .btn-confirmar {
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Ajuste para celular */
+@media (max-width: 768px) {
+    .detalhe-container {
+        grid-template-columns: 1fr; /* Uma coluna só */
+    }
+}
+/* === ESTILOS DO RESUMO DE PAGAMENTO === */
+/* Adicione isso no final do style.css */
+
+.resumo-pagamento {
+    background-color: #000; /* Fundo preto (da sua paleta) */
+    border: 1px solid #555;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.resumo-pagamento h3 {
+    color: #E7284B;
+    margin-bottom: 15px;
+    font-size: 1.5em;
+    border-bottom: 1px solid #555;
+    padding-bottom: 10px;
+}
+
+.resumo-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.resumo-item img {
+    width: 120px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.resumo-item div {
+    font-size: 1.1em;
+    color: #ccc;
+    line-height: 1.6;
+}
+.resumo-item div strong {
+    color: white;
+}
+
+.resumo-total {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #555;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: white;
+    text-align: right;
+}
+
+.resumo-total span {
+    color: #E7284B;
+    font-size: 1.2em;
+    margin-left: 10px;
+}
+/* === ESTILOS DA PÁGINA DE DETALHES === */
+/* Adicione isso no final do style.css */
+
+.detalhe-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+.detalhe-imagem img {
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid #555;
+}
+.detalhe-info h2 {
+    font-size: 2.5em;
+    color: #E7284B;
+    margin-bottom: 10px;
+}
+.preco-detalhe {
+    font-size: 2em;
+    font-weight: bold;
+    color: white;
+    display: block;
+    margin-bottom: 20px;
+}
+.descricao-detalhe {
+    color: #ccc;
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+.specs-lista {
+    list-style: none;
+    padding: 20px;
+    background-color: #000;
+    border-radius: 8px;
+    border: 1px solid #555;
+}
+.specs-lista li {
+    color: #ccc;
+    font-size: 1.1em;
+    padding: 8px 0;
+    border-bottom: 1px solid #333;
+}
+.specs-lista li:last-child { border-bottom: none; }
+.specs-lista li strong {
+    color: white;
+    width: 100px;
+    display: inline-block;
+}
+.detalhe-info .btn-confirmar {
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* === ESTILOS DO CÁLCULO DE PREÇO === */
+.detalhe-info input[type="date"] {
+    width: 100%;
+    padding: 10px;
+    background: #000;
+    border: 1px solid #B9BDBD;
+    color: white;
+    font-size: 1em;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+}
+.detalhe-info label {
+    font-weight: bold;
+    font-size: 0.9em;
+    color: #ccc;
+    margin-bottom: 8px;
+    display: block;
+}
+.total-container {
+    background-color: #000;
+    border: 1px solid #E7284B;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #ccc;
+    text-align: center;
+}
+#preco-total {
+    color: #E7284B;
+    font-size: 1.3em;
+    margin-left: 10px;
+}
+
+/* Ajuste para celular */
+@media (max-width: 768px) {
+    .detalhe-container {
+        grid-template-columns: 1fr;
+    }
+}
+/* === CORREÇÃO DO CALENDÁRIO NO MODO ESCURO === */
+/* Garante que o ícone do calendário apareça e seja branco */
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1); /* Deixa o ícone branco em fundos escuros */
+    cursor: pointer;
+    opacity: 1;
+    display: block;
+    margin-left: 5px;
+}
+/* static/css/style.css - DENTRO da seção HISTÓRICO DE RESERVAS */
+.reserva-card {
+    /* ... o resto do card continua igual ... */
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+/* ESTE É O CONTÊINER DA IMAGEM */
+.reserva-img {
+    width: 150px; /* Limita a largura do bloco da imagem */
+    height: 90px; /* Limita a altura do bloco da imagem */
+    flex-shrink: 0; /* IMPEDE a imagem de diminuir */
+}
+
+/* 2. A IMAGEM EM SI */
+.reserva-img img,
+.reserva-img .carro-placeholder-img {
+    width: 100%; /* Faz a imagem preencher 100% do contêiner */
+    height: 100%;
+    object-fit: cover; /* Garante que ela não estique */
+    border-radius: 5px;
+}
+/* === ESTILOS DO CONTROLE DE INVENTÁRIO (ADMIN) === */
+
+/* Status Badges */
+.status-disponivel, .status-reservado {
+    font-weight: bold;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.85em;
+    display: inline-block;
+}
+
+.status-disponivel {
+    background-color: #4CAF50; /* Verde */
+    color: white;
+}
+
+.status-reservado {
+    background-color: #f44336; /* Vermelho */
+    color: white;
+}
+
+/* Botões de Toggle */
+.btn-toggle-reservar {
+    background-color: #f44336; /* Vermelho para marcar como RESERVADO */
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.btn-toggle-devolver {
+    background-color: #4CAF50; /* Verde para marcar como DISPONÍVEL */
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.btn-toggle-reservar:hover {
+    background-color: #cc0000;
+}
