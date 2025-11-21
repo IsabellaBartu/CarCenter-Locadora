@@ -1,39 +1,89 @@
 {% extends "base.html" %}
 
 {% block title %}
-    Nossa Frota de Veículos
+    Nossa Frota Completa
 {% endblock %}
 
 {% block content %}
+    
+    <div class="container-interno">
 
-    <section class="destaques">
-        <h2>Nossa Frota Completa</h2>
-
-        <div class="lista-carros" style="margin-top: 30px;">
-
-            {% for carro in veiculos %}
-
-                <div class="carro-card">
-
-                    {% if carro.foto_url %}
-                        <img src="{{ url_for('static', filename='img/' + carro.foto_url) }}" alt="{{ carro.nome }}">
-                    {% else %}
-                        <div class="carro-placeholder-img"></div>
-                    {% endif %}
-
-                    <h3>{{ carro.nome }}</h3>
-                    <p>{{ carro.descricao }} (Ano: {{ carro.ano }})</p>
-
-                    <span class="preco">R$ {{ "%.2f"|format(carro.preco_diaria) }} /dia</span>
-                    <a href="{{ url_for('pagina_detalhe_veiculo', carro_id=carro.id) }}" class="btn-alugar">Ver Detalhes</a>
-                </div>
-
-            {% else %}
-                <p>Nenhum veículo cadastrado no momento. Volte em breve!</p>
-
-            {% endfor %}
-
+        <section class="destaques">
+            <h2>Veículos em Destaque</h2>
+            
+            <div class="lista-carros">
+                
+                {% for carro in veiculos %}
+                    
+                    <div class="carro-card">
+    <div class="carro-card-img">
+        {% if carro.foto_url %}
+            <img src="{{ url_for('static', filename='img/' + carro.foto_url) }}" alt="{{ carro.nome }}">
+        {% else %}
+            <div class="carro-placeholder-img"></div>
+        {% endif %}
+    </div>
+    
+    <div class="carro-card-content">
+        <div class="card-header">
+            <h3>{{ carro.nome }}</h3>
+            <p class="subtitulo">{{ carro.modelo }}</p>
         </div>
-    </section>
+        
+        <ul class="features">
+            {% if carro.destaques %}
+                {% for destaque in carro.destaques.split(',') %}
+                    <li><span class="check">✔</span> {{ destaque }}</li>
+                {% endfor %}
+            {% else %}
+                <li><span class="check">✔</span> Revisado</li>
+                <li><span class="check">✔</span> Higienizado</li>
+            {% endif %}
+        </ul>
+        
+        <div class="card-divider"></div>
 
-{% endblock %}
+        <div class="card-footer">
+            <div class="bloco-preco">
+                <p class="a-partir-de">A partir de</p>
+                <span class="preco">R$ {{ "%.2f"|format(carro.preco_diaria) }}<small>/dia</small></span>
+                <p class="detalhe-preco">Taxas inclusas</p>
+            </div>
+            
+            <a href="{{ url_for('pagina_detalhe_veiculo', carro_id=carro.id) }}" class="btn-alugar">Eu quero!</a>
+        </div>
+    </div>
+</div>
+                        
+                        <div class="carro-card-content">
+                            <h3>{{ carro.nome }}</h3>
+                            <p class="subtitulo">{{ carro.modelo }} (Ano: {{ carro.ano }})</p>
+                            
+                            <ul class="features">
+                                {% if carro.destaques %}
+                                    {% for destaque in carro.destaques.split(',') %}
+                                        <li>✓ {{ destaque }}</li>
+                                    {% endfor %}
+                                {% else %}
+                                    <li>✓ Revisado</li>
+                                    <li>✓ Higienizado</li>
+                                {% endif %}
+                            </ul>
+                            
+                            <div class="bloco-preco">
+                                <p class="a-partir-de">A partir de</p>
+                                <span class="preco">R$ {{ "%.2f"|format(carro.preco_diaria) }} /dia</span>
+                                <p class="detalhe-preco">Aluguel diário (24h)</p>
+                            </div>
+                            
+                            <a href="{{ url_for('pagina_detalhe_veiculo', carro_id=carro.id) }}" class="btn-alugar">Ver Detalhes</a>
+                        </div>
+                    </div>
+                    {% else %}
+                    <p>Nenhum veículo cadastrado no momento. Volte em breve!</p>
+                {% endfor %}
+                
+            </div>
+        </section>
+
+    </div> {% endblock %}

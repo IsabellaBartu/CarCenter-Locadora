@@ -33,13 +33,13 @@
         <div class="form-grupo-admin">
             <label for="preco_veiculo">Preço da Diária (R$):</label>
             <input type="text" id="preco_veiculo" name="preco_veiculo"
-                   placeholder="Ex: 99.05 (use ponto, não vírgula)" required>
+                   placeholder="Ex: 99.05 (use ponto)" required>
         </div>
         <div class="form-grupo-admin">
-            <label for="foto_veiculo">Nome do Arquivo da Foto:</label>
+            <label for="foto_veiculo">Nome da Foto:</label>
             <input type="text" id="foto_veiculo" name="foto_veiculo" 
-                   placeholder="Ex: fiatfastback.png (nome exato!)"
-                   title="O nome do arquivo DEVE ser exato ao arquivo em /static/img/">
+                   placeholder="Ex: fiatfastback.png"
+                   title="O nome exato do arquivo na pasta static/img">
         </div>
         
         <div class="form-grupo-admin">
@@ -54,77 +54,84 @@
         </div>
         
         <div class="form-grupo-admin-full">
-            <label for="desc_veiculo">Descrição Curta (para o card):</label>
+            <label for="destaques_veiculo">Destaques (Separe por vírgula):</label>
+            <input type="text" id="destaques_veiculo" name="destaques_veiculo" 
+                   placeholder="Ex: Teto Solar, Câmbio Automático, Banco de Couro">
+        </div>
+
+        <div class="form-grupo-admin-full">
+            <label for="desc_veiculo">Descrição Curta:</label>
             <textarea id="desc_veiculo" name="desc_veiculo" rows="3"
                       placeholder="Ex: Modelo 2026. Confortável, automático e completo."></textarea>
         </div>
+
         <div class="form-grupo-admin-full">
             <button type="submit" class="btn-confirmar">Adicionar Veículo à Frota</button>
         </div>
     </form>
     
     <h4 style="margin-top: 20px;">Frota Cadastrada</h4>
-    <table class="tabela-admin">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Foto</th>
-                <th>Nome</th>
-                <th>Placa</th> <th>Cor</th> 
-                <th>Status</th>
-                <th>Preço/Dia</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-    {% for carro in veiculos %}
-    <tr>
-        <td>{{ carro.id }}</td>
-        <td>
-            {% if carro.foto_url %}
-                <img src="{{ url_for('static', filename='img/' + carro.foto_url) }}" alt="{{ carro.nome }}" width="100">
-            {% else %}
-                <span>Sem Foto</span>
-            {% endif %}
-        </td>
-        <td>{{ carro.nome }}</td>
-        <td>{{ carro.placa or '-' }}</td>
-        <td>{{ carro.cor or '-' }}</td>
-        
-        <td>
-            {% if carro.is_available %}
-                <span class="status-disponivel">DISPONÍVEL</span>
-            {% else %}
-                <span class="status-reservado">RESERVADO</span>
-            {% endif %}
-        </td>
-
-        <td>R$ {{ "%.2f"|format(carro.preco_diaria) }}</td>
-        
-        <td class="acoes-admin">
-            <form action="{{ url_for('toggle_veiculo_status', carro_id=carro.id) }}" method="POST">
-                {% if carro.is_available %}
-                    <button type="submit" class="btn-toggle-reservar" title="Marcar como Reservado">Reservar</button>
+<table class="tabela-admin">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Foto</th>
+            <th>Nome</th>
+            <th>Placa</th> <th>Cor</th> 
+            <th>Status</th>
+            <th>Preço/Dia</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for carro in veiculos %}
+        <tr>
+            <td>{{ carro.id }}</td>
+            <td>
+                {% if carro.foto_url %}
+                    <img src="{{ url_for('static', filename='img/' + carro.foto_url) }}" alt="{{ carro.nome }}" width="100">
                 {% else %}
-                    <button type="submit" class="btn-toggle-devolver" title="Marcar como Devolvido/Disponível">Devolvido</button>
+                    <span>Sem Foto</span>
                 {% endif %}
-            </form>
+            </td>
+            <td>{{ carro.nome }}</td>
+            <td>{{ carro.placa or '-' }}</td>
+            <td>{{ carro.cor or '-' }}</td>
             
-            <form action="{{ url_for('delete_veiculo', carro_id=carro.id) }}" method="POST">
-                <button type="submit" class="btn-excluir" 
-                        onclick="return confirm('Tem certeza que quer EXCLUIR este veículo? Esta ação não pode ser desfeita!')">
-                    Excluir
-                </button>
-            </form>
-        </td>
-    </tr>
-    {% else %}
-    <tr>
-        <td colspan="8">Nenhum veículo cadastrado ainda.</td> </tr>
-    {% endfor %}
-</tbody>
-    </table>
+            <td>
+                {% if carro.is_available %}
+                    <span class="status-disponivel">DISPONÍVEL</span>
+                {% else %}
+                    <span class="status-reservado">RESERVADO</span>
+                {% endif %}
+            </td>
 
+            <td>R$ {{ "%.2f"|format(carro.preco_diaria) }}</td>
+            
+            <td class="acoes-admin">
+                <form action="{{ url_for('toggle_veiculo_status', carro_id=carro.id) }}" method="POST">
+                    {% if carro.is_available %}
+                        <button type="submit" class="btn-toggle-reservar" title="Marcar como Reservado">Reservar</button>
+                    {% else %}
+                        <button type="submit" class="btn-toggle-devolver" title="Marcar como Devolvido/Disponível">Devolvido</button>
+                    {% endif %}
+                </form>
+                
+                <form action="{{ url_for('delete_veiculo', carro_id=carro.id) }}" method="POST">
+                    <button type="submit" class="btn-excluir" 
+                            onclick="return confirm('Tem certeza que quer EXCLUIR este veículo? Esta ação não pode ser desfeita!')">
+                        Excluir
+                    </button>
+                </form>
+            </td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="8">Nenhum veículo cadastrado ainda.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 
     <hr>
     <h3>Usuários Cadastrados</h3>

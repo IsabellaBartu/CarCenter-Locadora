@@ -80,11 +80,10 @@ class Veiculo(db.Model):
     foto_url = db.Column(db.String(300), nullable=True)
     placa = db.Column(db.String(10), unique=True, nullable=True)
     cor = db.Column(db.String(50), nullable=True)
+    is_available = db.Column(db.Boolean, nullable=False, default=True)
     
-    # O status de inventário que você queria!
-    is_available = db.Column(db.Boolean, nullable=False, default=True) 
+    destaques = db.Column(db.String(500), nullable=True) 
     
-    # Relação com Reservas
     reservas_veiculo = db.relationship('Reserva', backref='veiculo_alugado', lazy=True)
     
     def __repr__(self):
@@ -201,20 +200,23 @@ def pagina_admin():
         foto = request.form.get('foto_veiculo')
         placa = request.form.get('placa_veiculo')
         cor = request.form.get('cor_veiculo')
+        destaques_texto = request.form.get('destaques_veiculo')
         
         novo_veiculo = Veiculo(
             nome=nome, modelo=modelo, ano=int(ano), preco_diaria=float(preco),
             descricao=descricao, foto_url=foto, placa=placa, cor=cor,
-            is_available=True  # Salva como DISPONÍVEL!
+            is_available=True,
+            destaques=destaques_texto 
         )
         try:
             db.session.add(novo_veiculo)
             db.session.commit()
         except Exception as e:
+            print(f"Erro: {e}")
             db.session.rollback()
+        
         return redirect(url_for('pagina_admin'))
     
-    # Lógica GET (Mostrar tudo)
     try:
         todos_feedbacks_db = Feedback.query.order_by(Feedback.id.desc()).all()
         lista_feedbacks_para_exibir = []
@@ -226,29 +228,22 @@ def pagina_admin():
             feedback_temp = {'id': item.id, 'rating': item.rating, 'nome': nome_real, 'comentario': item.comentario}
             lista_feedbacks_para_exibir.append(feedback_temp)
     except: lista_feedbacks_para_exibir = []
+
+    # 2. Usuários
     try: todos_usuarios = User.query.all()
     except: todos_usuarios = []
+        
+    # 3. Veículos
     try: todos_veiculos = Veiculo.query.all()
     except: todos_veiculos = []
 
+    # --- PARTE 3: ENTREGAR A PÁGINA (O RETURN QUE FALTAVA!) ---
     return render_template(
         'admin.html', 
         feedbacks=lista_feedbacks_para_exibir, 
         usuarios=todos_usuarios,
         veiculos=todos_veiculos
     )
-
-@app.route('/admin/toggle/<int:carro_id>', methods=['POST'])
-@admin_required
-def toggle_veiculo_status(carro_id):
-    try:
-        carro = Veiculo.query.get_or_404(carro_id)
-        carro.is_available = not carro.is_available 
-        db.session.commit()
-    except Exception as e:
-        db.session.rollback()
-    return redirect(url_for('pagina_admin'))
-
 @app.route('/perfil')
 @login_required
 def pagina_perfil():
@@ -367,13 +362,24 @@ def pagina_detalhe_veiculo(carro_id):
 
 @app.route('/veiculos')
 def pagina_veiculos():
+    termo_busca = request.args.get('q')
+    
     try:
-        # Mostra apenas os carros disponíveis!
-        todos_veiculos = Veiculo.query.filter_by(is_available=True).all()
+        if termo_busca:
+            todos_veiculos = Veiculo.query.filter(
+                Veiculo.is_available == True,
+                (Veiculo.nome.ilike(f'%{termo_busca}%')) | 
+                (Veiculo.modelo.ilike(f'%{termo_busca}%'))
+            ).all()
+        else:
+            # Mostra tudo
+            todos_veiculos = Veiculo.query.filter_by(is_available=True).all()
+            
     except Exception as e:
+        print(f"Erro ao buscar veículos: {e}")
         todos_veiculos = []
+        
     return render_template('veiculos.html', veiculos=todos_veiculos)
-
 @app.route('/tutorial')
 def pagina_tutorial():
     return render_template('tutorial.html')
@@ -431,10 +437,22 @@ def delete_veiculo(carro_id):
 
     # Redireciona o usuário de volta para o painel
     return redirect(url_for('pagina_admin'))
+@app.route('/admin/toggle_veiculo_status/<int:carro_id>', methods=['POST'])
+@admin_required
+def toggle_veiculo_status(carro_id):
+    try:
+        carro = Veiculo.query.get_or_404(carro_id)
+        
+        # Inverte o valor (Se for True, vira False, e vice-versa)
+        carro.is_available = not carro.is_available 
+        db.session.commit()
+        
+    except Exception as e:
+        print(f"Erro ao alterar status do veículo: {e}")
+        db.session.rollback()
 
+    # Redireciona de volta para o painel
+    return redirect(url_for('pagina_admin'))
 
-# ==================================
-# 7. INICIA O SERVIDOR
-# ==================================
 if __name__ == '__main__':
     app.run(debug=True)

@@ -1,1032 +1,1031 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+:root {
+
+    --primary: #253237;   /* Dark Slate (Botões, Header) */
+
+    --secondary: #5C6B73; /* Grey (Textos secundários) */
+
+    --accent: #C2DFE3;    /* Light Blue (Detalhes, fundos) */
+
+    --white: #FFFFFF;
+
+    --black: #000000;
+
+    --bg-page: #ececec;   /* Fundo cinza gelo (Estilo Movida) */
+
 }
 
+
+
+* {
+
+    margin: 0;
+
+    padding: 0;
+
+    box-sizing: border-box;
+
+}
+
+
+
 body {
-    /* 1. O FUNDO RIDÍCULO SAIU! */
-    background-color:#ececec; /* Fundo cinza bem claro (limpo) */
-    color: #333; /* Texto escuro */
 
-    font-family: 'Montserrat', Arial, sans-serif;
-    color: #333;
+    background-color: var(--bg-page);
+
+    font-family: 'Montserrat', sans-serif; /* Fonte moderna */
+
+    color: var(--primary);
+
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
 
-    /* O EFEITO FOSCO 'body::before' FOI REMOVIDO! */
+    display: flex;
+
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    width: 100%
+
 }
 
 header {
-    background: #E7284B; /* Nosso header vermelho */
-    padding: 18px 30px; /* 30px de espaço nas laterais */
-    text-align: center;
-
+   background: var(--red-btn); 
+    padding: 5px 0; /* Um pouco mais de espaço vertical */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 100;
 }
 
-header .logo {
-    width: 200px;
-    display: block;
-    margin: 0 auto 15px;
-}
-
-nav ul {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-}
-
-nav a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    padding: 5px 10px;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-}
-
-nav a:hover {
-    background-color: #8f1a30; /* Vermelho mais escuro no hover */
-}
-
-footer {
-    background-color: #E7284B; /* Nosso rodapé vermelho */
-    text-align: center;
-    padding: 20px 30px;
-    margin-top: auto; 
-
-    /* 2. O "RETÂNGULO" SUMIU! */
-    margin: 0;
-    border-radius: 0;
-
-    font-size: 0.9em;
-    color: white;
-}
-footer p {
-    color: white;
-}
-.container-interno {
-    width: 90%;
-    max-width: 1200px; /* O limite antigo do 'main' */
-    margin: 0 auto; /* Centraliza o conteúdo */
-}
-
-main {
-    flex-grow: 1; 
-
-    /* 2. O "RETÂNGULO" SUMIU! */
-    width: 100%; /* Ocupa a tela toda */
-    max-width: 100%; /* Remove o limite */
-    margin: 0; /* Remove a margem */
-    border-radius: 0; 
-    padding: 40px 0; /* Damos espaço em cima/baixo */
-}
-
-/* === 4. FORMULÁRIOS (FUNDO PRETO/ROXO) === */
-.form-pagamento,
-.form-login-register,
-.form-feedback {
-    margin-top: 30px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    padding: 25px;
-    background: #000000; /* FUNDO PRETO! */
-    border-radius: 10px;
-    border: 1px solid #B9BDBD;
-}
-
-.form-pagamento label,
-.form-login-register label,
-.form-feedback label {
-    font-weight: bold;
-    font-size: 0.9em;
-    color: #ccc;
-    margin-bottom: 5px;
-}
-
-.form-pagamento input,
-.form-login-register input,
-.form-feedback input[type="text"],
-.form-feedback textarea {
-    width: 100%;
-    padding: 12px 15px;
-    border: 1px solid #B9BDBD;
-    background: #17063D; /* INPUT ROXO! */
-    color: white;
-    font-size: 1.1em;
-    border-radius: 5px;
-}
-
-.form-pagamento input:focus,
-.form-login-register input:focus,
-.form-feedback input[type="text"]:focus,
-.form-feedback textarea:focus {
-    outline: none;
-    border-color: #E7284B;
-    box-shadow: 0 0 10px #e7284b80;
-}
-
-.form-linha {
-    display: flex;
-    gap: 20px;
-}
-.form-grupo {
-    flex: 1;
-}
-
-.btn-confirmar {
-    background-color: #E7284B;
-    color: white;
-    font-size: 1.2em;
-    font-weight: bold;
-    padding: 15px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 20px;
-    transition: background-color 0.3s, transform 0.2s;
-}
-.btn-confirmar:hover {
-    background-color: #ff4d6d;
-    transform: scale(1.02);
-}
-
-.form-feedback textarea {
-    resize: vertical;
-}
-
-.error-message {
-    color: #E7284B;
-    background-color: #ffcdd240;
-    border: 1px solid #E7284B;
-    padding: 15px;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    text-align: center;
-    font-weight: bold;
-}
-/* ======================================== */
-
-
-/* === 5. SEÇÕES DA HOMEPAGE === */
-.hero {
-    margin: -30px -30px 30px -30px; 
-    padding: 100px 30px;
-    background-color: #000000; /* FUNDO PRETO */
-    text-align: center;
-    color: white;
-    border-radius: 8px 8px 0 0;
-}
-.hero h1 {
-    font-size: 2.8em;
-    margin-bottom: 15px;
-    font-weight: bold;
-    color: #E7284B;
-}
-.hero p {
-    font-size: 1.3em;
-    color: #ccc;
-    margin-bottom: 30px;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-}
-.btn-cta {
-    background-color: #E7284B;
-    color: white;
-    padding: 15px 30px;
-    text-decoration: none;
-    font-size: 1.2em;
-    font-weight: bold;
-    border-radius: 5px;
-    transition: background-color 0.3s, transform 0.2s;
-}
-.btn-cta:hover {
-    background-color: #ff4d6d;
-    transform: scale(1.05);
-}
-
-/* CARDS DE CARRO (Já estava bom) */
-destaques {
-    padding: 30px 0;
-}
-
-.destaques {
-    padding: 30px 0;
-    /* (MUITO MAIS ESPAÇO!) Para o carro flutuar */
-    margin-top: 100px; 
-}
-
-.destaques h2 {
-    text-align: center;
-    font-size: 2.8em; /* (MAIOR) */
-    color: #333;
-    margin-bottom: 100px; /* (MAIOR) */
-    font-weight: 700;
-}
-
-.lista-carros {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 40px; 
-}
-
-/* O CARD (MAIOR) */
-.carro-card {
-    background: #ffffff;
-    border: 1px solid #ddd;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    border-radius: 16px; 
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.3s, box-shadow 0.3s;
-    position: relative; /* Base para o z-index */
-    
-    /* (MAIOR!) Espaço interno para o texto, 
-       para o carro ter onde vazar */
-    padding-top: 60px; /* <--- PONTO CHAVE 1 */
-}
-
-.carro-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
-}
-
-/* A IMAGEM (O "VAZADO" 3D) */
-.carro-card-img {
-    height: 280px;
-    position: absolute;
-    top: -145px; 
-    left:0;
-    right:0;
-    z-index: 2;
-
-    /* A MÁGICA DA CENTRALIZAÇÃO (AGORA CORRETA) */
+.header-container {
+width: 95%;
+    max-width: 1700px; /* Permite que o menu ocupe mais largura da tela */
+    margin: 0 auto;
     display: flex;
     align-items: center;
-    justify-content: center;
-    padding: 0 15px; /* Adiciona um respiro nas laterais */
+    justify-content: space-between;
+    gap: 30px;
 }
 
-.carro-card-img img {
-    width: auto; /* Deixa a imagem ter seu tamanho natural */
-    height: 100%; /* Altura máxima é o container */
-    max-width: 110%; /* Mas não pode ser maior que o container */
+.header-left {
+display: flex;
+    align-items: center;
+    gap: 40px; /* Mais espaço entre a logo e os links */
+}
+
+.logo-img {
+    height: 170px; /* Define a altura fixa para ela não explodir */
+    width: auto;  /* A largura se ajusta sozinha */
+    display: block;
     object-fit: contain;
 }
 
-/* O CONTEÚDO (Fica atrás) */
-.carro-card-content {
-    padding: 30px; /* (MAIOR) */
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    position: relative;
-    z-index: 1;
+header h1 {
+
+    color: var(--primary); /* Logo escura */
+
+    font-size: 1.5rem;
+
+    font-weight: 800;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1px;
+
 }
+
+
+
+nav ul {
+
+    list-style: none;
+
+    display: flex;
+
+    gap: 25px;
+
+}
+
+
+
+nav a {
+
+    color: var(--secondary);
+
+    text-decoration: none;
+
+    font-weight: 800;
+
+    font-size: 0.95rem;
+
+    transition: color 0.3s;
+
+}
+
+
+
+nav a:hover {
+
+    color:  #253237; /* Fica mais escuro no hover */
+
+}
+
+
+
+.nav-links {
+    display: flex;
+    gap: 30px; /* Espaço entre os links */
+}
+
+
+
+.nav-links a {
+    color:  #253237;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.3rem; /* AUMENTADO (Letras bem visíveis) */
+    transition: color 0.3s, transform 0.2s;
+}
+.nav-links a:hover {
+    color:  #253237;
+    transform: scale(1.05);
+}
+.header-center {
+    flex-grow: 1; 
+    max-width: 700px; /* Barra de pesquisa mais larga */
+}
+
+.search-bar {
+    display: flex;
+    background: white;
+    border-radius: 50px; 
+    padding: 20px 30px; /* Barra mais gordinha */
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+
+
+.search-bar input {
+    border: none;
+    background: transparent;
+    width: 100%;
+    padding: 5px;
+    font-size: 1.1rem; /* Texto maior ao digitar */
+    outline: none;
+    color: #333;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.search-bar button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--red-btn);
+    display: flex;
+    align-items: center;
+    padding: 5px;
+}
+.search-bar button svg {
+    width: 24px;
+    height: 24px;
+}
+
+.search-bar button:hover { 
+    transform: scale(1.1); 
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.user-menu {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.user-link {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.2rem; /* AUMENTADO */
+}
+.user-link:hover { text-decoration: underline; }
+.btn-header-solid {
+    background-color: white;
+    color: #253237 !important; 
+    padding: 12px 30px;
+    border-radius: 50px;
+    font-weight: 800;
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+    white-space: nowrap;
+}
+
+.btn-header-solid:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    background-color: #ffffff; /* Um cinza bem clarinho no hover */
+}
+
+/* BOTÃO OUTLINE (TRANSPARENTE) */
+
+.btn-header-outline {
+
+    color:  #253237;
+
+    border: 1px solid #5C6B73;
+
+    padding: 8px 15px;
+
+    border-radius: 50px;
+
+    text-decoration: none;
+
+    font-weight: 600;
+
+    font-size: 0.85rem;
+
+}
+
+.btn-header-outline:hover {
+
+    background:  #253237;
+
+    border-color: white;
+
+}
+
+
+
+/* Esconde links de navegação em telas pequenas */
+
+@media (max-width: 900px) {
+
+    .nav-links { display: none; }
+
+    .header-center { display: none; } /* Ou ajustar para mobile depois */
+
+}
+
+.hero {
+    /* 1. A IMAGEM VOLTOU! */
+    /* (Verifique se o nome do arquivo na pasta static/img é 'banner.png' mesmo!) */
+    background-image: url('../img/bannernovo1.png'); 
+    
+    /* 2. Configuração para a imagem cobrir tudo */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    /* 3. Tamanho e Posição (Full Width e Achatado) */
+    width: 100%;
+    height: 450px; /* Altura fixa para ficar elegante */
+    
+    /* 4. Limpeza de estilos antigos */
+    padding: 0;
+    margin: 0;
+    border-radius: 0; /* Cantos quadrados para encostar na tela */
+    
+    /* 5. Centralização do Conteúdo (Texto) */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.hero h1 {
+
+    font-size: 2.5rem;
+
+    margin-bottom: 10px;
+
+}
+
+.hero p {
+
+    color: var(--accent); /* Azul claro */
+
+    font-size: 1.1rem;
+
+}
+
+
+
+/* Botão Ver Todos (Estilo Outline) */
+
+.btn-cta {
+
+    display: inline-block;
+
+    margin-top: 20px;
+
+    padding: 12px 30px;
+
+    border: 2px solid var(--accent);
+
+    color: var(--accent);
+
+    text-decoration: none;
+
+    font-weight: bold;
+
+    border-radius: 50px; /* Redondo */
+
+    transition: 0.3s;
+
+}
+
+.btn-cta:hover {
+
+    background: var(--accent);
+
+    color: var(--primary);
+
+}
+
+
+
+/* ==================================
+
+   4. CARDS DE CARRO (ESTILO MOVIDA)
+
+   ================================== */
+
+.container-interno {
+
+    width: 90%;
+
+    max-width: 1200px;
+
+    margin: 0 auto;
+
+    padding-bottom: 60px;
+
+}
+
+
+
+.destaques {
+
+    padding: -10px 0;
+
+    margin-top: 100px;
+
+}
+
+
+
+.destaques h2 {
+
+    text-align: center;
+
+    font-size: 2.5em;
+
+    color: #333; /* Texto escuro */
+
+    margin-bottom: 100px;
+
+    font-weight: 700;
+
+}
+
+
+
+.lista-carros {
+
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 40px;
+
+}
+
+
+.carro-card {
+
+    background: #ffffff; /* Fundo branco */
+
+    border: 1px solid #ddd;
+
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05); /* Sombra suave */
+
+    border-radius: 16px; /* Cantos arredondados */
+
+    position: relative;
+
+   
+
+    /* Ponto de Início do Conteúdo (Puxa o texto para cima) */
+
+    padding-top:80px;
+
+   
+
+    display: flex;
+
+    flex-direction: column;
+
+    transition: transform 0.3s, box-shadow 0.3s;
+
+}
+
+
+
+.carro-card:hover {
+
+    transform: translateY(-10px);
+
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+
+}
+
+
+
+/* A IMAGEM (O "VAZADO" 3D) */
+
+.carro-card-img {
+
+    height: 310px; /* BEM GRANDE */
+
+    width: 100%;
+
+    position: absolute;
+
+    top: -140px; /* PUXADA AGRESSIVA */
+
+    z-index: 2;
+
+   
+
+    /* CENTRALIZAÇÃO FORÇADA */
+
+    left: 50%;
+
+    transform: translateX(-50%);
+
+   
+
+    /* Garante que a imagem se centre DENTRO do container */
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+}
+
+
+
+.carro-card-img img {
+
+    width: auto; /* Deixa o flex controlar a largura */
+
+    height: 100%;
+
+    max-width: 90%;
+
+    object-fit: contain;
+
+}
+
+
+
+/* O CONTEÚDO (Texto/Preço) */
+
+.carro-card-content {
+
+    padding: 15px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    flex-grow: 1;
+
+    text-align: center;
+
+    position: relative;
+
+    z-index: 1;
+
+}
+
+
+
 
 .carro-card-content h3 {
-    font-size: 1.8em; /* (MAIOR) */
-    color: #333;
+    font-size: 1.6em;
     font-weight: 700;
-    margin-bottom: 5px;
+    margin-bottom: 3px;
     text-align: center;
+    min-height: 2.4em;
+    display: flex;
+    align-items: center; 
+    justify-content: center;
 }
+
+
 
 .carro-card-content .subtitulo {
-    font-size: 1.1em; /* (MAIOR) */
+
+    font-size: 1.1em;
+
     color: #777;
-    margin-bottom: 25px;
+
+    margin-bottom: 15px;
+
     text-align: center;
+
 }
+
+
 
 /* As "Features" com checkmark */
+
 .features {
+
     list-style: none;
-    margin-bottom: 25px;
+
+    margin-bottom: 15px;
+
     color: #555;
-    font-size: 1.1em; /* (MAIOR) */
+
+    font-size: 1.1em;
+
     display: grid;
+
     grid-template-columns: 1fr 1fr;
+
     gap: 10px;
+
 }
+
+
 
 /* O Bloco de Preço */
+
 .bloco-preco {
-    margin-top: auto; 
-    margin-bottom: 25px;
+
+    margin-top: auto;
+
+    margin-bottom: 15px;
+
     text-align: center;
-}
-.bloco-preco .a-partir-de {
-    font-size: 1em; /* (MAIOR) */
-    color: #777;
-}
-.bloco-preco .preco {
-    font-size: 2em; /* (MAIOR) */
-    font-weight: 700;
-    color: #333;
-    margin-bottom: 5px;
-}
-.bloco-preco .detalhe-preco {
-    font-size: 1em; /* (MAIOR) */
-    color: #777;
+
 }
 
+.bloco-preco .a-partir-de {
+
+    font-size: 1em;
+
+    color: #777;
+
+}
+
+.bloco-preco .preco {
+
+    font-size: 2em;
+
+    font-weight: 700;
+
+    color: #333;
+
+    margin-bottom: 3px;
+
+}
+
+.bloco-preco .detalhe-preco {
+
+    font-size: 1em;
+
+    color: #777;
+
+}
+
+
+
 /* O Botão (MAIOR) */
+
 .btn-alugar {
     display: block;
-    background-color: #E7284B; 
+    width: 100%; /* Garante que o botão encha o card */
+    box-sizing: border-box; /* Garante que o padding não estoure o tamanho */
+    
+    background-color: #253237; 
     color: white;
     text-align: center;
     text-decoration: none;
-    padding: 20px; /* (MAIOR) */
+    padding: 15px;
     font-weight: 700;
     border-radius: 8px;
+    font-size: 1.2em;
     transition: background-color 0.3s;
-    font-size: 1.3em; /* (MAIOR) */
 }
 
 .btn-alugar:hover {
-    background-color: #8f1a30;
+
+    background-color: #5C6B73;
+
 }
 
-/* COMO FUNCIONA (FUNDO PRETO) */
-.como-funciona {
-    margin: 30px -30px -30px -30px; 
-    padding: 60px 30px;
-    background-color: #000000; /* FUNDO PRETO! */
-    border-radius: 0 0 8px 8px;
+/* static/css/style.css - BOTÃO "VER TODOS" */
+
+.ver-todos-container {
+    text-align: center; /* Isso centraliza o botão na tela */
+    margin-top: 60px;   /* Espaço entre os carros e o botão */
+    margin-bottom: 20px;
+    width: 100%;
 }
-.como-funciona h2 {
-    text-align: center;
-    font-size: 2.2em;
+
+.btn-ver-todos {
+    display: inline-block;
+    background-color: #495e69; /* Vermelho da marca */
     color: white;
-    margin-bottom: 30px;
+    padding: 25px 80px; /* Botão grande e largo */
+    border-radius: 50px; /* Redondo */
+    font-weight: 800;
+    text-decoration: none;
+    font-size: 1.2rem;
+    box-shadow: 0 4px 15px #C2DFE3;
+    transition: transform 0.2s, box-shadow 0.2s;
 }
-.passos-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
+
+.btn-ver-todos:hover {
+    transform: translateY(-3px);
+    background-color: #253237; /* Vermelho escuro no hover */
+    box-shadow: 0 6px 20px  #253237;
 }
-.passo-card {
-    background-color: #333;
+
+footer {
+
+    background-color: var(--primary);
+
+    color: var(--white);
+
+    text-align: center;
+
     padding: 30px;
-    border-radius: 8px;
-    text-align: center;
-    border: 1px solid #555;
-    border-top: 5px solid #E7284B;
-}
-.passo-card span {
-    display: block;
-    font-size: 2.5em;
-    font-weight: bold;
-    color: #E7284B;
-    margin-bottom: 10px;
-}
-.passo-card h3 {
-    font-size: 1.4em;
-    color: white;
-    margin-bottom: 10px;
-}
-.passo-card p {
-    color: #ccc;
-    font-size: 0.9em;
-}
-/* ============================ */
 
+    margin-top: auto;
 
-/* === 6. OUTRAS PÁGINAS === */
-/* ESTRELAS (Já estava bom) */
-.star-rating {
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: flex-end;
-    font-size: 2.5em;
-    gap: 5px;
 }
-.star-rating input[type="radio"] {
-    display: none;
-}
-.star-rating label {
-    color: #555;
-    cursor: pointer;
-    transition: color 0.3s;
-    margin: 0;
-}
-.star-rating:hover label {
-    color: #E7284B;
-}
-.star-rating:hover label:hover ~ label {
-    color: #555;
-}
-.star-rating input[type="radio"]:checked ~ label {
-    color: #E7284B;
-}
-
-/* ADMIN (FUNDO DOS ITENS MUDADO) */
-hr {
-    border: none;
-    border-top: 1px solid #555;
-    margin: 40px 0;
-}
-.feedback-lista {
+/* === SEÇÃO VANTAGENS EXCLUSIVAS (VERSÃO TEXTO GRANDE) === */
+.vantagens-exclusivas {
     margin-top: 30px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+    padding: 20px 0;
 }
-.feedback-item {
-    background-color: #333; /* Fundo do card (era #1a1a1a) */
-    padding: 20px;
-    border-radius: 8px;
-    border: 1px solid #555;
-    border-left: 5px solid #E7284B;
+
+.titulo-vantagens {
+    text-align: center;
+    margin-bottom: 40px;
 }
-.feedback-item h4 {
-    color: #E7284B;
+.titulo-vantagens h2 {
+    font-size: 2.5em;
+    color: var(--primary);
+    font-weight: 800;
     margin-bottom: 10px;
 }
-.feedback-item p {
-    margin-bottom: 5px;
-    color: #ccc;
+.titulo-vantagens p {
+    color: var(--secondary);
+    font-size: 1.7em; /* Texto do subtítulo maior */
 }
-.feedback-item p.comentario {
-    font-style: italic;
-    font-size: 1.1em;
-    color: white;
+
+.grid-vantagens {
+    display: grid;
+    /* O SEGREDO: 4 Colunas iguais para ficarem lado a lado */
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 20px; /* Espaço entre eles */
 }
-.tabela-admin {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-.tabela-admin th,
-.tabela-admin td {
-    padding: 12px 15px;
-    border: 1px solid #555;
+
+/* CARD ESCURO (DARK MODE) */
+.card-vantagem {
+    background-color: var(--primary); /* Fundo #253237 */
+    padding: 30px 20px; /* Espaço interno equilibrado */
+    border-radius: 16px;
     text-align: left;
-}
-.tabela-admin th {
-    background-color: #333;
-    color: #E7284B;
-    font-weight: bold;
-}
-.tabela-admin tbody tr:nth-child(even) {
-    background-color: #2a2a2a;
-}
-.tabela-admin strong {
-    color: #E7284B;
-}
-
-/* PÁGINA SOBRE NÓS (Já estava bom) */
-.titulo-equipe {
-  text-align: center;
-  margin-top: 40px;
-  color: #E7284B;
-  font-size: 2.2em;
-}
-.equipe-container {
-  display: flex; 
-  justify-content: center; 
-  flex-wrap: wrap;
-  gap: 30px;
-  margin-top: 30px;
-}
-.membro-equipe {
-  width: 250px;
-  background-color: #333;
-  border: 1px solid #555;
-  border-radius: 8px;
-  text-align: center;
-  padding: 20px;
-  transition: transform 0.3s;
-}
-.membro-equipe:hover {
-    transform: translateY(-5px);
-}
-.membro-equipe img {
-  width: 150px;
-  height: 150px; 
-  object-fit: cover; 
-  border-radius: 50%;
-  margin-bottom: 15px;
-  border: 4px solid #E7284B; 
-}
-.membro-equipe p {
-  color: white; 
-  font-size: 1.2em;
-  font-weight: bold;
-}
-
-/* TUTORIAL (Já estava bom) */
-.video-container {
-    position: relative;
-    padding-bottom: 56.25%;
-    height: 0;
-    overflow: hidden;
-    max-width: 100%;
-    background: #000;
-    margin: 20px 0;
-    border-radius: 8px;
-}
-.video-container iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-main ul { /* Lista no tutorial */
-    list-style-type: disc;
-    margin-left: 40px;
-    margin-bottom: 15px;
-}
-main li { /* Item da lista no tutorial */
-    margin-bottom: 5px;
-}
-/* ============================ */
-
-
-/* === 7. MENU RESPONSIVO (MOBILE) === */
-.menu-hamburger {
-    display: none;
-    font-size: 2em;
-    color: white;
-    cursor: pointer;
-    padding: 10px;
-}
-
-@media (max-width: 768px) {
+    transition: transform 0.3s;
+    border: 1px solid transparent;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     
-    nav ul {
-        display: none;
-        flex-direction: column;
-        width: 100%;
-        background-color: #333;
-        position: absolute;
-        top: 60px;
-        left: 0;
-        padding: 10px 0;
-        z-index: 100; /* Garante que fique por cima */
-    }
-    nav ul.ativo {
-        display: flex;
-    }
-    nav ul li {
-        width: 100%;
-        text-align: center;
-        padding: 10px 0;
-    }
-    .menu-hamburger {
-        display: block;
-    }
-    header {
-        /* Ajuste para mobile */
-        margin: 15px;
-    }
-    header nav {
-        justify-content: flex-end;
-        position: relative;
-    }
-    
-    /* Colunas únicas no mobile */
-    .lista-carros,
-    .passos-container,
-    .equipe-container {
-        grid-template-columns: 1fr;
-    }
-
-    main {
-        width: 95%;
-        margin: 15px auto;
-        padding: 20px;
-    }
-    
-    footer {
-        margin: 15px;
-    }
-}
-
-/* === ESTILOS DA PÁGINA DE SUCESSO === */
-/* Adicione isso no final do style.css */
-
-.container-sucesso {
-    background-color: #000000; /* Fundo preto (da sua paleta) */
-    padding: 40px;
-    border-radius: 10px;
-    text-align: center;
-    border: 1px solid #555;
-}
-
-.icone-sucesso {
-    font-size: 4em; /* Emoji grande */
-    display: block;
-    margin-bottom: 20px;
-}
-
-.container-sucesso h2 {
-    color: #E7284B; /* Destaque vermelho */
-    font-size: 2.2em;
-    margin-bottom: 15px;
-}
-
-.container-sucesso p {
-    color: #ccc;
-    font-size: 1.2em;
-    line-height: 1.6;
-    margin-bottom: 30px;
-}
-
-.container-sucesso .btn-confirmar {
-    /* Reutiliza o estilo do botão que já temos! */
-    display: inline-block;
-    width: auto;
-}
-/* === ESTILOS DO FORMULÁRIO DO ADMIN === */
-/* Adicione isso no final do style.css */
-
-.form-admin-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* Duas colunas */
-    gap: 20px;
-    background-color: #000; /* Fundo preto (da sua paleta) */
-    padding: 20px;
-    border-radius: 8px;
-    border: 1px solid #555;
-    margin-top: 15px;
-}
-
-.form-grupo-admin,
-.form-grupo-admin-full {
+    /* Garante que todos tenham a mesma altura */
     display: flex;
     flex-direction: column;
+    height: 100%; 
 }
 
-/* Faz o campo de descrição ocupar as 2 colunas */
-.form-grupo-admin-full {
-    grid-column: 1 / -1;
+.card-vantagem:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent); /* Borda azul clara no hover */
 }
 
-.form-admin-grid label {
-    font-weight: bold;
-    font-size: 0.9em;
-    color: #ccc;
-    margin-bottom: 8px;
-}
-
-.form-admin-grid input,
-.form-admin-grid textarea {
-    background: #17063D; /* Fundo roxo */
-    border: 1px solid #B9BDBD;
-    color: white;
-    padding: 10px;
-    border-radius: 5px;
-    font-size: 1em;
-}
-
-.form-admin-grid textarea {
-    resize: vertical;
-}
-
-.form-admin-grid .btn-confirmar {
-    margin-top: 0;
-    font-size: 1.1em;
-}
-
-.tabela-admin img {
-    width: 100px;
+/* ÍCONE (Caixinha Branca) */
+.icon-box {
+    font-size: 2em;
+    margin-bottom: 20px;
+    background-color: white;
+    width: 60px;
     height: 60px;
-    object-fit: cover;
-    border-radius: 4px;
-}
-/* === ESTILOS DA PÁGINA DE DETALHES === */
-/* Adicione isso no final do style.css */
-
-.detalhe-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    color: var(--primary);
 }
 
-.detalhe-imagem img {
-    width: 100%;
-    border-radius: 8px;
-    border: 1px solid #555;
-}
-
-.detalhe-info h2 {
-    font-size: 2.5em;
-    color: #E7284B;
-    margin-bottom: 10px;
-}
-
-.preco-detalhe {
-    font-size: 2em;
-    font-weight: bold;
+/* TÍTULO DO CARD (Branco e Legível) */
+.card-vantagem h3 {
+    font-size: 1.5em; /* Tamanho bom */
     color: white;
-    display: block;
-    margin-bottom: 20px;
-}
-
-.descricao-detalhe {
-    color: #ccc;
-    font-size: 1.1em;
-    line-height: 1.6;
-    margin-bottom: 20px;
-}
-
-.specs-lista {
-    list-style: none;
-    padding: 20px;
-    background-color: #000; /* Fundo preto (da sua paleta) */
-    border-radius: 8px;
-    border: 1px solid #555;
-}
-
-.specs-lista li {
-    color: #ccc;
-    font-size: 1.1em;
-    padding: 8px 0;
-    border-bottom: 1px solid #333;
-}
-.specs-lista li:last-child {
-    border-bottom: none;
-}
-.specs-lista li strong {
-    color: white;
-    width: 100px;
-    display: inline-block;
-}
-
-.detalhe-info .btn-confirmar {
-    width: 100%;
-    text-align: center;
-    margin-top: 20px;
-}
-
-/* Ajuste para celular */
-@media (max-width: 768px) {
-    .detalhe-container {
-        grid-template-columns: 1fr; /* Uma coluna só */
-    }
-}
-/* === ESTILOS DO RESUMO DE PAGAMENTO === */
-/* Adicione isso no final do style.css */
-
-.resumo-pagamento {
-    background-color: #000; /* Fundo preto (da sua paleta) */
-    border: 1px solid #555;
-    border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 30px;
-}
-
-.resumo-pagamento h3 {
-    color: #E7284B;
+    font-weight: 700;
     margin-bottom: 15px;
-    font-size: 1.5em;
-    border-bottom: 1px solid #555;
-    padding-bottom: 10px;
 }
 
-.resumo-item {
-    display: flex;
-    align-items: center;
-    gap: 20px;
+/* TEXTO DO CARD (Claro e Legível) */
+.card-vantagem p {
+    font-size: 1.15em; /* Nem miúdo, nem gigante */
+    color: #e0e0e0; /* Branco gelo (melhor de ler que cinza) */
+    line-height: 1.5;
 }
 
-.resumo-item img {
-    width: 120px;
-    height: 70px;
-    object-fit: cover;
-    border-radius: 5px;
-}
-
-.resumo-item div {
-    font-size: 1.1em;
-    color: #ccc;
-    line-height: 1.6;
-}
-.resumo-item div strong {
-    color: white;
-}
-
-.resumo-total {
-    margin-top: 20px;
-    padding-top: 15px;
-    border-top: 1px solid #555;
-    font-size: 1.5em;
-    font-weight: bold;
-    color: white;
-    text-align: right;
-}
-
-.resumo-total span {
-    color: #E7284B;
-    font-size: 1.2em;
-    margin-left: 10px;
-}
-/* === ESTILOS DA PÁGINA DE DETALHES === */
-/* Adicione isso no final do style.css */
-
-.detalhe-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-}
-.detalhe-imagem img {
-    width: 100%;
-    border-radius: 8px;
-    border: 1px solid #555;
-}
-.detalhe-info h2 {
-    font-size: 2.5em;
-    color: #E7284B;
-    margin-bottom: 10px;
-}
-.preco-detalhe {
-    font-size: 2em;
-    font-weight: bold;
-    color: white;
-    display: block;
-    margin-bottom: 20px;
-}
-.descricao-detalhe {
-    color: #ccc;
-    font-size: 1.1em;
-    line-height: 1.6;
-    margin-bottom: 20px;
-}
-.specs-lista {
-    list-style: none;
-    padding: 20px;
-    background-color: #000;
-    border-radius: 8px;
-    border: 1px solid #555;
-}
-.specs-lista li {
-    color: #ccc;
-    font-size: 1.1em;
-    padding: 8px 0;
-    border-bottom: 1px solid #333;
-}
-.specs-lista li:last-child { border-bottom: none; }
-.specs-lista li strong {
-    color: white;
-    width: 100px;
-    display: inline-block;
-}
-.detalhe-info .btn-confirmar {
-    width: 100%;
-    text-align: center;
-    margin-top: 20px;
-}
-
-/* === ESTILOS DO CÁLCULO DE PREÇO === */
-.detalhe-info input[type="date"] {
-    width: 100%;
-    padding: 10px;
-    background: #000;
-    border: 1px solid #B9BDBD;
-    color: white;
-    font-size: 1em;
-    border-radius: 5px;
-    font-family: Arial, sans-serif;
-}
-.detalhe-info label {
-    font-weight: bold;
-    font-size: 0.9em;
-    color: #ccc;
-    margin-bottom: 8px;
-    display: block;
-}
-.total-container {
-    background-color: #000;
-    border: 1px solid #E7284B;
-    border-radius: 8px;
-    padding: 20px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    font-size: 1.5em;
-    font-weight: bold;
-    color: #ccc;
-    text-align: center;
-}
-#preco-total {
-    color: #E7284B;
-    font-size: 1.3em;
-    margin-left: 10px;
-}
-
-/* Ajuste para celular */
-@media (max-width: 768px) {
-    .detalhe-container {
-        grid-template-columns: 1fr;
+/* Responsivo: No celular, volta a ficar um embaixo do outro */
+@media (max-width: 900px) {
+    .grid-vantagens {
+        grid-template-columns: 1fr 1fr; /* 2 por linha em tablets */
     }
 }
-/* === CORREÇÃO DO CALENDÁRIO NO MODO ESCURO === */
-/* Garante que o ícone do calendário apareça e seja branco */
-input[type="date"]::-webkit-calendar-picker-indicator {
-    filter: invert(1); /* Deixa o ícone branco em fundos escuros */
-    cursor: pointer;
-    opacity: 1;
-    display: block;
-    margin-left: 5px;
+@media (max-width: 600px) {
+    .grid-vantagens {
+        grid-template-columns: 1fr; /* 1 por linha no celular */
+    }
 }
-/* static/css/style.css - DENTRO da seção HISTÓRICO DE RESERVAS */
-.reserva-card {
-    /* ... o resto do card continua igual ... */
+.marcas-section {
+    margin-top: 60px;
+    padding: 40px 0;
+    text-align: center;
+}
+
+.marcas-section h2 {
+    font-size: 2.5em;
+    color: var(--primary);
+    font-weight: 800;
+    margin-bottom: 20px;
+}
+
+.carousel-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    gap: 10px;
+}
+
+.marcas-track {
     display: flex;
     gap: 20px;
-    align-items: center;
+    overflow-x: hidden; /* Esconde o resto (não deixa rolar com o dedo, só com a seta) */
+    scroll-behavior: smooth;
+    padding: 20px 5px;
+    
+    /* MATEMÁTICA: 
+       Card (160px) * 4 + Gaps (20px * 3) = ~700px 
+       Vamos definir uma largura máxima para caberem 4.
+    */
+    width: 100%;
+    max-width: 740px; /* Limite exato para 4 cards + espaços */
+    margin: 0 auto;   /* Centraliza o trilho */
+}
+.marcas-track::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
 }
 
-/* ESTE É O CONTÊINER DA IMAGEM */
-.reserva-img {
-    width: 150px; /* Limita a largura do bloco da imagem */
-    height: 90px; /* Limita a altura do bloco da imagem */
-    flex-shrink: 0; /* IMPEDE a imagem de diminuir */
-}
-
-/* 2. A IMAGEM EM SI */
-.reserva-img img,
-.reserva-img .carro-placeholder-img {
-    width: 100%; /* Faz a imagem preencher 100% do contêiner */
-    height: 100%;
-    object-fit: cover; /* Garante que ela não estique */
-    border-radius: 5px;
-}
-/* === ESTILOS DO CONTROLE DE INVENTÁRIO (ADMIN) === */
-
-/* Status Badges */
-.status-disponivel, .status-reservado {
-    font-weight: bold;
-    padding: 3px 8px;
-    border-radius: 4px;
-    font-size: 0.85em;
-    display: inline-block;
-}
-
-.status-disponivel {
-    background-color: #4CAF50; /* Verde */
-    color: white;
-}
-
-.status-reservado {
-    background-color: #f44336; /* Vermelho */
-    color: white;
-}
-
-/* Botões de Toggle */
-.btn-toggle-reservar {
-    background-color: #f44336; /* Vermelho para marcar como RESERVADO */
-    color: white;
-    padding: 8px 12px;
-    border: none;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: background-color 0.3s;
-}
-
-.btn-toggle-devolver {
-    background-color: #4CAF50; /* Verde para marcar como DISPONÍVEL */
-    color: white;
-    padding: 8px 12px;
-    border: none;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: background-color 0.3s;
-}
-
-.btn-toggle-reservar:hover {
-    background-color: #cc0000;
-}
-
-/* === ESTILOS DOS BOTÕES DE AÇÕES (ADMIN) === */
-
-/* (NOVO!) O contêiner para os botões ficarem lado a lado */
-.acoes-admin {
+/* O Card da Marca */
+.marca-card {
+    /* Tamanho fixo para garantir a conta */
+    min-width: 160px; 
+    width: 160px;
+    
+    height: 100px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 16px;
     display: flex;
-    gap: 5px;
     align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    flex-shrink: 0; 
 }
 
-/* (NOVO!) O botão de Excluir */
-.btn-excluir {
-    background-color: #aaa; /* Cinza */
-    color: white;
-    padding: 8px 12px;
-    border: none;
+.marca-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    border-color: var(--red-btn); /* Borda vermelha ao passar o mouse */
+}
+
+.marca-nome {
+    font-weight: 800;
+    color: #333;
+    font-size: 1.1em;
+}
+
+/* As Setas */
+.carousel-btn {
+    background-color: white;
+    border: 1px solid #ddd;
+    color: var(--primary);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 1.5em;
     cursor: pointer;
-    border-radius: 4px;
-    transition: background-color 0.3s;
-    font-size: 0.9em;
-    font-weight: bold;
+    transition: 0.3s;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    z-index: 5;
+}
+.carousel-btn:hover {
+    background-color: var(--red-btn);
+    color: white;
+    border-color: var(--red-btn);
+}
+.marca-card img {
+    max-width: 70%;
+    max-height: 60%;
+    object-fit: contain;
+    filter: none; 
+    opacity: 1;
+    transition: transform 0.3s ease;
 }
 
-.btn-excluir:hover {
-    background-color: #333; /* Cinza escuro */
+.marca-card:hover img {
+    transform: scale(1.1); 
+}
+dropdown-container {
+    position: relative; /* Importante para a caixa flutuar perto dele */
+}
+
+.link-contato {
+    cursor: pointer;
+}
+
+/* A CAIXINHA FLUTUANTE */
+.contato-box {
+    display: none; /* Escondido por padrão */
+    position: absolute;
+    top: 45px; /* Distância do topo */
+    right: -50px; /* Ajuste para centralizar/alinhar */
+    width: 280px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2); /* Sombra forte para flutuar */
+    z-index: 1000;
+    text-align: left;
+    border: 1px solid #eee;
+}
+
+/* Classe para mostrar a caixa (JavaScript vai usar isso) */
+.contato-box.ativo {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+/* A Setinha branca em cima da caixa */
+.seta-box {
+    position: absolute;
+    top: -10px;
+    right: 60px; /* Posição da ponta */
+    width: 0; 
+    height: 0; 
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid white;
+}
+
+/* Estilos dos Textos */
+.contato-item {
+    margin-bottom: 15px;
+}
+
+.contato-item h4 { 
+            font-size: 0.95rem; /* Aumentado de 0.8 para 0.95 */
+            color: #666; 
+            margin-bottom: 4px; 
+            font-weight: 700;
+        }
+.contato-item p { 
+            font-size: 1.3rem; /* Aumentado de 1.1 para 1.3 */
+            color: #E7284B; 
+            font-weight: 800; 
+            margin: 0; 
+        }
+
+.email-link { 
+            color: #E7284B; 
+            font-weight: 700; 
+            text-decoration: underline;
+            font-size: 1.1rem; /* Aumentado de 1.0 para 1.1 */
+        }
+.email-link:hover {
+    color: var(--primary) !important;
+}
+
+/* Animação suave */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.faq-section {
+    margin-top: 100px; /* Mais espaço do topo */
+    padding-bottom: 60px;
+}
+
+.faq-section h2 {
+    text-align: center;
+    font-size: 2.5em;
+    color: var(--primary);
+    margin-bottom: 50px;
+    font-weight: 800;
+}
+
+.faq-container {
+    max-width: 800px; /* Deixei um pouco mais largo */
+    margin: 0 auto;
+}
+
+/* O Cartão da Pergunta */
+.faq-item {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 16px; /* Mais arredondado */
+    margin-bottom: 20px; /* Mais espaço entre as perguntas */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+    overflow: hidden; 
+    transition: all 0.3s ease;
+}
+
+.faq-item[open] {
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    border-color: var(--accent);
+}
+
+/* A Pergunta (Summary) */
+summary {
+    padding: 30px; /* Mais "respiro" interno */
+    font-weight: 800; /* Mais negrito */
+    color: var(--primary);
+    
+    /* AUMENTO DA FONTE AQUI: */
+    font-size: 1.2em; /* (Era 1.1em, agora está bem maior) */
+    
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    transition: background-color 0.2s;
+}
+
+summary:hover {
+    background-color: #f9f9f9;
+    color: var(--red-btn); /* Fica vermelho ao passar o mouse (bônus!) */
+}
+
+/* O Símbolo + */
+summary::after {
+    content: '+'; 
+    font-size: 1.4em;
+    color: var(--red-btn);
+    font-weight: 800;
+    transition: transform 0.3s;
+}
+
+details[open] summary::after {
+    transform: rotate(45deg);
+}
+
+/* A Resposta (P) */
+.faq-item p {
+    padding: 0 30px 30px 30px;
+    color: #555;
+    line-height: 1.2; /* Linhas mais espaçadas para leitura fácil */
+    
+    /* AUMENTO DA FONTE AQUI: */
+    font-size: 1.2em; /* (Era 1em) */
+    
+    margin: 0;
+    border-top: 1px solid #f0f0f0;
+    padding-top: 20px;
+}
+
+summary::-webkit-details-marker {
+    display: none;
 }
