@@ -10,6 +10,7 @@
         <div class="hero-content">
             </div>
     </section>
+    
 
     <div class="container-interno">
 
@@ -170,21 +171,5 @@
 
         </div>
     </section>
-</div> <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const track = document.getElementById('track-marcas');
-            const btnPrev = document.getElementById('btn-prev');
-            const btnNext = document.getElementById('btn-next');
-
-            if (track && btnPrev && btnNext) {
-                btnNext.addEventListener('click', function() {
-                    track.scrollBy({ left: 180, behavior: 'smooth' });
-                });
-                btnPrev.addEventListener('click', function() {
-                    track.scrollBy({ left: -180, behavior: 'smooth' });
-                });
-            }
-        });
-    </script>
-    
+</div>
 {% endblock %}

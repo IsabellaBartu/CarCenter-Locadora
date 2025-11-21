@@ -8,82 +8,98 @@
     
     <div class="container-interno">
 
-        <section class="destaques">
-            <h2>Veículos em Destaque</h2>
+       <section class="filtro-box">
+    <form action="{{ url_for('pagina_veiculos') }}" method="GET" class="form-filtro">
+        
+        <div class="filtro-grupo">
+            <label for="sort">Ordenar por Preço:</label>
+            <select name="sort" id="sort" onchange="this.form.submit()">
+                <option value="" {% if not current_sort %}selected{% endif %}>Relevância</option>
+                <option value="asc" {% if current_sort == 'asc' %}selected{% endif %}>Menor Preço</option>
+                <option value="desc" {% if current_sort == 'desc' %}selected{% endif %}>Maior Preço</option>
+            </select>
+        </div>
+
+        <div class="filtro-grupo">
+            <label for="categoria">Filtrar por Categoria:</label>
+            <select name="categoria" id="categoria" onchange="this.form.submit()">
+                <option value="" {% if not current_categoria %}selected{% endif %}>Todas</option>
+                <option value="SUV" {% if current_categoria == 'SUV' %}selected{% endif %}>SUV</option> 
+                <option value="Hatch" {% if current_categoria == 'Hatch' %}selected{% endif %}>Hatch</option>
+                <option value="Sedan" {% if current_categoria == 'Sedan' %}selected{% endif %}>Sedan</option>
+                <option value="Picape" {% if current_categoria == 'Picape' %}selected{% endif %}>Picape</option>
+                <option value="Elétrico" {% if current_categoria == 'Elétrico' %}selected{% endif %}>Elétrico</option>
+            </select>
+        </div>
+
+        <div class="filtro-grupo">
+            <label for="ano">Filtrar por Ano:</label>
+            <select name="ano" id="ano" onchange="this.form.submit()">
+                <option value="" {% if not current_ano %}selected{% endif %}>Todos</option>
+                <option value="2026" {% if current_ano == '2026' %}selected{% endif %}>2026</option>
+                <option value="2025" {% if current_ano == '2025' %}selected{% endif %}>2025</option>
+                <option value="2024" {% if current_ano == '2024' %}selected{% endif %}>2024</option>
+            </select>
+        </div>
+        
+        <a href="{{ url_for('pagina_veiculos') }}" class="btn-limpar-filtro">Limpar Filtros</a>
+    </form>
+</section>
+         <div class="result-counter">
+        Exibindo <strong>{{ carro_count }}</strong> resultado{% if carro_count != 1 %}s{% endif %}
+    </div>
+        <section class="destaques" id="frota-completa">
+            <h2>Nossa Frota Completa</h2>
             
             <div class="lista-carros">
                 
                 {% for carro in veiculos %}
                     
                     <div class="carro-card">
-    <div class="carro-card-img">
-        {% if carro.foto_url %}
-            <img src="{{ url_for('static', filename='img/' + carro.foto_url) }}" alt="{{ carro.nome }}">
-        {% else %}
-            <div class="carro-placeholder-img"></div>
-        {% endif %}
-    </div>
-    
-    <div class="carro-card-content">
-        <div class="card-header">
-            <h3>{{ carro.nome }}</h3>
-            <p class="subtitulo">{{ carro.modelo }}</p>
-        </div>
-        
-        <ul class="features">
-            {% if carro.destaques %}
-                {% for destaque in carro.destaques.split(',') %}
-                    <li><span class="check">✔</span> {{ destaque }}</li>
-                {% endfor %}
-            {% else %}
-                <li><span class="check">✔</span> Revisado</li>
-                <li><span class="check">✔</span> Higienizado</li>
-            {% endif %}
-        </ul>
-        
-        <div class="card-divider"></div>
-
-        <div class="card-footer">
-            <div class="bloco-preco">
-                <p class="a-partir-de">A partir de</p>
-                <span class="preco">R$ {{ "%.2f"|format(carro.preco_diaria) }}<small>/dia</small></span>
-                <p class="detalhe-preco">Taxas inclusas</p>
-            </div>
-            
-            <a href="{{ url_for('pagina_detalhe_veiculo', carro_id=carro.id) }}" class="btn-alugar">Eu quero!</a>
-        </div>
-    </div>
-</div>
+                        <div class="carro-card-img">
+                            {% if carro.foto_url %}
+                                <img src="{{ url_for('static', filename='img/' + carro.foto_url) }}" alt="{{ carro.nome }}">
+                            {% else %}
+                                <div class="carro-placeholder-img"></div>
+                            {% endif %}
+                        </div>
                         
                         <div class="carro-card-content">
-                            <h3>{{ carro.nome }}</h3>
-                            <p class="subtitulo">{{ carro.modelo }} (Ano: {{ carro.ano }})</p>
+                            <div class="card-header">
+                                <h3>{{ carro.nome }}</h3>
+                                <p class="subtitulo">{{ carro.modelo }} (Ano: {{ carro.ano }})</p>
+                            </div>
                             
                             <ul class="features">
                                 {% if carro.destaques %}
                                     {% for destaque in carro.destaques.split(',') %}
-                                        <li>✓ {{ destaque }}</li>
+                                        <li><span class="check">✔</span> {{ destaque }}</li>
                                     {% endfor %}
                                 {% else %}
-                                    <li>✓ Revisado</li>
-                                    <li>✓ Higienizado</li>
+                                    <li><span class="check">✔</span> Revisado</li>
+                                    <li><span class="check">✔</span> Higienizado</li>
                                 {% endif %}
                             </ul>
-                            
-                            <div class="bloco-preco">
-                                <p class="a-partir-de">A partir de</p>
-                                <span class="preco">R$ {{ "%.2f"|format(carro.preco_diaria) }} /dia</span>
-                                <p class="detalhe-preco">Aluguel diário (24h)</p>
+
+                            <div class="card-divider"></div>
+
+                            <div class="card-footer">
+                                <div class="bloco-preco">
+                                    <p class="a-partir-de">A partir de</p>
+                                    <span class="preco">R$ {{ "%.2f"|format(carro.preco_diaria) }}<small>/dia</small></span>
+                                    <p class="detalhe-preco">Taxas inclusas</p>
+                                </div>
+                                
+                                <a href="{{ url_for('pagina_detalhe_veiculo', carro_id=carro.id) }}" class="btn-alugar">Eu quero!</a>
                             </div>
-                            
-                            <a href="{{ url_for('pagina_detalhe_veiculo', carro_id=carro.id) }}" class="btn-alugar">Ver Detalhes</a>
                         </div>
                     </div>
-                    {% else %}
-                    <p>Nenhum veículo cadastrado no momento. Volte em breve!</p>
+
+                {% else %}
+                    <p>Nenhum veículo cadastrado no momento. Use a aba Admin para adicionar!</p>
                 {% endfor %}
-                
-            </div>
-        </section>
+            </div> 
+            
+            </section>
 
     </div> {% endblock %}

@@ -115,13 +115,27 @@ def load_user(user_id):
 
 @app.route('/')
 def homepage():
+    termo_busca = request.args.get('q')
+    
     try:
-        # Mostra apenas os carros disponíveis na homepage!
-        todos_veiculos = Veiculo.query.filter_by(is_available=True).all()
+        query = Veiculo.query.filter_by(is_available=True)
+        
+        if termo_busca:
+            # Se houver busca, filtre e aplique o limite de 3
+            query = query.filter(
+                (Veiculo.nome.ilike(f'%{termo_busca}%')) | 
+                (Veiculo.modelo.ilike(f'%{termo_busca}%'))
+            ).limit(3) # <--- LIMITE DE 3 CARROS AQUI!
+        else:
+            # Se não houver busca, mostre apenas os 3 primeiros
+            query = query.limit(3) # <--- LIMITE DE 3 CARROS AQUI!
+
+        todos_veiculos = query.all()
+        
     except Exception as e:
         todos_veiculos = []
+        
     return render_template('index.html', veiculos=todos_veiculos)
-
 @app.route('/pagamento')
 @login_required 
 def pagina_pagamento():
@@ -362,24 +376,52 @@ def pagina_detalhe_veiculo(carro_id):
 
 @app.route('/veiculos')
 def pagina_veiculos():
+    # 1. Pega os parâmetros
     termo_busca = request.args.get('q')
+    categoria = request.args.get('categoria')
+    ano = request.args.get('ano')
+    sort_by = request.args.get('sort') # asc ou desc
     
     try:
+        # 2. Lógica de Filtragem (igual a que fizemos)
+        query = Veiculo.query.filter_by(is_available=True)
+        
+        # 3. Aplica os filtros (Categoria, Ano)
+        if categoria:
+            query = query.filter_by(modelo=categoria)
+            
+        if ano:
+            query = query.filter_by(ano=int(ano))
+            
+        # 4. Aplica a ORDENAÇÃO
+        if sort_by == 'asc':
+            query = query.order_by(Veiculo.preco_diaria.asc())
+        elif sort_by == 'desc':
+            query = query.order_by(Veiculo.preco_diaria.desc())
+            
+        # 5. Aplica a BUSCA (do Header)
         if termo_busca:
-            todos_veiculos = Veiculo.query.filter(
-                Veiculo.is_available == True,
+             query = query.filter(
                 (Veiculo.nome.ilike(f'%{termo_busca}%')) | 
                 (Veiculo.modelo.ilike(f'%{termo_busca}%'))
-            ).all()
-        else:
-            # Mostra tudo
-            todos_veiculos = Veiculo.query.filter_by(is_available=True).all()
+            )
             
+        todos_veiculos = query.all()
+        carro_count = len(todos_veiculos)
+        
     except Exception as e:
         print(f"Erro ao buscar veículos: {e}")
         todos_veiculos = []
+        carro_count = 0 
         
-    return render_template('veiculos.html', veiculos=todos_veiculos)
+    # 6. Envia o count E OS PARÂMETROS ATIVOS para o template
+    return render_template('veiculos.html', 
+                           veiculos=todos_veiculos,
+                           carro_count=carro_count,
+                           current_sort=sort_by, # <-- NOVO
+                           current_categoria=categoria, # <-- NOVO
+                           current_ano=ano # <-- NOVO
+                     )
 @app.route('/tutorial')
 def pagina_tutorial():
     return render_template('tutorial.html')

@@ -90,13 +90,13 @@
                     <div class="user-menu">
                         <a href="{{ url_for('pagina_perfil') }}" class="user-link">👤 {{ current_user.nome.split()[0] }}</a>
                         {% if current_user.role == 'admin' %}
-                            <a href="{{ url_for('pagina_admin') }}" class="btn-header-solid">Admin</a>
+                            <a href="{{ url_for('pagina_admin') }}" class="btn-header-solid">ADMIN</a>
                         {% endif %}
                         <a href="{{ url_for('logout') }}" class="btn-header-outline">Sair</a>
                     </div>
                 {% else %}
-                    <a href="{{ url_for('login') }}" class="user-link">Acessar conta</a>
-                    <a href="{{ url_for('register') }}" class="btn-header-solid">Cadastre-se!</a>
+                    <a href="{{ url_for('login') }}" class="user-link">ACESSAR CONTA</a>
+                    <a href="{{ url_for('register') }}" class="btn-header-solid">CADASTRE-SE</a>
                 {% endif %}
             </div>
         </div>
@@ -189,6 +189,6 @@
             }
         });
     </script>
-
+     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>

@@ -324,26 +324,26 @@ nav a:hover {
 
 .destaques {
 
-    padding: -10px 0;
+    padding: -80px 0;
 
-    margin-top: 100px;
+    margin-top: 150px;
 
 }
 
 
 
 .destaques h2 {
-
     text-align: center;
+    font-size: 2.5em; 
+    color: var(--primary);
 
-    font-size: 2.5em;
-
-    color: #333; /* Texto escuro */
-
-    margin-bottom: 100px;
+    margin-bottom: 100px; 
 
     font-weight: 700;
-
+    margin-top: -80px;
+    position: relative;
+    background-color: var(--bg-page);
+    padding: 0 10px;
 }
 
 
@@ -1000,7 +1000,9 @@ footer {
 
 /* --- LADO ESQUERDO --- */
 .footer-left {
-    flex: 1; /* Ocupa metade */
+    flex: 1;
+    /* (NOVO!) Garante que o conteúdo fique no topo */
+    align-self: flex-start; 
 }
 
 .footer-logo-img {
@@ -1035,12 +1037,11 @@ footer {
 
 /* --- LADO DIREITO --- */
 .footer-right {
-    flex: 1.2; 
-    padding-top: 180px;
-    
+    flex: 1.2;
+    padding-top: 20px; 
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
 }
 
 .footer-right h4 {
@@ -1098,4 +1099,127 @@ footer {
 @media (max-width: 900px) {
     .footer-container { flex-direction: column; gap: 40px; }
     .bottom-flex { flex-direction: column; gap: 15px; text-align: center; }
+}
+/* === FILTRO AVANÇADO (CAIXA DE PESQUISA) - VISUAL FINAL === */
+
+.filtro-box {
+    padding: 70px 0;
+    margin-bottom: 90px;
+}
+
+.form-filtro {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    background-color: var(--white);
+    padding: 15px 40px; 
+    
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    border: 1px solid #5c8290;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.filtro-grupo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.filtro-grupo label {
+    font-size: 1rem; /* AUMENTADO */
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 8px;
+    display: block;
+    white-space: nowrap;
+}
+
+/* O DROPDOWN (SELECT) */
+.form-filtro select {
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: var(--bg-page); /* Fundo cinza suave */
+    color: var(--primary);
+    font-size: 1rem;
+    cursor: pointer;
+    width: 150px;
+    
+    /* REMOVE A SETA PADRÃO FEIA E ADICIONA CUSTOMIZADA */
+    appearance: none; 
+    -webkit-appearance: none;
+    
+    /* SVG DA SETA (Para ficar chique) */
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2212%22%20height%3D%2212%22%20viewBox%3D%220%200%2012%2012%22%3E%3Cpath%20d%3D%22M10%204L6%208L2%204%22%20stroke%3D%22%23253237%22%20stroke-width%3D%221.5%22%20fill%3D%22none%22%2F%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+}
+
+/* Botão Limpar */
+.btn-limpar-filtro {
+    align-self: flex-end; 
+    background: transparent;
+    color: var(--secondary);
+    border: none;
+    padding: 10px 0;
+    text-decoration: underline;
+    font-weight: 700;
+    font-size: 0.95rem;
+    transition: 0.3s;
+    height: 40px;
+    margin-bottom: 2px;
+}
+.btn-limpar-filtro:hover {
+    color: var(--red-btn);
+}
+/* === ESTILOS DO CONTADOR DE RESULTADOS === */
+
+/* static/css/style.css - ESTILOS DO CONTADOR DE RESULTADOS */
+
+.result-counter {
+    /* Centraliza e define a largura do box de filtros */
+    max-width: 2000px;
+    margin: 0 auto; 
+    
+    /* A MUDANÇA: Puxa para cima (valor negativo alto para anular o padding do filtro) */
+    margin-top: -80px; 
+    
+    text-align: left; 
+    padding:  -700px;
+    margin-bottom: 16px; 
+    
+    font-size: 1.3rem;
+    color: var(--secondary);
+    font-weight: 500;
+    
+    /* Faz o contador flutuar acima do formulário de filtro */
+    position: relative;
+    z-index: 3;
+}
+.result-counter strong {
+    color: var(--primary);
+    font-weight: 800;
+}
+
+/* Garante que o contador alinhe com os filtros em telas grandes */
+@media (min-width: 900px) {
+    .result-counter {
+        margin-left: 0%; /* Alinha o contador com a margem esquerda dos carros */
+        width: 100%;
+        max-width: 100%;
+    }
+}
+/* Este ID só existe na página de Veículos, então o CSS só aplica lá! */
+#frota-completa h2 {
+    margin-top: -190px; 
+    
+    margin-bottom: 10px; 
+    
+    padding: 0 60px;
+}
+
+#frota-completa .lista-carros {
+    margin-top: 100px;
 }
