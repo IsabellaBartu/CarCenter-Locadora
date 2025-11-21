@@ -105,11 +105,68 @@
     <main>
         {% block content %}{% endblock %}
     </main>
+<footer>
+    <div class="footer-content">
+        <div class="footer-container">
+            
+            <div class="footer-left">
+                <div class="footer-logo">
+                    <img src="{{ url_for('static', filename='img/logoog.png') }}" alt="Car Center" class="footer-logo-img" style="width: 200px; display: block; margin-bottom: 20px;">
+                </div>
 
-    <footer>
-        <p>© 2025 Car Center - Todos os direitos reservados.</p>
-    </footer>
+                <div class="footer-phone-block">
+                    <h3>SAC: 0800 722 2212 <span></span></h3>
+                </div>
 
+                <div class="footer-info-text">
+                    <p><strong>Assistência:</strong> 24h</p>
+                    <p><strong>Quero contratar:</strong> Seg a Sex 09h-21h30 | Sáb e Dom 09h-18h</p>
+                    <p><strong>Financeiro:</strong> Mensalidade: Seg a Sex 08h05-17h30</p>
+                    <p><strong>Gerenciamento de Assinatura:</strong> Seg a Sex 07h-19h</p>
+                </div>
+
+                <div class="footer-legal">
+                    <p>Car Center Locadora LTDA </p>
+                    <p>CNPJ 21.314.559/0001-66</p>
+                </div>
+            </div>
+
+            <div class="footer-right">
+                <h4>Excelência em Aluguel de Carros</h4>
+                
+                <p class="footer-desc">
+                    A Car Center é a sua melhor escolha para mobilidade. Oferecemos uma frota moderna, revisada e diversificada para atender todas as suas necessidades, seja para viagens em família, negócios ou dia a dia. Nosso compromisso é com a sua segurança e conforto, garantindo um processo de locação rápido, transparente e sem burocracia.
+                </p>
+                
+                <p class="safety-warning">Desacelere. Seu bem maior é a vida.</p>
+
+                <div class="footer-payment">
+                    <h4>Formas de pagamento aceitas:</h4>
+                    <div class="payment-icons">
+                        <img src="{{ url_for('static', filename='img/visa.png') }}" alt="Visa" style="height: 35px; background: white; padding: 2px; border-radius: 4px;">
+                       <img src="{{ url_for('static', filename='img/mastercard.png') }}" alt="Mastercard" style="height: 35px; background: white; padding: 2px; border-radius: 4px;">
+                        <img src="{{ url_for('static', filename='img/elo.png') }}" alt="Elo" style="height: 35px; background: white; padding: 2px; border-radius: 4px;">
+                       <img src="{{ url_for('static', filename='img/hipercard.png') }}" alt="Hipercard" style="height: 35px; background: white; padding: 2px; border-radius: 4px;">
+                        <img src="{{ url_for('static', filename='img/amex.png') }}" alt="Amex" style="height: 35px; background: white; padding: 2px; border-radius: 4px;">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <div class="footer-container bottom-flex">
+            <div class="group-logo">
+                <span>Uma empresa do grupo</span>
+                <strong>CAR GROUP</strong>
+            </div>
+            <div class="copyright">
+                <p>© 2025 Car Center. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </div>
+</footer>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const btn = document.getElementById('btn-contatos');
