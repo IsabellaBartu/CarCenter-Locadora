@@ -5,144 +5,135 @@
 {% endblock %}
 
 {% block content %}
-    
-    <section class="hero">
+
+<!-- ===========================
+     HERO COM CARROSSEL (2 banners)
+=========================== -->
+ <section class="hero">
         <div class="hero-content">
             </div>
     </section>
-    
 
-    <div class="container-interno">
 
-        <section class="destaques">
-            <h2>Veículos em Destaque</h2>
-            
-            <div class="lista-carros">
-                {% for carro in veiculos %}
-                    <div class="carro-card">
-                        <div class="carro-card-img">
-                            {% if carro.foto_url %}
-                                <img src="{{ url_for('static', filename='img/' + carro.foto_url) }}" alt="{{ carro.nome }}">
-                            {% else %}
-                                <div class="carro-placeholder-img"></div>
-                            {% endif %}
+<div class="container-interno">
+    <section class="destaques">
+        <h2>Veículos em Destaque</h2>
+
+        <div class="lista-carros">
+            {% for carro in veiculos %}
+                <div class="carro-card">
+                    <div class="carro-card-img">
+                        {% if carro.foto_url %}
+                            <img src="{{ url_for('static', filename='img/' + carro.foto_url) }}" alt="{{ carro.nome }}">
+                        {% else %}
+                            <div class="carro-placeholder-img"></div>
+                        {% endif %}
+                    </div>
+
+                    <div class="carro-card-content">
+                        <div class="card-header">
+                            <h3>{{ carro.nome }}</h3>
+                            <p class="subtitulo">{{ carro.modelo }} (Ano: {{ carro.ano }})</p>
                         </div>
-                        
-                        <div class="carro-card-content">
-                            <div class="card-header">
-                                <h3>{{ carro.nome }}</h3>
-                                <p class="subtitulo">{{ carro.modelo }} (Ano: {{ carro.ano }})</p>
-                            </div>
-                            
-                            <ul class="features">
-                                {% if carro.destaques %}
-                                    {% for destaque in carro.destaques.split(',') %}
-                                        <li><span class="check">✔</span> {{ destaque }}</li>
-                                    {% endfor %}
-                                {% else %}
-                                    <li><span class="check">✔</span> Revisado</li>
-                                    <li><span class="check">✔</span> Higienizado</li>
-                                {% endif %}
-                            </ul>
 
-                            <div class="card-divider"></div>
+                        <ul class="features">
+                            {% if carro.destaques %}
+                                {% for destaque in carro.destaques.split(',') %}
+                                    <li><span class="check">✔</span> {{ destaque }}</li>
+                                {% endfor %}
+                            {% else %}
+                                <li><span class="check">✔</span> Revisado</li>
+                                <li><span class="check">✔</span> Higienizado</li>
+                            {% endif %}
+                        </ul>
 
-                            <div class="card-footer">
-                                <div class="bloco-preco">
-                                    <p class="a-partir-de">A partir de</p>
-                                    <span class="preco">R$ {{ "%.2f"|format(carro.preco_diaria) }}<small>/dia</small></span>
-                                    <p class="detalhe-preco">Taxas inclusas</p>
-                                </div>
-                                <a href="{{ url_for('pagina_detalhe_veiculo', carro_id=carro.id) }}" class="btn-alugar">Eu quero!</a>
+                        <div class="card-divider"></div>
+
+                        <div class="card-footer">
+                            <div class="bloco-preco">
+                                <p class="a-partir-de">A partir de</p>
+                                <span class="preco">R$ {{ "%.2f"|format(carro.preco_diaria) }}<small>/dia</small></span>
+                                <p class="detalhe-preco">Taxas inclusas</p>
                             </div>
+                            <a href="{{ url_for('pagina_detalhe_veiculo', carro_id=carro.id) }}" class="btn-alugar">Eu quero!</a>
                         </div>
                     </div>
-                {% else %}
-                    <p>Nenhum veículo disponível no momento.</p>
-                {% endfor %}
-            </div> 
-            
-            <div class="ver-todos-container">
-                <a href="{{ url_for('pagina_veiculos') }}" class="btn-ver-todos">
-                    Ver todos os carros →
-                </a>
-            </div>
-        </section>
+                </div>
+            {% else %}
+                <p>Nenhum veículo disponível no momento.</p>
+            {% endfor %}
+        </div>
 
-        <section class="marcas-section">
-            <h2>Busque por Marca</h2>
-            <div class="carousel-container">
-                <button class="carousel-btn prev-btn" id="btn-prev">❮</button>
-                <div class="marcas-track" id="track-marcas">
+        <div class="ver-todos-container">
+            <a href="{{ url_for('pagina_veiculos') }}" class="btn-ver-todos">
+                Ver todos os carros →
+            </a>
+        </div>
+    </section>
+
+
+    <!-- ===========================
+         CARROSSEL DE MARCAS (arrastável)
+    =========================== -->
+    <section class="marcas-section">
+        <h2>Encontre por Marca</h2>
+
+        <div class="carousel-container-drag">
+            <div class="marcas-track" id="track-marcas">
+
+                <a href="{{ url_for('pagina_veiculos', q='Fiat') }}" class="marca-card"><img src="{{ url_for('static', filename='img/fiat.png') }}" alt="Fiat"></a>
+                <a href="{{ url_for('pagina_veiculos', q='Chevrolet') }}" class="marca-card"><img src="{{ url_for('static', filename='img/chevrolet.png') }}" alt="Chevrolet"></a>
+                <a href="{{ url_for('pagina_veiculos', q='Volkswagen') }}" class="marca-card"><img src="{{ url_for('static', filename='img/volkswagen.png') }}" alt="Volkswagen"></a>
+                <a href="{{ url_for('pagina_veiculos', q='BYD') }}" class="marca-card"><img src="{{ url_for('static', filename='img/byd.svg') }}" alt="BYD"></a>
+                <a href="{{ url_for('pagina_veiculos', q='Renault') }}" class="marca-card"><img src="{{ url_for('static', filename='img/renaultlogo.png') }}" alt="Renault"></a>
+                <a href="{{ url_for('pagina_veiculos', q='Jeep') }}" class="marca-card"><img src="{{ url_for('static', filename='img/jeep.svg') }}" alt="Jeep"></a>
+                <a href="{{ url_for('pagina_veiculos', q='Hyundai') }}" class="marca-card"><img src="{{ url_for('static', filename='img/hyundailogo.png') }}" alt="Hyundai"></a>
+                <a href="{{ url_for('pagina_veiculos', q='Ford') }}" class="marca-card"><img src="{{ url_for('static', filename='img/fordlogo.png') }}" alt="Ford"></a>
+
+            </div>
+        </div>
+    </section>
+
     
-    <a href="{{ url_for('pagina_veiculos', q='Fiat') }}" class="marca-card">
-        <img src="{{ url_for('static', filename='img/fiat.png') }}" alt="Fiat">
-    </a>
-
-    <a href="{{ url_for('pagina_veiculos', q='Chevrolet') }}" class="marca-card">
-        <img src="{{ url_for('static', filename='img/chevrolet.png') }}" alt="Chevrolet">
-    </a>
-
-    <a href="{{ url_for('pagina_veiculos', q='Volkswagen') }}" class="marca-card">
-        <img src="{{ url_for('static', filename='img/volkswagen.png') }}" alt="Volkswagen">
-    </a>
-
-    <a href="{{ url_for('pagina_veiculos', q='BYD') }}" class="marca-card">
-        <img src="{{ url_for('static', filename='img/byd.svg') }}" alt="BYD">
-    </a>
-
-    <a href="{{ url_for('pagina_veiculos', q='Renault') }}" class="marca-card">
-        <img src="{{ url_for('static', filename='img/renaultlogo.png') }}" alt="Renault">
-    </a>
-
-    <a href="{{ url_for('pagina_veiculos', q='Jeep') }}" class="marca-card">
-        <img src="{{ url_for('static', filename='img/jeep.svg') }}" alt="Jeep">
-    </a>
-
-    <a href="{{ url_for('pagina_veiculos', q='Hyundai') }}" class="marca-card">
-        <img src="{{ url_for('static', filename='img/hyundailogo.png') }}" alt="Hyundai">
-    </a>
-
-    <a href="{{ url_for('pagina_veiculos', q='Ford') }}" class="marca-card">
-        <img src="{{ url_for('static', filename='img/fordlogo.png') }}" alt="Ford">
-    </a>
-
-</div>
-                <button class="carousel-btn next-btn" id="btn-next">❯</button>
+    <!-- ===========================
+         VANTAGENS
+    =========================== -->
+    <section class="vantagens-exclusivas">
+        <div class="titulo-vantagens">
+            <h2>Experiência CarCenter</h2>
+            <p>O que faz a nossa locadora ser diferente das outras.</p>
+        </div>
+        <div class="grid-vantagens">
+            <div class="card-vantagem">
+                <div class="icon-box">✅</div>
+                <h3>Tecnologia a Bordo</h3>
+                <p>Todos os nossos carros contam com Apple CarPlay, Android Auto e carregador por indução.</p>
             </div>
-        </section>
+            <div class="card-vantagem">
+                <div class="icon-box">✅</div>
+                <h3>Check-in Express</h3>
+                <p>Sem filas de balcão. Complete seu cadastro online e retire a chave em 5 minutos.</p>
+            </div>
+            <div class="card-vantagem">
+                <div class="icon-box">✅</div>
+                <h3>Padrão Ouro</h3>
+                <p>Carros higienizados com rigor hospitalar e cheirinho de carro novo em todas as locações.</p>
+            </div>
+            <div class="card-vantagem">
+                <div class="icon-box">✅</div>
+                <h3>Km Livre</h3>
+                <p>Rode o quanto quiser sem surpresas na fatura. A estrada é toda sua.</p>
+            </div>
+        </div>
+    </section>
 
-        <section class="vantagens-exclusivas">
-            <div class="titulo-vantagens">
-                <h2>Experiência CarCenter</h2>
-                <p>O que faz a nossa locadora ser diferente das outras.</p>
-            </div>
-            <div class="grid-vantagens">
-                <div class="card-vantagem">
-                    <div class="icon-box">📱</div>
-                    <h3>Tecnologia a Bordo</h3>
-                    <p>Todos os nossos carros contam com Apple CarPlay, Android Auto e carregador por indução.</p>
-                </div>
-                <div class="card-vantagem">
-                    <div class="icon-box">⚡</div>
-                    <h3>Check-in Express</h3>
-                    <p>Sem filas de balcão. Complete seu cadastro online e retire a chave em 5 minutos.</p>
-                </div>
-                <div class="card-vantagem">
-                    <div class="icon-box">✨</div>
-                    <h3>Padrão Ouro</h3>
-                    <p>Carros higienizados com rigor hospitalar e cheirinho de carro novo em todas as locações.</p>
-                </div>
-                <div class="card-vantagem">
-                    <div class="icon-box">🛣️</div>
-                    <h3>Km Livre</h3>
-                    <p>Rode o quanto quiser sem surpresas na fatura. A estrada é toda sua.</p>
-                </div>
-            </div>
-        </section>
-        <section class="faq-section">
+
+    <!-- ===========================
+         FAQ
+    =========================== -->
+    <section class="faq-section">
         <h2>Dúvidas Frequentes</h2>
-        
+
         <div class="faq-container">
             
             <details class="faq-item">
@@ -152,24 +143,27 @@
 
             <details class="faq-item">
                 <summary>Qual a idade mínima para alugar um carro?</summary>
-                <p>A idade mínima é de 21 anos. Condutores entre 19 e 20 anos podem alugar mediante o pagamento de uma taxa adicional de "Condutor Jovem".</p>
+                <p>A idade mínima é de 21 anos...</p>
             </details>
 
             <details class="faq-item">
                 <summary>O carro vem com tanque cheio?</summary>
-                <p>Sim! Entregamos o carro com tanque cheio e limpo. Recomendamos que ele seja devolvido da mesma forma para evitar taxas de reabastecimento.</p>
+                <p>Sim! Entregamos o carro com tanque cheio e limpo...</p>
             </details>
 
             <details class="faq-item">
                 <summary>Posso cancelar minha reserva se desistir?</summary>
-<p>Sim! Na Ca Center, o cancelamento é gratuito até 24 horas antes da retirada. Queremos que você tenha total flexibilidade para planejar sua viagem.</p> </details>
-            
+                <p>Sim! O cancelamento é gratuito...</p>
+            </details>
+
             <details class="faq-item">
                 <summary>O que está incluso no valor da diária?</summary>
-                <p>Nossas diárias incluem quilometragem livre (para a maioria dos grupos), proteção básica contra roubo e furto, e assistência 24h em todo o Brasil.</p>
+                <p>Quilometragem livre, proteção básica, assistência 24h...</p>
             </details>
 
         </div>
     </section>
+
 </div>
+
 {% endblock %}

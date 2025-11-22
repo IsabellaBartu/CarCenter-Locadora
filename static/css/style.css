@@ -36,15 +36,18 @@ body {
 
     color: var(--primary);
 
-    min-height: 100vh;
-
-    display: flex;
-
-    flex-direction: column;
-    margin: 0;
+   min-height: 100vh; /* Ocupa no mínimo 100% da altura da tela */
+    display: flex; 
+    flex-direction: column; 
+    
+    /* ESSENCIAL: Remove a margem quebra a altura total */
+    margin: 0 !important; 
     padding: 0;
-    width: 100%
-
+}
+main {
+    margin-top: 0; /* Remove margem desnecessária no topo */
+    flex-grow: 1; /* Estica para empurrar o footer */
+    padding: 0; /* Zera padding vertical, o container interno cuida disso */
 }
 
 header {
@@ -718,39 +721,33 @@ nav a:hover {
     margin-bottom: 20px;
 }
 
+/* Container já não precisa mais das setas */
 .carousel-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    gap: 10px;
+    display: block;
 }
 
 .marcas-track {
     display: flex;
     gap: 20px;
-    overflow-x: hidden; /* Esconde o resto (não deixa rolar com o dedo, só com a seta) */
+    overflow-x: auto;
     scroll-behavior: smooth;
     padding: 20px 5px;
-    
-    /* MATEMÁTICA: 
-       Card (160px) * 4 + Gaps (20px * 3) = ~700px 
-       Vamos definir uma largura máxima para caberem 4.
-    */
     width: 100%;
-    max-width: 740px; /* Limite exato para 4 cards + espaços */
-    margin: 0 auto;   /* Centraliza o trilho */
-}
-.marcas-track::-webkit-scrollbar {
-    display: none; /* Chrome/Safari */
+
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    cursor: grab;
 }
 
-/* O Card da Marca */
+.marcas-track.active{
+    display: none;
+    cursor: grabbing;
+}
+
 .marca-card {
-    /* Tamanho fixo para garantir a conta */
-    min-width: 160px; 
-    width: 160px;
-    
+    min-width: calc(25% - 20px);
+    flex-shrink: 0;
+
     height: 100px;
     background-color: white;
     border: 1px solid #ddd;
@@ -759,11 +756,14 @@ nav a:hover {
     align-items: center;
     justify-content: center;
     text-decoration: none;
-    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
     box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    flex-shrink: 0; 
+    transition: .3s;
 }
 
+.marca-card img {
+    width: 100px;
+    height: auto;
+}
 .marca-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 20px rgba(0,0,0,0.1);
@@ -1222,4 +1222,203 @@ footer {
 
 #frota-completa .lista-carros {
     margin-top: 100px;
+}
+.hero {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+}
+
+.hero-wrapper {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.hero-track {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s ease;
+}
+
+.hero-slide {
+    min-width: 100%;
+    height: 100%;
+}
+
+.hero-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.4);
+    border: none;
+    padding: 12px;
+    color: white;
+    font-size: 22px;
+    cursor: pointer;
+    z-index: 10;
+    border-radius: 4px;
+}
+
+.hero-btn.prev { left: 10px; }
+.hero-btn.next { right: 10px; }
+/* === ESTILOS DO HISTÓRICO DE RESERVAS (PERFIL) === */
+
+.reservas-lista {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.reserva-card {
+    background-color: #f8f9fa; /* Fundo cinza suave no card de reserva */
+    border: 1px solid #ddd;
+    border-radius: 12px; 
+    padding: 25px;
+    display: flex; 
+    gap: 20px;
+    align-items: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.reserva-card:hover {
+    transform: translateX(5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.reserva-img { 
+    width: 150px; 
+    height: 90px; 
+    flex-shrink: 0; 
+}
+.reserva-img img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    border-radius: 6px;
+}
+
+.reserva-info {
+    flex-grow: 1; 
+}
+
+.reserva-info h4 {
+    color: var(--primary);
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.reserva-info p {
+    color: var(--secondary);
+    font-size: 1rem;
+    margin-bottom: 4px;
+}
+.reserva-info p strong {
+    color: var(--primary);
+}
+
+.preco-reserva {
+    color: var(--red-btn);
+    font-weight: 800;
+    font-size: 1.1rem;
+}
+
+.status-confirmada {
+    color: #4CAF50; /* Verde */
+    font-weight: 800;
+}
+.status-cancelada {
+    color: #f44336; /* Vermelho */
+    font-weight: 800;
+}
+
+.btn-cancelar {
+    background-color: var(--primary); /* Botão escuro */
+    color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.95rem;
+    transition: background-color 0.2s;
+}
+.btn-cancelar:hover {
+    background-color: var(--secondary);
+}
+.profile-intro p {
+    /* Aumenta o tamanho do texto de boas-vindas */
+    font-size: 1.5em; 
+    color: var(--secondary);
+    margin-bottom: 15px; 
+}
+/* Estilo do H2 de Saudação (ISOLADO) */
+.profile-intro h2 {
+    font-size: 1.8em;
+    color: var(--primary);
+    margin-top: 5%; /* Zera margem superior para grudar no topo do container */
+    margin-bottom: 10px; 
+}
+
+/* Estilo para a linha divisória (HR) (ISOLADO) */
+.profile-intro hr {
+    border: none;
+    border-top: 1px solid #000000;
+    margin: 25px 0; /* Espaço confortável acima e abaixo da linha */
+}
+
+/* Estilo do H3 de Histórico (ISOLADO) */
+.profile-intro h3 {
+    font-size: 1.8em;
+    color: var(--primary);
+    font-weight: 700;
+    margin-top: 0; /* Zera a margem, pois o HR já dá o espaço */
+    margin-bottom: 20px; 
+}
+
+/* Estilos de Card de Reserva (mantidos) */
+.reservas-lista {
+    margin-top: 30px;
+    font-size: 1.4em;
+    /* ... (o resto dos estilos de reservas-lista) ... */
+}
+.reserva-card h4 {
+    /* Aumenta o nome do veículo */
+    font-size: 1.3rem; 
+    color: var(--primary);
+    font-weight: 800; /* Deixa o nome do carro em negrito forte */
+    margin-bottom: 5px;
+}
+.reserva-info p {
+    font-size: 1.3rem; /* Aumenta um pouco a linha inteira */
+    color: var(--secondary);
+    margin-bottom: 5px;
+}
+
+/* 4. TOTAL EM DESTAQUE */
+.preco-reserva {
+    color: var(--red-btn);
+    font-weight: 900; /* Negrito máximo */
+    font-size: 1.2rem; /* Faz o preço total se destacar */
+}
+.form-login-register {
+    max-width: 700px; /* Limita a largura do formulário */
+    margin: 40px auto 20px auto; /* Centraliza o formulário */
+}
+
+/* Garante que o H4 (títulos das seções) fique formatado corretamente */
+.form-login-register h4 {
+    color: white;
+    font-weight: 700;
+    font-size: 1.2rem;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
 }

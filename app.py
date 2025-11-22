@@ -262,13 +262,46 @@ def pagina_admin():
 @login_required
 def pagina_perfil():
     try:
-        reservas_do_usuario = db.session.query(Reserva, Veiculo).join(Veiculo).filter(Reserva.user_id == current_user.id).order_by(Reserva.data_inicio.desc()).all()
-
+        # A nova query: Puxa só a Reserva (e deixa o HTML usar o relacionamento)
+        reservas_do_usuario = Reserva.query.filter_by(user_id=current_user.id).order_by(Reserva.data_inicio.desc()).all()
+        
     except Exception as e:
         print(f"Erro ao buscar reservas: {e}")
         reservas_do_usuario = []
-
+        
+    # Agora a lista só tem objetos Reserva, e o HTML pode usar o ".veiculo_alugado"
     return render_template('perfil.html', reservas=reservas_do_usuario)
+
+@app.route('/perfil/atualizar_dados', methods=['GET', 'POST'])
+@login_required
+def atualizar_dados():
+    user = current_user
+    
+    if request.method == 'POST':
+        # 1. Atualiza os campos do formulário
+        user.nome = request.form.get('nome', user.nome)
+        user.telefone = request.form.get('telefone', user.telefone)
+        user.endereco = request.form.get('endereco', user.endereco)
+        user.cidade = request.form.get('cidade', user.cidade)
+        user.estado = request.form.get('estado', user.estado)
+        user.cep = request.form.get('cep', user.cep)
+        
+        # 2. Processa a senha, se foi preenchida
+        new_password = request.form.get('new_password')
+        if new_password:
+            # Hash da nova senha
+            user.password_hash = bcrypt.generate_password_hash(new_password).decode('utf-8')
+
+        # 3. Salva no banco
+        try:
+            db.session.commit()
+            return redirect(url_for('pagina_perfil'))
+        except Exception as e:
+            db.session.rollback()
+            return f"Erro ao atualizar dados: {e}"
+
+    # GET request: Renderizar o formulário
+    return render_template('atualizar_dados.html', user=user)
 
 @app.route('/iniciar-reserva', methods=['POST'])
 @login_required
@@ -380,26 +413,23 @@ def pagina_veiculos():
     termo_busca = request.args.get('q')
     categoria = request.args.get('categoria')
     ano = request.args.get('ano')
-    sort_by = request.args.get('sort') # asc ou desc
+    sort_by = request.args.get('sort') 
     
     try:
         # 2. Lógica de Filtragem (igual a que fizemos)
         query = Veiculo.query.filter_by(is_available=True)
         
-        # 3. Aplica os filtros (Categoria, Ano)
         if categoria:
             query = query.filter_by(modelo=categoria)
             
         if ano:
             query = query.filter_by(ano=int(ano))
             
-        # 4. Aplica a ORDENAÇÃO
         if sort_by == 'asc':
             query = query.order_by(Veiculo.preco_diaria.asc())
         elif sort_by == 'desc':
             query = query.order_by(Veiculo.preco_diaria.desc())
             
-        # 5. Aplica a BUSCA (do Header)
         if termo_busca:
              query = query.filter(
                 (Veiculo.nome.ilike(f'%{termo_busca}%')) | 
@@ -407,21 +437,20 @@ def pagina_veiculos():
             )
             
         todos_veiculos = query.all()
-        carro_count = len(todos_veiculos)
+        
+        # === A MUDANÇA ESTÁ AQUI ===
+        carro_count = len(todos_veiculos) # Conta os carros
+        # ===========================
         
     except Exception as e:
         print(f"Erro ao buscar veículos: {e}")
         todos_veiculos = []
-        carro_count = 0 
+        carro_count = 0 # Se der erro, a contagem é 0
         
-    # 6. Envia o count E OS PARÂMETROS ATIVOS para o template
+    # 3. Envia o count para o template
     return render_template('veiculos.html', 
                            veiculos=todos_veiculos,
-                           carro_count=carro_count,
-                           current_sort=sort_by, # <-- NOVO
-                           current_categoria=categoria, # <-- NOVO
-                           current_ano=ano # <-- NOVO
-                     )
+                           carro_count=carro_count)
 @app.route('/tutorial')
 def pagina_tutorial():
     return render_template('tutorial.html')

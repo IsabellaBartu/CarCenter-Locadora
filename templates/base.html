@@ -55,7 +55,7 @@
                 </a>
                 <nav class="nav-links">
                     <a href="{{ url_for('pagina_veiculos') }}">VEÍCULOS</a>
-                    <a href="{{ url_for('pagina_feedback') }}">AVALIAÇÕES</a>
+                    <a href="{{ url_for('pagina_feedback') }}">AVALIE-NOS</a>
                     
                     <div class="dropdown-container">
                         <a href="#" id="btn-contatos" class="link-contato">CONTATO ▾</a>
@@ -90,7 +90,7 @@
                     <div class="user-menu">
                         <a href="{{ url_for('pagina_perfil') }}" class="user-link">👤 {{ current_user.nome.split()[0] }}</a>
                         {% if current_user.role == 'admin' %}
-                            <a href="{{ url_for('pagina_admin') }}" class="btn-header-solid">ADMIN</a>
+                            <a href="{{ url_for('pagina_admin') }}" class="btn-header-solid">PAINEL</a>
                         {% endif %}
                         <a href="{{ url_for('logout') }}" class="btn-header-outline">Sair</a>
                     </div>
