@@ -12,7 +12,7 @@
     Atualizar Minhas Informações
 </h2>
         
-        <form class="form-login-register" action="{{ url_for('atualizar_dados') }}" method="POST">
+        <form class="form-atualizar" action="{{ url_for('atualizar_dados') }}" method="POST">
             
             <h4 style="color:white; margin-bottom: 15px; border-bottom: 1px solid #555; padding-bottom: 5px;">Informações Básicas</h4>
 
@@ -53,7 +53,7 @@
             <button type="submit" class="btn-confirmar">Salvar Alterações</button>
         </form>
 
-        <a href="{{ url_for('pagina_perfil') }}" style="display: block; margin-top: 20px; font-size: 1.6rem; text-align: center; color: var(--primary);"> Voltar ao Perfil</a>
+        <a href="{{ url_for('pagina_perfil') }}" class="voltar-perfil">Voltar ao Perfil</a>
     </div>
     
 {% endblock %}

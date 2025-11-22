@@ -45,13 +45,8 @@
                         <input type="date" id="data_fim" name="data_fim" class="input-calculo" required>
                     </div>
                 </div>
-    
-                <div class="total-container">
-                    Total:
-                    <span id="preco-total">R$ 0,00</span>
-                </div>
                 
-                <button type="submit" class="btn-confirmar">
+             <button type="submit" class="btn-confirmar btn-detalhe">
                     Reservar e Ir para Pagamento
                 </button>
                 
@@ -60,3 +55,25 @@
     </div>
     
 {% endblock %}
+<script>
+    const precoDiaria = parseFloat(document.getElementById('area-calculo').dataset.precoDiaria);
+    const inputInicio = document.getElementById("data_inicio");
+    const inputFim = document.getElementById("data_fim");
+    const campoTotal = document.getElementById("preco-total");
+
+    function atualizarTotal() {
+        const inicio = new Date(inputInicio.value);
+        const fim = new Date(inputFim.value);
+
+        if (inputInicio.value && inputFim.value && fim > inicio) {
+            const diffDias = Math.ceil((fim - inicio) / (1000 * 60 * 60 * 24));
+            const total = diffDias * precoDiaria;
+            campoTotal.textContent = "R$ " + total.toFixed(2).replace(".", ",");
+        } else {
+            campoTotal.textContent = "R$ 0,00";
+        }
+    }
+
+    inputInicio.addEventListener("change", atualizarTotal);
+    inputFim.addEventListener("change", atualizarTotal);
+</script>

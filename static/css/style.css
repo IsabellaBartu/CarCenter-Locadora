@@ -14,8 +14,6 @@
 
 }
 
-
-
 * {
 
     margin: 0;
@@ -26,8 +24,6 @@
 
 }
 
-
-
 body {
 
     background-color: var(--bg-page);
@@ -37,11 +33,11 @@ body {
     color: var(--primary);
 
    min-height: 100vh; /* Ocupa no mínimo 100% da altura da tela */
-    display: flex; 
-    flex-direction: column; 
+    display: flex;
+    flex-direction: column;
     
     /* ESSENCIAL: Remove a margem quebra a altura total */
-    margin: 0 !important; 
+    margin: 0 !important;
     padding: 0;
 }
 main {
@@ -51,7 +47,7 @@ main {
 }
 
 header {
-   background: var(--red-btn); 
+   background: var(--red-btn);
     padding: 5px 0; /* Um pouco mais de espaço vertical */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     position: relative;
@@ -100,9 +96,6 @@ header h1 {
     border-color: #f2f2f2 !important;
 }
 
-
-
-
 nav ul {
 
     list-style: none;
@@ -112,8 +105,6 @@ nav ul {
     gap: 25px;
 
 }
-
-
 
 nav a {
 
@@ -129,22 +120,16 @@ nav a {
 
 }
 
-
-
 nav a:hover {
 
     color:  #253237; /* Fica mais escuro no hover */
 
 }
 
-
-
 .nav-links {
     display: flex;
     gap: 30px; /* Espaço entre os links */
 }
-
-
 
 .nav-links a {
     color:  #253237;
@@ -158,20 +143,18 @@ nav a:hover {
     transform: scale(1.05);
 }
 .header-center {
-    flex-grow: 1; 
+    flex-grow: 1;
     max-width: 700px; /* Barra de pesquisa mais larga */
 }
 
 .search-bar {
     display: flex;
     background: white;
-    border-radius: 50px; 
+    border-radius: 50px;
     padding: 20px 30px; /* Barra mais gordinha */
     align-items: center;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
-
-
 
 .search-bar input {
     border: none;
@@ -198,8 +181,8 @@ nav a:hover {
     height: 30px;
 }
 
-.search-bar button:hover { 
-    transform: scale(1.1); 
+.search-bar button:hover {
+    transform: scale(1.1);
 }
 
 .header-right {
@@ -226,7 +209,7 @@ nav a:hover {
 .user-link:hover { text-decoration: underline; }
 .btn-header-solid {
     background-color: white;
-    color: #253237 !important; 
+    color: #253237 !important;
     padding: 12px 30px;
     border-radius: 50px;
     font-weight: 800;
@@ -270,8 +253,6 @@ nav a:hover {
 
 }
 
-
-
 /* Esconde links de navegação em telas pequenas */
 
 @media (max-width: 900px) {
@@ -286,7 +267,7 @@ nav a:hover {
 
 .hero {
     /* 1. A Imagem de Fundo (Confira se o nome do arquivo é esse mesmo!) */
-    background-image: url('../img/bannernovo1.png'); 
+    background-image: url('../img/bannernovo1.png');
     
     /* 2. Configuração para a imagem cobrir tudo */
     background-size: cover;
@@ -309,8 +290,6 @@ nav a:hover {
     position: relative;
 }
 
-
-
 /* ==================================
 
    4. CARDS DE CARRO (ESTILO MOVIDA)
@@ -329,8 +308,6 @@ nav a:hover {
 
 }
 
-
-
 .destaques {
 
     padding: -80px 0;
@@ -339,14 +316,12 @@ nav a:hover {
 
 }
 
-
-
 .destaques h2 {
     text-align: center;
-    font-size: 2.5em; 
+    font-size: 2.5em;
     color: var(--primary);
 
-    margin-bottom: 100px; 
+    margin-bottom: 100px;
 
     font-weight: 700;
     margin-top: -80px;
@@ -354,8 +329,6 @@ nav a:hover {
     background-color: var(--bg-page);
     padding: 0 10px;
 }
-
-
 
 .lista-carros {
 
@@ -366,7 +339,6 @@ nav a:hover {
     gap: 40px;
 
 }
-
 
 .carro-card {
 
@@ -380,13 +352,9 @@ nav a:hover {
 
     position: relative;
 
-   
-
     /* Ponto de Início do Conteúdo (Puxa o texto para cima) */
 
     padding-top:90px;
-
-   
 
     display: flex;
 
@@ -396,8 +364,6 @@ nav a:hover {
 
 }
 
-
-
 .carro-card:hover {
 
     transform: translateY(-10px);
@@ -405,8 +371,6 @@ nav a:hover {
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
 
 }
-
-
 
 /* A IMAGEM (O "VAZADO" 3D) */
 
@@ -422,15 +386,11 @@ nav a:hover {
 
     z-index: 2;
 
-   
-
     /* CENTRALIZAÇÃO FORÇADA */
 
     left: 50%;
 
     transform: translateX(-50%);
-
-   
 
     /* Garante que a imagem se centre DENTRO do container */
 
@@ -441,8 +401,6 @@ nav a:hover {
     align-items: center;
 
 }
-
-
 
 .carro-card-img img {
 
@@ -455,8 +413,6 @@ nav a:hover {
     object-fit: contain;
 
 }
-
-
 
 /* O CONTEÚDO (Texto/Preço) */
 
@@ -478,9 +434,6 @@ nav a:hover {
 
 }
 
-
-
-
 .carro-card-content h3 {
     font-size: 1.6em;
     font-weight: 700;
@@ -488,11 +441,9 @@ nav a:hover {
     text-align: center;
     min-height: 2.4em;
     display: flex;
-    align-items: center; 
+    align-items: center;
     justify-content: center;
 }
-
-
 
 .carro-card-content .subtitulo {
 
@@ -505,8 +456,6 @@ nav a:hover {
     text-align: center;
 
 }
-
-
 
 /* As "Features" com checkmark */
 
@@ -527,8 +476,6 @@ nav a:hover {
     gap: 10px;
 
 }
-
-
 
 /* O Bloco de Preço */
 
@@ -570,8 +517,6 @@ nav a:hover {
 
 }
 
-
-
 /* O Botão (MAIOR) */
 
 .btn-alugar {
@@ -579,7 +524,7 @@ nav a:hover {
     width: 100%; /* Garante que o botão encha o card */
     box-sizing: border-box; /* Garante que o padding não estoure o tamanho */
     
-    background-color: #253237; 
+    background-color: #253237;
     color: white;
     text-align: center;
     text-decoration: none;
@@ -624,7 +569,6 @@ nav a:hover {
     box-shadow: 0 6px 20px  #253237;
 }
 
-
 /* === SEÇÃO VANTAGENS EXCLUSIVAS (VERSÃO TEXTO GRANDE) === */
 .vantagens-exclusivas {
     margin-top: 30px;
@@ -649,7 +593,7 @@ nav a:hover {
 .grid-vantagens {
     display: grid;
     /* O SEGREDO: 4 Colunas iguais para ficarem lado a lado */
-    grid-template-columns: repeat(4, 1fr); 
+    grid-template-columns: repeat(4, 1fr);
     gap: 20px; /* Espaço entre eles */
 }
 
@@ -666,7 +610,7 @@ nav a:hover {
     /* Garante que todos tenham a mesma altura */
     display: flex;
     flex-direction: column;
-    height: 100%; 
+    height: 100%;
 }
 
 .card-vantagem:hover {
@@ -805,13 +749,13 @@ nav a:hover {
     max-width: 70%;
     max-height: 60%;
     object-fit: contain;
-    filter: none; 
+    filter: none;
     opacity: 1;
     transition: transform 0.3s ease;
 }
 
 .marca-card:hover img {
-    transform: scale(1.1); 
+    transform: scale(1.1);
 }
 dropdown-container {
     position: relative; /* Importante para a caixa flutuar perto dele */
@@ -848,8 +792,8 @@ dropdown-container {
     position: absolute;
     top: -10px;
     right: 60px; /* Posição da ponta */
-    width: 0; 
-    height: 0; 
+    width: 0;
+    height: 0;
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
     border-bottom: 10px solid white;
@@ -860,22 +804,22 @@ dropdown-container {
     margin-bottom: 15px;
 }
 
-.contato-item h4 { 
+.contato-item h4 {
             font-size: 0.95rem; /* Aumentado de 0.8 para 0.95 */
-            color: #666; 
-            margin-bottom: 4px; 
+            color: #666;
+            margin-bottom: 4px;
             font-weight: 700;
         }
-.contato-item p { 
+.contato-item p {
             font-size: 1.3rem; /* Aumentado de 1.1 para 1.3 */
-            color: #E7284B; 
-            font-weight: 800; 
-            margin: 0; 
+            color: #E7284B;
+            font-weight: 800;
+            margin: 0;
         }
 
-.email-link { 
-            color: #E7284B; 
-            font-weight: 700; 
+.email-link {
+            color: #E7284B;
+            font-weight: 700;
             text-decoration: underline;
             font-size: 1.1rem; /* Aumentado de 1.0 para 1.1 */
         }
@@ -913,7 +857,7 @@ dropdown-container {
     border-radius: 16px; /* Mais arredondado */
     margin-bottom: 20px; /* Mais espaço entre as perguntas */
     box-shadow: 0 4px 10px rgba(0,0,0,0.03);
-    overflow: hidden; 
+    overflow: hidden;
     transition: all 0.3s ease;
 }
 
@@ -947,7 +891,7 @@ summary:hover {
 
 /* O Símbolo + */
 summary::after {
-    content: '+'; 
+    content: '+';
     font-size: 1.4em;
     color: var(--red-btn);
     font-weight: 800;
@@ -985,7 +929,7 @@ footer {
 
 /* Fundo Cinza Escuro (Igual Movida) */
 .footer-content {
-    background-color: #75838b; 
+    background-color: #75838b;
     color: white;
     padding: 30px 0;
 }
@@ -999,7 +943,7 @@ footer {
     display: flex; /* Coloca lado a lado */
     
     /* AQUI ESTÁ A MÁGICA: AUMENTADO DE 80px PARA 150px */
-    gap: 200px; 
+    gap: 200px;
     
     padding-bottom: 50px;
 }
@@ -1008,7 +952,7 @@ footer {
 .footer-left {
     flex: 1;
     /* (NOVO!) Garante que o conteúdo fique no topo */
-    align-self: flex-start; 
+    align-self: flex-start;
 }
 
 .footer-logo-img {
@@ -1044,7 +988,7 @@ footer {
 /* --- LADO DIREITO --- */
 .footer-right {
     flex: 1.2;
-    padding-top: 20px; 
+    padding-top: 20px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -1100,7 +1044,6 @@ footer {
     align-items: center;
 }
 
-
 /* MOBILE */
 @media (max-width: 900px) {
     .footer-container { flex-direction: column; gap: 40px; }
@@ -1118,7 +1061,7 @@ footer {
     justify-content: center;
     gap: 30px;
     background-color: var(--white);
-    padding: 15px 40px; 
+    padding: 15px 40px;
     
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.05);
@@ -1154,7 +1097,7 @@ footer {
     width: 150px;
     
     /* REMOVE A SETA PADRÃO FEIA E ADICIONA CUSTOMIZADA */
-    appearance: none; 
+    appearance: none;
     -webkit-appearance: none;
     
     /* SVG DA SETA (Para ficar chique) */
@@ -1165,7 +1108,7 @@ footer {
 
 /* Botão Limpar */
 .btn-limpar-filtro {
-    align-self: flex-end; 
+    align-self: flex-end;
     background: transparent;
     color: var(--secondary);
     border: none;
@@ -1187,14 +1130,14 @@ footer {
 .result-counter {
     /* Centraliza e define a largura do box de filtros */
     max-width: 2000px;
-    margin: 0 auto; 
+    margin: 0 auto;
     
     /* A MUDANÇA: Puxa para cima (valor negativo alto para anular o padding do filtro) */
-    margin-top: -80px; 
+    margin-top: -80px;
     
-    text-align: left; 
+    text-align: left;
     padding:  -700px;
-    margin-bottom: 16px; 
+    margin-bottom: 16px;
     
     font-size: 1.3rem;
     color: var(--secondary);
@@ -1219,9 +1162,9 @@ footer {
 }
 /* Este ID só existe na página de Veículos, então o CSS só aplica lá! */
 #frota-completa h2 {
-    margin-top: -190px; 
+    margin-top: -190px;
     
-    margin-bottom: 10px; 
+    margin-bottom: 10px;
     
     padding: 0 60px;
 }
@@ -1288,9 +1231,9 @@ footer {
 .reserva-card {
     background-color: #f8f9fa; /* Fundo cinza suave no card de reserva */
     border: 1px solid #ddd;
-    border-radius: 12px; 
+    border-radius: 12px;
     padding: 25px;
-    display: flex; 
+    display: flex;
     gap: 20px;
     align-items: center;
     transition: transform 0.2s, box-shadow 0.2s;
@@ -1300,20 +1243,20 @@ footer {
     box-shadow: 0 5px 15px rgba(0,0,0,0.05);
 }
 
-.reserva-img { 
-    width: 150px; 
-    height: 90px; 
-    flex-shrink: 0; 
+.reserva-img {
+    width: 150px;
+    height: 90px;
+    flex-shrink: 0;
 }
-.reserva-img img { 
-    width: 100%; 
-    height: 100%; 
-    object-fit: cover; 
+.reserva-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     border-radius: 6px;
 }
 
 .reserva-info {
-    flex-grow: 1; 
+    flex-grow: 1;
 }
 
 .reserva-info h4 {
@@ -1362,16 +1305,16 @@ footer {
 }
 .profile-intro p {
     /* Aumenta o tamanho do texto de boas-vindas */
-    font-size: 1.5em; 
+    font-size: 1.5em;
     color: var(--secondary);
-    margin-bottom: 15px; 
+    margin-bottom: 15px;
 }
 /* Estilo do H2 de Saudação (ISOLADO) */
 .profile-intro h2 {
     font-size: 1.8em;
     color: var(--primary);
     margin-top: 5%; /* Zera margem superior para grudar no topo do container */
-    margin-bottom: 10px; 
+    margin-bottom: 10px;
 }
 
 /* Estilo para a linha divisória (HR) (ISOLADO) */
@@ -1387,7 +1330,7 @@ footer {
     color: var(--primary);
     font-weight: 700;
     margin-top: 0; /* Zera a margem, pois o HR já dá o espaço */
-    margin-bottom: 20px; 
+    margin-bottom: 20px;
 }
 
 /* Estilos de Card de Reserva (mantidos) */
@@ -1398,7 +1341,7 @@ footer {
 }
 .reserva-card h4 {
     /* Aumenta o nome do veículo */
-    font-size: 1.3rem; 
+    font-size: 1.3rem;
     color: var(--primary);
     font-weight: 800; /* Deixa o nome do carro em negrito forte */
     margin-bottom: 5px;
@@ -1431,19 +1374,19 @@ footer {
     text-decoration: underline;
 }
 .btn-voltar-perfil {
-    display: block; 
+    display: block;
     width: fit-content; /* Se ajusta ao conteúdo */
     
     /* Centraliza o botão e afasta do formulário */
-    margin: 30px auto 0 auto; 
+    margin: 30px auto 0 auto;
     
     /* Estilo do Botão */
-    background-color: var(--secondary); 
+    background-color: var(--secondary);
     color: white;
     
     /* Tamanho do Botão */
-    padding: 15px 30px; 
-    font-size: 1.25rem; 
+    padding: 15px 30px;
+    font-size: 1.25rem;
     font-weight: 800;
     
     border-radius: 8px;
@@ -1452,8 +1395,8 @@ footer {
 }
 
 .btn-voltar-perfil:hover {
-    background-color: var(--primary); 
-    transform: translateY(-2px); 
+    background-color: var(--primary);
+    transform: translateY(-2px);
 }
 .btn-outline-dark {
     /* Torna o botão transparente para mostrar o fundo dark */
@@ -1464,7 +1407,7 @@ footer {
     border: 2px solid white;
     
     /* Faz o link parecer um botão de verdade */
-    display: block; 
+    display: block;
     width: 100%;
     text-align: center;
     
@@ -1483,13 +1426,13 @@ footer {
 
 /* Wrapper Principal (Caixa Branca Centralizada) */
 .content-wrapper {
-    background-color: white; 
+    background-color: white;
     padding: 40px;
     border-radius: 16px;
     box-shadow: 0 4px 20px #1e1e1e;
     /* Centraliza e dá respiro */
-    max-width: 1100px; 
-    margin: 40px auto; 
+    max-width: 1100px;
+    margin: 40px auto;
 }
 
 .content-wrapper h2 {
@@ -1520,7 +1463,7 @@ footer {
 
 /* TABELA DE VEÍCULOS (CLEAN LOOK) */
 .tabela-admin {
-    width: 100%; 
+    width: 100%;
     border-collapse: collapse; /* Colapsa bordas */
     margin-top: 20px;
     border-radius: 8px;
@@ -1530,7 +1473,7 @@ footer {
 
 .tabela-admin th {
     background-color: #f0f2f5; /* Fundo cinza claro */
-    color: var(--primary); 
+    color: var(--primary);
     font-weight: 800;
     padding: 12px 15px;
     border-bottom: 1px solid #ddd;
@@ -1549,7 +1492,6 @@ footer {
 /* CORES DOS STATUS (Para aparecerem na tabela clara) */
 .status-disponivel { background-color: #e6f7e6; color: #1f8021; padding: 5px 10px; border-radius: 4px; font-weight: 700; }
 .status-reservado { background-color: #fde8e8; color: #a00; padding: 5px 10px; border-radius: 4px; font-weight: 700; }
-
 
 /* BUSCA ADMIN (Clean look) */
 .search-form-admin {
@@ -1629,7 +1571,6 @@ footer {
     justify-content: center;
 }
 
-
 /* Ajuste para não ficar esticado em telas MUITO grandes */
 @media (min-width: 1400px) {
     .form-admin-grid {
@@ -1667,7 +1608,7 @@ footer {
 
 /* Seção */
 .admin-intro h3 {
-    font-size: 1.8rem; 
+    font-size: 1.8rem;
     margin-top: 25px;
     margin-bottom: 8px;
     font-weight: 700;
@@ -1828,7 +1769,7 @@ h2 {
     margin-top: 60px;
     width: 250px;
     margin: 25px auto 0;   /* ← isso centraliza */
-    display: block;       
+    display: block;
     background: #436772;
     color: white;
     padding: 20px;
@@ -1876,7 +1817,7 @@ h2 {
     color: #888;
 }
 .estrelas-grandes label {
-    font-size: 40px !important; 
+    font-size: 40px !important;
     padding: 0 4px;
 }
 /* Cada feedback recebido */
@@ -2096,4 +2037,510 @@ h2 {
     width: 550px;
     border-radius: 8px;
     text-align: center;
+}
+/* ===== FORMULÁRIO DE ATUALIZAR DADOS ===== */
+
+.form-atualizar {
+    max-width: 550px;
+    margin: 40px auto;
+    padding: 25px;
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+
+    display: flex;
+    flex-direction: column;
+}
+
+/* Títulos das seções (“Informações Básicas”, “Endereço…”, etc) */
+.form-atualizar h4 {
+    font-size: 1.2em;
+    font-weight: 700;
+    color: var(--primary);
+    margin: 25px 0 10px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 6px;
+}
+
+/* Label */
+.form-atualizar label {
+    font-weight: 600;
+    margin-top: 10px;
+    display: block;
+    font-size: 1.05em;
+    color: #333;
+}
+
+/* Inputs */
+.form-atualizar input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 5px;
+    border: 1px solid #bbb;
+    border-radius: 8px;
+    font-size: 1em;
+    background: #f8f8f8;
+    outline: none;
+    transition: .2s;
+}
+
+.form-atualizar input:focus {
+    border-color: var(--primary);
+    background: #fff;
+    box-shadow: 0 0 0 2px rgba(0, 140, 255, 0.2);
+}
+
+/* Linha com Cidade + Estado */
+.form-atualizar .form-linha {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.form-atualizar .form-grupo {
+    flex: 1;
+}
+
+/* Botão principal */
+.form-atualizar .btn-confirmar {
+    margin-top: 25px;
+    padding: 14px;
+    font-size: 1.1em;
+    font-weight: 600;
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.form-atualizar .btn-confirmar:hover {
+    background: #162024;
+    transform: scale(1.02);
+}
+
+/* Link “Voltar ao Perfil” */
+.voltar-perfil {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--primary);
+    transition: 0.2s;
+}
+
+.voltar-perfil:hover {
+    color: var(--secondary);
+}
+/* ===== CONTAINER DE SUCESSO ===== */
+.container-sucesso {
+    max-width: 600px;
+    margin: 60px auto;
+    padding: 40px 30px;
+    
+    background: #ffffff;
+    border-radius: 16px;
+    border: 1px solid #ddd;
+    box-shadow: 0px 4px 15px rgba(0,0,0,0.12);
+
+    text-align: center;
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Ícone verde grande */
+.container-sucesso .icone-sucesso {
+    font-size: 80px;
+    color: #2ecc71;
+    display: block;
+    margin-bottom: 15px;
+}
+
+/* Título */
+.container-sucesso h2 {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 15px;
+}
+
+/* Texto */
+.container-sucesso p {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 12px;
+    line-height: 1.4;
+}
+
+.container-sucesso p strong {
+    color: var(--primary);
+}
+
+/* Botão */
+.container-sucesso .btn-confirmar {
+    margin-top: 25px;
+    width: 250px;
+    padding: 15px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    transition: 0.2s;
+}
+
+.container-sucesso .btn-confirmar:hover {
+    background: #1a2428;
+    transform: scale(1.05);
+}
+
+/* Animação suave */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+/* ===== CONTAINER DE SUCESSO - PAGAMENTO ===== */
+.container-sucesso {
+    max-width: 600px;
+    margin: 60px auto;
+    padding: 40px 30px;
+    
+    background: #ffffff;
+    border-radius: 16px;
+    border: 1px solid #ddd;
+    box-shadow: 0px 4px 15px rgba(0,0,0,0.12);
+
+    text-align: center;
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Ícone (cartão) */
+.container-sucesso .icone-sucesso {
+    font-size: 80px;
+    color: #3498db;     /* azul para diferenciar do check verde */
+    display: block;
+    margin-bottom: 15px;
+}
+
+/* Título */
+.container-sucesso h2 {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 15px;
+}
+
+/* Texto */
+.container-sucesso p {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 15px;
+    line-height: 1.4;
+}
+
+/* Botão */
+.container-sucesso .btn-confirmar {
+    margin-top: 25px;
+    width: 250px;
+    padding: 15px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    transition: 0.2s;
+}
+
+.container-sucesso .btn-confirmar:hover {
+    background: #1a2428;
+    transform: scale(1.05);
+}
+
+/* Animação suave */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+/* ================================
+   DETALHE DO VEÍCULO – ESTILO PADRÃO DO SITE
+   ================================ */
+
+.detalhe-container {
+    display: flex;
+    gap: 30px;
+    padding: 40px;
+    max-width: 1200px;
+    margin: 50px auto;
+    background: #e7e7e7; /* igual suas caixas internas */
+    border: 1px solid #ccc;
+    border-radius: 14px;
+}
+
+/* Foto do carro */
+.detalhe-imagem img {
+    width: 480px;
+    height: auto;
+    border-radius: 12px;
+    border: 2px solid #d1d1d1;
+}
+
+.carro-placeholder-img {
+    width: 480px;
+    height: 300px;
+    background: #d9d9d9;
+    border-radius: 12px;
+}
+
+/* Informações */
+.detalhe-info {
+    flex: 1;
+    color: #222;
+}
+
+.detalhe-info h2 {
+    font-size: 2.2rem;
+    color: var(--primary);
+    margin-bottom: 10px;
+}
+
+/* Preço */
+.preco-detalhe {
+    display: block;
+    margin-bottom: 15px;
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: var(--primary);
+}
+
+/* Descrição */
+.descricao-detalhe {
+    font-size: 1.15rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Lista de especificações */
+.specs-lista {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px 0;
+}
+
+.specs-lista li {
+    margin-bottom: 6px;
+    font-size: 1.15rem;
+}
+
+.specs-lista strong {
+    color: var(--primary);
+}
+
+/* Títulos menores */
+.detalhe-info h4 {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin: 25px 0 10px 0;
+    color: #000;
+}
+
+/* Inputs */
+.input-calculo,
+.detalhe-info input[type="date"] {
+    width: 100%;
+    padding: 12px;
+    background: #fff;
+    border: 1px solid #aaa;
+    border-radius: 10px;
+    font-size: 1.05rem;
+    color: #000;
+    transition: 0.2s;
+}
+
+.input-calculo:focus {
+    border-color: var(--primary);
+}
+
+/* Total */
+.total-container {
+    margin: 25px 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#preco-total {
+    font-size: 1.6rem;
+}
+/* =============================
+   BOTÃO EXCLUSIVO DA PÁGINA DETALHE DO VEÍCULO
+   ============================= */
+
+/* Hover melhorado */
+.btn-detalhe:hover {
+    background: var(--primary);
+    filter: brightness(0.85);
+    box-shadow: 0 0 10px rgba(0,0,0,0.45);
+}
+
+/* Clique (active) mais escuro e forte */
+.btn-detalhe:active {
+    background: var(--primary);
+    filter: brightness(0.70);
+    box-shadow: 0 0 12px rgba(0,0,0,0.65) !important;
+    transform: scale(0.96);
+}
+/* ==============================
+   PAGAMENTO – ESTILO LOCAL
+   ============================== */
+
+.pagina-pagamento h2 {
+    text-align: center;
+    font-size: 2.2rem;
+    color: var(--primary);
+    margin-top: 40px;
+    margin-bottom: 30px;
+}
+
+.pagina-pagamento .resumo-pagamento {
+    max-width: 800px;
+    margin: 0 auto 40px auto;
+    background: #e7e7e7;
+    border: 1px solid #ccc;
+    border-radius: 14px;
+    padding: 25px 30px;
+}
+
+.pagina-pagamento .resumo-pagamento h3 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: var(--primary);
+}
+
+.pagina-pagamento .resumo-item {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.pagina-pagamento .resumo-item img {
+    width: 180px;
+    height: auto;
+    border-radius: 12px;
+    border: 2px solid #d1d1d1;
+    object-fit: cover;
+}
+
+.pagina-pagamento .resumo-item div {
+    font-size: 1.1rem;
+    color: #222;
+}
+
+.pagina-pagamento .resumo-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary);
+    border-top: 1px solid #ccc;
+    padding-top: 15px;
+}
+
+.pagina-pagamento .resumo-total span {
+    font-size: 1.6rem;
+}
+
+.pagina-pagamento .form-pagamento {
+    max-width: 800px;
+    margin: 0 auto 50px auto;
+    background: #e7e7e7;
+    border: 1px solid #ccc;
+    border-radius: 14px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.pagina-pagamento .form-pagamento label {
+    font-weight: bold;
+    color: #222;
+    margin-bottom: 5px;
+}
+
+.pagina-pagamento .form-pagamento input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #aaa;
+    border-radius: 10px;
+    font-size: 1.05rem;
+    color: #000;
+    background: #fff;
+    transition: 0.2s;
+}
+
+.pagina-pagamento .form-pagamento input[type="text"]:focus {
+    border-color: var(--primary);
+}
+
+.pagina-pagamento .form-linha {
+    display: flex;
+    gap: 20px;
+}
+
+.pagina-pagamento .form-grupo {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.pagina-pagamento .btn-confirmar {
+    padding: 15px;
+    background: var(--primary);
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.pagina-pagamento .btn-confirmar:hover {
+    filter: brightness(0.85);
+    box-shadow: 0 0 10px rgba(0,0,0,0.45);
+}
+
+.pagina-pagamento .btn-confirmar:active {
+    filter: brightness(0.70);
+    box-shadow: 0 0 12px rgba(0,0,0,0.65);
+    transform: scale(0.96);
+}
+
+.pagina-pagamento .form-pagamento p {
+    font-size: 1.05rem;
+    color: #333;
+}
+.pagina-pagamento .info-cartao {
+    text-align: center;
+    font-size: 1.4rem; /* maior para ficar legível */
+    color: #333;
+    margin-bottom: 30px; /* espaço entre o parágrafo e o formulário */
+    margin: 1%;
 }

@@ -5,12 +5,12 @@
 {% endblock %}
 
 {% block content %}
+<div class="pagina-pagamento">
     <h2>Finalize seu Pagamento</h2>
     
     <div class="resumo-pagamento">
         <h3>Resumo da sua Reserva</h3>
         <div class="resumo-item">
-            
             {% if reserva.carro_foto %}
             <img src="{{ url_for('static', filename='img/' + reserva.carro_foto) }}" alt="{{ reserva.carro_nome }}">
             {% endif %}
@@ -28,10 +28,11 @@
     
     <hr>
     
-    <p>Preencha os dados do seu cartão de crédito com segurança.</p>
+   <p class="info-cartao">
+        Preencha os dados do seu cartão de crédito com segurança.
+    </p>
 
     <form class="form-pagamento" action="{{ url_for('processar_pagamento') }}" method="POST">
-        
         <label for="nome">Nome no Cartão:</label>
         <input type="text" id="nome" name="nome_cartao" placeholder="Digite o nome impresso no cartão" required>
 
@@ -60,5 +61,5 @@
 
         <button type="submit" class="btn-confirmar">Confirmar Pagamento</button>
     </form>
-    
+</div>
 {% endblock %}
