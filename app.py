@@ -258,18 +258,23 @@ def pagina_admin():
         usuarios=todos_usuarios,
         veiculos=todos_veiculos
     )
+# app.py - ROTA DE PERFIL
+
 @app.route('/perfil')
 @login_required
 def pagina_perfil():
+    
+    # === BLOQUEIO DE ADMIN: ===
+    if current_user.role == 'admin':
+        return redirect(url_for('pagina_admin')) # Admin é sempre redirecionado para o painel!
+    
+    # === LÓGICA DO CLIENTE (MOSTRAR HISTÓRICO) ===
     try:
-        # A nova query: Puxa só a Reserva (e deixa o HTML usar o relacionamento)
+        # A query só roda se o usuário for um cliente
         reservas_do_usuario = Reserva.query.filter_by(user_id=current_user.id).order_by(Reserva.data_inicio.desc()).all()
-        
     except Exception as e:
-        print(f"Erro ao buscar reservas: {e}")
         reservas_do_usuario = []
         
-    # Agora a lista só tem objetos Reserva, e o HTML pode usar o ".veiculo_alugado"
     return render_template('perfil.html', reservas=reservas_do_usuario)
 
 @app.route('/perfil/atualizar_dados', methods=['GET', 'POST'])
@@ -337,20 +342,28 @@ def iniciar_reserva():
         }
         return redirect(url_for('pagina_pagamento'))
 
+# app.py - ROTA DE LOGIN
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('homepage'))
+
     if request.method == 'POST':
         user = User.query.filter_by(username=request.form['username']).first()
+        
         if user and bcrypt.check_password_hash(user.password_hash, request.form['password']):
             login_user(user, remember=True)
+            
+            # === VERIFICAÇÃO DE CARGO ===
             if user.role == 'admin':
-                return redirect(url_for('pagina_admin'))
+                return redirect(url_for('pagina_admin')) # ADMIN VAI PARA O PAINEL
             else:
-                return redirect(url_for('pagina_perfil'))
+                return redirect(url_for('pagina_perfil')) # CLIENTE VAI PARA O PERFIL
+        
         else:
             return render_template('login.html', error="Usuário ou senha inválidos.")
+    
     return render_template('login.html')
 
 @app.route('/logout')

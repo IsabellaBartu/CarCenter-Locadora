@@ -6,7 +6,9 @@
 
 
 {% block content %}
-    <h2>Login</h2>
+    <h2 style="font-size: 2em; color: var(--primary); margin-bottom: 20px; margin-top: 20px; text-align: center;">
+    Login
+</h2>
     
     {% if error %}
         <p class="error-message">{{ error }}</p>
@@ -18,7 +20,7 @@
         <input type="email" id="username" name="username" 
                placeholder="seu.email@exemplo.com" required>
 
-        <label for="password">Senha:</label>
+        <br><label for="password">Senha:</label>
         <input type="password" id="password" name="password" required>
 
         <button type="submit" class="btn-confirmar">Entrar</button>

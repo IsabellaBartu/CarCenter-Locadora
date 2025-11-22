@@ -1409,16 +1409,162 @@ footer {
     font-weight: 900; /* Negrito máximo */
     font-size: 1.2rem; /* Faz o preço total se destacar */
 }
+/* static/css/style.css - AJUSTE FINAL DO FORMULÁRIO DARK */
+
+/* 1. O PRÓPRIO FORMULÁRIO */
 .form-login-register {
-    max-width: 700px; /* Limita a largura do formulário */
-    margin: 40px auto 20px auto; /* Centraliza o formulário */
+    max-width: 600px; /* Limita a largura para centralizar bem */
+    margin: 40px auto; /* Centraliza o formulário */
+    padding: 35px;
+    background: #718490; 
+    border-radius: 16px; 
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+.form-title {
+    font-size: 2em; 
+    color: #ffffff; 
+    margin-bottom: 5px; 
+    text-align: center;
+    font-weight: 800;
+}
+.form-subtitle {
+    font-size: 1.1em;
+    color: #ffffff;
+    margin-bottom: 30px;
+    text-align: center;
+    display: block;
+}
+.form-section-title {
+    color: #253237; 
+    font-weight: 800;
+    font-size: 1.2rem;
+    padding-bottom: 8px;
+    margin-bottom: 25px; /* Mais espaço para respirar */
+    border-bottom: 2px solid #ffffff;
+    /* Alinha o título da seção */
+    text-align: left; 
 }
 
-/* Garante que o H4 (títulos das seções) fique formatado corretamente */
+/* 4. INPUTS (Mais espaçamento vertical) */
+.form-login-register label {
+    font-size: 1.1rem; 
+    color: #ddd; 
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.form-login-register input[type="email"],
+.form-login-register input[type="text"],
+.form-login-register input[type="tel"],
+.form-login-register input[type="password"] {
+    padding: 16px 20px;
+    margin-bottom: 25px; /* Aumenta o espaço entre os campos */
+    background: #17063D; 
+    color: rgb(0, 0, 0);
+    border-radius: 8px;
+    font-size: 1.15rem;
+}
+
+/* 2. TÍTULOS DE SEÇÃO (Mais destaque e espaço) */
 .form-login-register h4 {
+    color: #ffffff; 
+    font-weight: 800;
+    font-size: 1.4rem; /* Título maior */
+    padding-bottom: 8px;
+    margin-bottom: 30px; /* MAIS ESPAÇO ANTES DOS INPUTS */
+    border-bottom: 2px solid #333;
+}
+
+/* 3. INPUTS E LABELS (O FOCO NO ESPAÇAMENTO VERTICAL) */
+.form-login-register label {
+    font-size: 1.1rem; 
+    color: #292b2c; 
+    margin-bottom: 8px; /* Mais espaço entre label e input */
+    font-weight: 600;
+}
+
+.form-login-register input:not([type="checkbox"]),
+.form-login-register textarea {
+    padding: 16px 20px; /* Inputs mais gordinhos */
+    margin-bottom: 35px; /* <--- ESPAÇO MAIS GENEROSO ENTRE OS CAMPOS */
+    background: white; 
+    border: 1px solid #555;
+    font-size: 1.15rem; 
+    color: rgb(0, 0, 0);
+    border-radius: 8px;
+}
+
+/* 4. DIVISÓRIA (HR) */
+.form-login-register hr {
+    color: black;
+    border-top: 1px solid #000000;
+    margin: 50px 0; /* Mais espaço acima e abaixo da divisória */
+}
+/* 4. BOTÃO */
+.btn-confirmar {
+    padding: 18px 25px; 
+    font-size: 1.4rem; /* Botão bem imponente */
+    margin-top: 30px; 
+}
+.perfil-action-link {
+    font-size: 1.5rem; /* Aumenta o tamanho da letra */
+    font-weight: 700; /* Mais negrito */
+    color: #43708e; /* Cor primária (Dark Slate) */
+    text-decoration: none; /* Remove o sublinhado se houver */
+    transition: color 0.2s;
+    margin-top: -30px;
+    text-align: center;
+}
+.perfil-action-link:hover {
+    color: var(--red-btn); /* Destaque no hover */
+    text-decoration: underline;
+}
+.btn-voltar-perfil {
+    display: block; 
+    width: fit-content; /* Se ajusta ao conteúdo */
+    
+    /* Centraliza o botão e afasta do formulário */
+    margin: 30px auto 0 auto; 
+    
+    /* Estilo do Botão */
+    background-color: var(--secondary); 
     color: white;
+    
+    /* Tamanho do Botão */
+    padding: 15px 30px; 
+    font-size: 1.25rem; 
+    font-weight: 800;
+    
+    border-radius: 8px;
+    text-decoration: none; /* Remove o sublinhado */
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.btn-voltar-perfil:hover {
+    background-color: var(--primary); 
+    transform: translateY(-2px); 
+}
+.btn-outline-dark {
+    /* Torna o botão transparente para mostrar o fundo dark */
+    background: transparent !important;
+    
+    /* Borda e Cor do Texto Brancas */
+    color: white !important;
+    border: 2px solid white;
+    
+    /* Faz o link parecer um botão de verdade */
+    display: block; 
+    width: 100%;
+    text-align: center;
+    
+    padding: 15px 30px;
+    font-size: 1.1rem;
     font-weight: 700;
-    font-size: 1.2rem;
-    padding-bottom: 5px;
-    margin-bottom: 15px;
+    border-radius: 8px;
+    transition: all 0.3s;
+}
+
+.btn-outline-dark:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Fundo leve no hover */
+    transform: scale(1.01);
 }
