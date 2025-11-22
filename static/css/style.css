@@ -378,7 +378,7 @@ nav a:hover {
 
     /* Ponto de Início do Conteúdo (Puxa o texto para cima) */
 
-    padding-top:80px;
+    padding-top:90px;
 
    
 
@@ -1624,7 +1624,7 @@ footer {
     padding: 12px 15px;
     border-bottom: 1px solid #ddd;
     text-align: left;
-    font-size: 0.95rem;
+    font-size: 1.1rem;
     text-transform: uppercase;
 }
 
@@ -1669,6 +1669,7 @@ footer {
     font-weight: 600;
     margin-bottom: 6px;
     display: block;
+    font-size: 1.2rem;
 }
 
 .form-admin-grid input,
@@ -1678,9 +1679,10 @@ footer {
     background-color: white;
     border: 1px solid #333;
     border-radius: 8px;
-    color: white;
+    color: rgb(0, 0, 0);
     outline: none;
     transition: 0.2s;
+    font-size: 1.1rem;
 }
 
 .form-admin-grid input:focus,
@@ -1793,7 +1795,7 @@ footer {
 /* Botões bonitinhos da tabela */
 .btn-tabela {
     padding: 6px 14px;
-    font-size: 0.85rem;
+    font-size: 1.2rem;
     border: none;
     border-radius: 6px;
     cursor: pointer;

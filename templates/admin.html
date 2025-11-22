@@ -76,7 +76,7 @@
             <th>Placa</th> <th>Cor</th> 
             <th>Status</th>
             <th>Preço/Dia</th>
-            <th>Ações</th>
+            <th>Ação</th>
         </tr>
     </thead>
     <tbody>
@@ -105,11 +105,6 @@
             <td>R$ {{ "%.2f"|format(carro.preco_diaria) }}</td>
             
            <td class="acoes-admin">
-    <form action="{{ url_for('toggle_veiculo_status', carro_id=carro.id) }}" method="POST">
-        {% if not carro.is_available %}
-            <button type="submit" class="btn-toggle-devolver" title="Marcar como Devolvido/Disponível">Devolvido</button>
-        {% endif %}
-    </form>
     <form action="{{ url_for('delete_veiculo', carro_id=carro.id) }}" method="POST">
                     <button class="btn-tabela btn-excluir" onclick="return confirm('ATENÇÃO: Este veículo será EXCLUÍDO PERMANENTEMENTE! Tem certeza que deseja continuar?')"
             title="Excluir Permanentemente">Excluir</button>
