@@ -94,6 +94,12 @@ header h1 {
     letter-spacing: 1px;
 
 }
+.btn-header-outline:active {
+    background-color: #c5e9ff !important;
+    color: white !important;
+    border-color: #f2f2f2 !important;
+}
+
 
 
 
@@ -1411,101 +1417,6 @@ footer {
 }
 /* static/css/style.css - AJUSTE FINAL DO FORMULÁRIO DARK */
 
-/* 1. O PRÓPRIO FORMULÁRIO */
-.form-login-register {
-    max-width: 600px; /* Limita a largura para centralizar bem */
-    margin: 40px auto; /* Centraliza o formulário */
-    padding: 35px;
-    background: #718490; 
-    border-radius: 16px; 
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
-}
-.form-title {
-    font-size: 2em; 
-    color: #ffffff; 
-    margin-bottom: 5px; 
-    text-align: center;
-    font-weight: 800;
-}
-.form-subtitle {
-    font-size: 1.1em;
-    color: #ffffff;
-    margin-bottom: 30px;
-    text-align: center;
-    display: block;
-}
-.form-section-title {
-    color: #253237; 
-    font-weight: 800;
-    font-size: 1.2rem;
-    padding-bottom: 8px;
-    margin-bottom: 25px; /* Mais espaço para respirar */
-    border-bottom: 2px solid #ffffff;
-    /* Alinha o título da seção */
-    text-align: left; 
-}
-
-/* 4. INPUTS (Mais espaçamento vertical) */
-.form-login-register label {
-    font-size: 1.1rem; 
-    color: #ddd; 
-    margin-bottom: 8px;
-    font-weight: 600;
-}
-
-.form-login-register input[type="email"],
-.form-login-register input[type="text"],
-.form-login-register input[type="tel"],
-.form-login-register input[type="password"] {
-    padding: 16px 20px;
-    margin-bottom: 25px; /* Aumenta o espaço entre os campos */
-    background: #17063D; 
-    color: rgb(0, 0, 0);
-    border-radius: 8px;
-    font-size: 1.15rem;
-}
-
-/* 2. TÍTULOS DE SEÇÃO (Mais destaque e espaço) */
-.form-login-register h4 {
-    color: #ffffff; 
-    font-weight: 800;
-    font-size: 1.4rem; /* Título maior */
-    padding-bottom: 8px;
-    margin-bottom: 30px; /* MAIS ESPAÇO ANTES DOS INPUTS */
-    border-bottom: 2px solid #333;
-}
-
-/* 3. INPUTS E LABELS (O FOCO NO ESPAÇAMENTO VERTICAL) */
-.form-login-register label {
-    font-size: 1.1rem; 
-    color: #292b2c; 
-    margin-bottom: 8px; /* Mais espaço entre label e input */
-    font-weight: 600;
-}
-
-.form-login-register input:not([type="checkbox"]),
-.form-login-register textarea {
-    padding: 16px 20px; /* Inputs mais gordinhos */
-    margin-bottom: 35px; /* <--- ESPAÇO MAIS GENEROSO ENTRE OS CAMPOS */
-    background: white; 
-    border: 1px solid #555;
-    font-size: 1.15rem; 
-    color: rgb(0, 0, 0);
-    border-radius: 8px;
-}
-
-/* 4. DIVISÓRIA (HR) */
-.form-login-register hr {
-    color: black;
-    border-top: 1px solid #000000;
-    margin: 50px 0; /* Mais espaço acima e abaixo da divisória */
-}
-/* 4. BOTÃO */
-.btn-confirmar {
-    padding: 18px 25px; 
-    font-size: 1.4rem; /* Botão bem imponente */
-    margin-top: 30px; 
-}
 .perfil-action-link {
     font-size: 1.5rem; /* Aumenta o tamanho da letra */
     font-weight: 700; /* Mais negrito */
@@ -1835,8 +1746,354 @@ footer {
 }
 .feedback-vazio {
     text-align: center;
-    font-size: 1.4rem;
+    font-size: 1.8rem;
     font-weight: 500;
     margin-top: 0px;
     margin-bottom: 1%;
+}
+/* Container geral do formulário */
+.form-feedback {
+    max-width: 550px;
+    margin: 40px auto;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 14px;
+    box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
+    border: 1px solid #dcdcdc;
+}
+
+/* Título e subtítulo */
+h2 {
+    text-align: center;
+    font-size: 30px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.form-feedback p {
+    text-align: center;
+    color: #555;
+    margin-bottom: 20px;
+}
+.form-feedback p {
+    text-align: center;
+    font-size: 20px;   /* aumenta a fonte */
+    color: #555;
+    margin-bottom: 25px;
+}
+
+/* Inputs e textarea */
+.form-feedback input[type="text"],
+.form-feedback textarea {
+    width: 100%;
+    padding: 12px;
+    margin-top: 9px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 20px;
+    background: #f7f7f7;
+    transition: .2s;
+}
+
+.form-feedback input:focus,
+.form-feedback textarea:focus {
+    border-color: #3d6676;
+    background: #fff;
+    outline: none;
+    box-shadow: 0 0 6px rgba(0,119,194,0.2);
+}
+
+/* Estrelas */
+.star-rating {
+    direction: rtl;
+    display: flex;
+    font-size: 20px;
+    justify-content: left;
+    margin-top: auto;
+
+}
+
+.star-rating input {
+    display: none;
+}
+
+.star-rating input:checked ~ label,
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+    color: #f5b301;
+}
+
+/* Botão */
+.btn-confirmar {
+    margin-top: 60px;
+    width: 250px;
+    margin: 25px auto 0;   /* ← isso centraliza */
+    display: block;       
+    background: #436772;
+    color: white;
+    padding: 20px;
+    border: none;
+    border-radius: 10px;
+    font-size: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-confirmar:hover {
+    background: #aeaeae;
+}
+.feedback-titulo {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.feedback-titulo h2 {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--primary);
+    margin-bottom: 5px;
+    margin-top: 1%;
+}
+
+.feedback-titulo p {
+    font-size: 20px;
+    color: #555;
+}
+.label-grande {
+    font-size: 22px;
+    font-weight: 700;
+    color: #222;
+    margin-top: 15px;
+    display: block;
+}
+.input-grande {
+    font-size: 18px;
+    padding: 12px;
+}
+.input-grande::placeholder {
+    font-size: 18px;
+    color: #888;
+}
+.estrelas-grandes label {
+    font-size: 40px !important; 
+    padding: 0 4px;
+}
+/* Cada feedback recebido */
+.feedback-item {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 15px;
+    border: 1px solid #dcdcdc;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.06);
+}
+
+/* Título “Avaliação: X/5 Estrelas” */
+.feedback-item h4 {
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+/* Nome “De: Fulano” */
+.feedback-item p strong {
+    font-size: 18px;
+    color: #0077c2; /* cor destaque */
+}
+
+/* Comentário */
+.feedback-item .comentario {
+    font-size: 18px;
+    font-style: italic;
+    color: #444;
+    margin-top: 10px;
+}
+
+/* Texto quando NÃO existe feedback */
+.feedback-vazio {
+    text-align: center;
+    font-size: 22px;
+    color: #222222;
+    margin-top: 20px;
+}
+/* ----- CONTAINER DO FORM ----- */
+.form-login-register {
+    max-width: 420px;
+    margin: 40px auto;
+    padding: 25px;
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+
+    display: flex;
+    flex-direction: column;
+}
+
+/* ----- LABELS ----- */
+.form-login-register label {
+    font-weight: 600;
+    margin: 10px 0 5px;
+    color: #333;
+}
+
+/* ----- INPUTS ----- */
+.form-login-register input {
+    padding: 12px;
+    font-size: 1em;
+    border-radius: 8px;
+    border: 1px solid #bbb;
+    outline: none;
+    transition: .2s;
+}
+
+.form-login-register input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(0, 140, 255, 0.25);
+}
+
+/* ----- BOTÃO ENTRAR ----- */
+.btn-confirmar {
+    margin-top: 20px;
+    padding: 12px;
+    font-size: 1.1em;
+    font-weight: 600;
+
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+/* Hover */
+.btn-confirmar:hover {
+    background: var(--primary-hover, #0066aa);
+}
+
+/* Click */
+.btn-confirmar:active {
+    background: #004f88;
+}
+/* --------- FORMULÁRIOS LOGIN E CADASTRO --------- */
+
+.form-login-register {
+    background: #fff;
+    width: 550px; /* largura maior */
+    margin: 20px auto;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Título principal */
+.form-login-register .form-title,
+.form-login-register h2 {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: var(--primary);
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* Subtítulo */
+.form-login-register .form-subtitle,
+.form-login-register h3 {
+    font-size: 1em;
+    color: #555;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+/* Título da seção (ex: Seu Endereço) */
+.form-login-register .form-section-title,
+.form-login-register h4 {
+    margin-top: 20px;
+    font-size: 1.2em;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+/* Ajuste do <hr> */
+.form-login-register hr {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 20px 0;
+}
+
+/* LABELS */
+.form-login-register label {
+    font-weight: 600;
+    margin-top: 10px;
+    display: block;
+    font-size: 1.05em;
+}
+
+/* INPUTS */
+.form-login-register input,
+.form-login-register textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #aaa;
+    border-radius: 8px;
+    font-size: 1em;
+    outline: none;
+}
+.form-login-register input:focus {
+    border-color: var(--primary);
+}
+
+/* Botão */
+.btn-confirmar {
+    background: var(--primary);
+    color: white;
+    padding: 12px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-confirmar:hover {
+    background: var(--primary-dark);
+    transform: scale(1.03);
+}
+
+/* ----------------- CAMPOS EM LINHA ----------------- */
+
+.form-login-register .form-linha {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+/* Cidade (maior) */
+.form-login-register .form-grupo:first-child {
+    flex: 2;
+}
+
+/* Estado (menor) */
+.form-login-register .form-grupo:last-child {
+    flex: 1;
+}
+
+/* ---------------- MENSAGEM DE ERRO ---------------- */
+.error-message {
+    background: #ffdddd;
+    padding: 10px;
+    border-left: 4px solid #ff5555;
+    color: #a70000;
+    margin: 10px auto;
+    width: 550px;
+    border-radius: 8px;
+    text-align: center;
 }
