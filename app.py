@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 from flask_sqlalchemy import SQLAlchemy
 from cryptography.fernet import Fernet
 from flask_bcrypt import Bcrypt
@@ -203,60 +203,76 @@ def processar_feedback():
     return redirect(url_for('homepage'))
 
 @app.route('/admin', methods=['GET', 'POST'])
-@admin_required
+@login_required
 def pagina_admin():
+    # 1. Verificação de Permissão
+    if current_user.role != 'admin':
+        flash('Acesso negado. Apenas administradores podem acessar esta página.', 'danger')
+        return redirect(url_for('homepage'))
+
+    # 2. Lógica para ADICIONAR NOVO VEÍCULO (POST)
     if request.method == 'POST':
-        nome = request.form.get('nome_veiculo')
-        modelo = request.form.get('modelo_veiculo')
-        ano = request.form.get('ano_veiculo')
-        preco = request.form.get('preco_veiculo')
-        descricao = request.form.get('desc_veiculo')
-        foto = request.form.get('foto_veiculo')
-        placa = request.form.get('placa_veiculo')
-        cor = request.form.get('cor_veiculo')
-        destaques_texto = request.form.get('destaques_veiculo')
-        
-        novo_veiculo = Veiculo(
-            nome=nome, modelo=modelo, ano=int(ano), preco_diaria=float(preco),
-            descricao=descricao, foto_url=foto, placa=placa, cor=cor,
-            is_available=True,
-            destaques=destaques_texto 
-        )
         try:
+            nome = request.form['nome_veiculo']
+            modelo = request.form['modelo_veiculo']
+            ano = request.form['ano_veiculo']
+            # Garante que o preço seja um float
+            preco_diaria = float(request.form['preco_veiculo']) 
+            foto_url = request.form['foto_veiculo']
+            placa = request.form['placa_veiculo']
+            cor = request.form['cor_veiculo']
+            destaques = request.form['destaques_veiculo']
+            descricao = request.form['desc_veiculo']
+            
+            # Verificação de unicidade da placa
+            if Veiculo.query.filter_by(placa=placa).first():
+                flash('Erro: Já existe um veículo com esta placa cadastrado.', 'danger')
+                return redirect(url_for('pagina_admin'))
+
+            novo_veiculo = Veiculo(
+                nome=nome,
+                modelo=modelo,
+                ano=ano,
+                preco_diaria=preco_diaria,
+                foto_url=foto_url,
+                placa=placa,
+                cor=cor,
+                destaques=destaques,
+                descricao_curta=descricao
+            )
             db.session.add(novo_veiculo)
             db.session.commit()
-        except Exception as e:
-            print(f"Erro: {e}")
+            flash('Veículo cadastrado com sucesso!', 'success')
+            return redirect(url_for('pagina_admin'))
+            
+        except ValueError:
+            flash('Erro: O preço da diária deve ser um número válido.', 'danger')
             db.session.rollback()
-        
-        return redirect(url_for('pagina_admin'))
-    
-    try:
-        todos_feedbacks_db = Feedback.query.order_by(Feedback.id.desc()).all()
-        lista_feedbacks_para_exibir = []
-        for item in todos_feedbacks_db:
-            nome_real = "Anônimo"
-            if item.nome:
-                try: nome_real = cipher.decrypt(item.nome.encode()).decode()
-                except: nome_real = item.nome
-            feedback_temp = {'id': item.id, 'rating': item.rating, 'nome': nome_real, 'comentario': item.comentario}
-            lista_feedbacks_para_exibir.append(feedback_temp)
-    except: lista_feedbacks_para_exibir = []
+            return redirect(url_for('pagina_admin'))
+        except Exception as e:
+            flash(f'Erro ao cadastrar veículo: {e}', 'danger')
+            db.session.rollback()
+            return redirect(url_for('pagina_admin'))
 
-    # 2. Usuários
-    try: todos_usuarios = User.query.all()
-    except: todos_usuarios = []
+    # 3. Lógica para EXIBIR DADOS (GET)
+    try: 
+        # ESTA QUERY BUSCA AS RESERVAS, JUNTA COM O NOME DO USUÁRIO E O NOME DO VEÍCULO.
+        # É aqui que o sistema "sabe" quem pegou o quê.
+        reservas_ativas = db.session.query(Reserva, User, Veiculo).join(User, Reserva.user_id == User.id).join(Veiculo, Reserva.veiculo_id == Veiculo.id).filter(Reserva.status == 'Confirmada').order_by(Reserva.data_inicio.asc()).all()
         
-    # 3. Veículos
-    try: todos_veiculos = Veiculo.query.all()
-    except: todos_veiculos = []
+        # Query normal de veículos para a tabela de inventário
+        todos_veiculos = Veiculo.query.all() 
+        
+    except Exception as e: 
+        print(f"Erro ao buscar dados: {e}")
+        reservas_ativas = []
+        todos_veiculos = []
 
-    # --- PARTE 3: ENTREGAR A PÁGINA (O RETURN QUE FALTAVA!) ---
+    # 4. Renderiza o template com os dois conjuntos de dados
     return render_template(
         'admin.html', 
-        feedbacks=lista_feedbacks_para_exibir, 
-        usuarios=todos_usuarios,
-        veiculos=todos_veiculos
+        veiculos=todos_veiculos,
+        reservas_ativas=reservas_ativas # <--- NOVO: O dado de rastreamento é enviado aqui!
     )
 # app.py - ROTA DE PERFIL
 

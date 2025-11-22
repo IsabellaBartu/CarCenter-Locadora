@@ -1,164 +1,164 @@
 {% extends "base.html" %}
 
 {% block title %}
-    Painel de Admin
+    Painel de Gerenciamento
 {% endblock %}
 
 {% block content %}
-
-<div class="admin-intro">
-    <h2>Painel de Administração</h2>
-    <hr>
-    <h3>Gerenciar Frota</h3>
-    <h4>Adicionar Novo Veículo</h4>
-</div>
-
-<form class="form-admin-grid" action="{{ url_for('pagina_admin') }}" method="POST" aria-label="Formulário de adição de veículos">
-
-    <div class="form-grupo-admin">
-        <label for="nome_veiculo">Nome do Veículo:</label>
-        <input type="text" id="nome_veiculo" name="nome_veiculo" placeholder="Ex: Fiat Fastback" required aria-required="true">
-    </div>
-
-    <div class="form-grupo-admin">
-        <label for="modelo_veiculo">Modelo/Categoria:</label>
-        <input type="text" id="modelo_veiculo" name="modelo_veiculo" placeholder="Ex: SUV, Econômico, Luxo">
-    </div>
-
-    <div class="form-grupo-admin">
-        <label for="ano_veiculo">Ano do Modelo:</label>
-        <input type="number" id="ano_veiculo" name="ano_veiculo" placeholder="Ex: 2024">
-    </div>
-
-    <div class="form-grupo-admin">
-        <label for="preco_veiculo">Preço da Diária (R$):</label>
-        <input type="text" id="preco_veiculo" name="preco_veiculo" placeholder="Ex: 99.05 (use ponto)" required aria-required="true">
-    </div>
-
-    <div class="form-grupo-admin">
-        <label for="foto_veiculo">Nome da Foto:</label>
-        <input type="text" id="foto_veiculo" name="foto_veiculo" placeholder="Ex: fastback.png">
-    </div>
-
-    <div class="form-grupo-admin">
-        <label for="placa_veiculo">Placa:</label>
-        <input type="text" id="placa_veiculo" name="placa_veiculo" placeholder="Ex: ABC1D23">
-    </div>
-
-    <div class="form-grupo-admin">
-        <label for="cor_veiculo">Cor:</label>
-        <input type="text" id="cor_veiculo" name="cor_veiculo" placeholder="Ex: Preto">
-    </div>
-
-    <div class="form-grupo-admin-full">
-        <label for="destaques_veiculo">Destaques (separe por vírgula):</label>
-        <input type="text" id="destaques_veiculo" name="destaques_veiculo" placeholder="Ex: Teto Solar, Automático, Full LED">
-    </div>
-
-    <div class="form-grupo-admin-full">
-        <label for="desc_veiculo">Descrição Curta:</label>
-        <textarea id="desc_veiculo" name="desc_veiculo" rows="3" placeholder="Descrição rápida sobre o veículo"></textarea>
-    </div>
-
-    <div class="btn-admin-wrapper">
-        <button type="submit" class="btn-confirmar" aria-label="Salvar alterações do veículo">Salvar Alterações</button>
-    </div>
-
-</form>
-
-<h4 class="admin-section-title">Frota Cadastrada</h4>
-
-<table class="tabela-admin" role="table" aria-label="Tabela da frota cadastrada">
-    <caption style="font-size: 22px;">Lista de veículos cadastrados no sistema</caption>
     
-    <thead style="margin-bottom: 5%;">
-        <tr>
-            <th>ID</th>
-            <th>Foto</th>
-            <th>Nome</th>
-            <th>Placa</th>
-            <th>Cor</th>
-            <th>Status</th>
-            <th>Preço/Dia</th>
-            <th>Ação</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for carro in veiculos %}
-        <tr>
-            <td>{{ carro.id }}</td>
-            <td>
-                {% if carro.foto_url %}
-                    <img src="{{ url_for('static', filename='img/' + carro.foto_url) }}" 
-                         alt="Foto do veículo {{ carro.nome }}" width="100">
-                {% else %}
-                    <span>Sem Foto</span>
-                {% endif %}
-            </td>
-            <td>{{ carro.nome }}</td>
-            <td>{{ carro.placa or '-' }}</td>
-            <td>{{ carro.cor or '-' }}</td>
-            <td>
-                {% if carro.is_available %}
-                    <span class="status-disponivel" aria-label="Disponível">DISPONÍVEL</span>
-                {% else %}
-                    <span class="status-reservado" aria-label="Reservado">RESERVADO</span>
-                {% endif %}
-            </td>
-            <td>R$ {{ "%.2f"|format(carro.preco_diaria) }}</td>
-            <td class="acoes-admin">
-                <form action="{{ url_for('delete_veiculo', carro_id=carro.id) }}" method="POST">
-                    <button class="btn-tabela btn-excluir" 
-                            onclick="return confirm('ATENÇÃO: Este veículo será EXCLUÍDO PERMANENTEMENTE! Tem certeza que deseja continuar?')"
-                            aria-label="Excluir veículo {{ carro.nome }}" title="Excluir Permanentemente">
-                        Excluir
-                    </button>
-                </form>
-            </td>
-        </tr>
-        {% else %}
-        <tr>
-            <td colspan="8">Nenhum veículo cadastrado ainda.</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+    <div class="content-wrapper">
+        <h2 style="font-size: 2.2em;">Painel de Gerenciamento</h2>
+        <p style="font-size: 22px;">Utilize esta área para gerenciar a frota e acompanhar as reservas ativas.</p>
 
-<hr>
-<h3 class="admin-section-title">Usuários Cadastrados</h3>
-
-<table class="tabela-admin" role="table" aria-label="Tabela de usuários cadastrados">
-    <caption style="font-size: 22px;">Lista de usuários registrados no sistema</caption>
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Username</th>
-            <th>Cargo</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for usuario in usuarios %}
-        <tr>
-            <td>{{ usuario.id }}</td>
-            <td>{{ usuario.username }}</td>
-            <td>
-                {% if usuario.role == 'admin' %}
-                    <strong>{{ usuario.role.upper() }}</strong>
+        <hr>
+        
+        <h3 style="margin-top: 40px; margin-bottom: 20px; font-size: 25px;">Reservas Ativas</h3>
+        
+        <table class="tabela-admin tabela-reservas">
+            <thead>
+                <tr>
+                    <th>Reserva ID</th>
+                    <th>Cliente</th>
+                    <th>Carro Reservado</th>
+                    <th>Período</th>
+                    <th>Valor Total</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for reserva, usuario, veiculo in reservas_ativas %}
+                <tr>
+                    <td>{{ reserva.id }}</td>
+                    <td>{{ usuario.nome }} ({{ usuario.username }})</td>
+                    <td>{{ veiculo.nome }} ({{ veiculo.placa }})</td>
+                    <td>{{ reserva.data_inicio.strftime('%d/%m') }} a {{ reserva.data_fim.strftime('%d/%m') }}</td>
+                    <td>R$ {{ "%.2f"|format(reserva.preco_total) }}</td>
+                    <td>
+                        <span class="status-confirmada">{{ reserva.status }}</span>
+                    </td>
+                </tr>
                 {% else %}
-                    {{ usuario.role }}
-                {% endif %}
-            </td>
-        </tr>
-        {% else %}
-        <tr>
-            <td colspan="3">Nenhum usuário cadastrado.</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+                <tr>
+                    <td colspan="6" style="font-size: 20px;">Nenhuma reserva ativa no momento.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
 
-<hr>
-<h3 class="admin-section-title">Feedbacks Recebidos</h3>
+        <hr>
+        
+        <h3 style="margin-top: 40px; margin-bottom: 20px; font-size: 25px;">Adicionar Novo Veículo</h3>
+        <form class="form-admin-grid" action="{{ url_for('pagina_admin') }}" method="POST">
+            
+            <div class="form-grupo-admin">
+                <label for="nome_veiculo">Nome do Veículo:</label>
+                <input type="text" id="nome_veiculo" name="nome_veiculo" placeholder="Ex: Fiat Fastback" required>
+            </div>
+            <div class="form-grupo-admin">
+                <label for="modelo_veiculo">Modelo/Categoria:</label>
+                <input type="text" id="modelo_veiculo" name="modelo_veiculo" placeholder="Ex: SUV, Econômico">
+            </div>
+            <div class="form-grupo-admin">
+                <label for="ano_veiculo">Ano do Modelo:</label>
+                <input type="number" id="ano_veiculo" name="ano_veiculo" placeholder="Ex: 2024">
+            </div>
+            
+            <div class="form-grupo-admin">
+                <label for="preco_veiculo">Preço Diária (R$):</label>
+                <input type="text" id="preco_veiculo" name="preco_veiculo" placeholder="Ex: 99.05 (use ponto)" required>
+            </div>
+            <div class="form-grupo-admin">
+                <label for="foto_veiculo">Nome da Foto:</label>
+                <input type="text" id="foto_veiculo" name="foto_veiculo" placeholder="Ex: fiatfastback.png">
+            </div>
+            
+            <div class="form-grupo-admin">
+                <label for="placa_veiculo">Placa:</label>
+                <input type="text" id="placa_veiculo" name="placa_veiculo" placeholder="Ex: ABC1D23">
+            </div>
+            <div class="form-grupo-admin">
+                <label for="cor_veiculo">Cor:</label>
+                <input type="text" id="cor_veiculo" name="cor_veiculo" placeholder="Ex: Preto">
+            </div>
+
+            <div class="form-grupo-admin-full">
+                <label for="destaques_veiculo">Destaques (Separe por vírgula):</label>
+                <input type="text" id="destaques_veiculo" name="destaques_veiculo" placeholder="Ex: Teto Solar, Câmbio Automático, Banco de Couro">
+            </div>
+
+            <div class="form-grupo-admin-full">
+                <label for="desc_veiculo">Descrição Curta:</label>
+                <textarea id="desc_veiculo" name="desc_veiculo" rows="3" placeholder="Ex: Modelo 2026. Confortável, automático e completo."></textarea>
+            </div>
+
+            <div class="form-grupo-admin-full">
+                <button type="submit" class="btn-confirmar" style="font-size: 18px;">Adicionar Veículo à Frota</button>
+            </div>
+        </form>
+        
+        <h3 style="margin-top: 40px; margin-bottom: 20px; font-size: 25px;">Veículos da Frota</h3>
+        <table class="tabela-admin">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Foto</th>
+                    <th>Nome</th>
+                    <th>Placa</th> <th>Cor</th> 
+                    <th>Status</th>
+                    <th>Preço/Dia</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for carro in veiculos %}
+                <tr>
+                    <td>{{ carro.id }}</td>
+                    <td>
+                        {% if carro.foto_url %}
+                            <img src="{{ url_for('static', filename='img/' + carro.foto_url) }}" alt="{{ carro.nome }}" width="100">
+                        {% else %}
+                            <span>Sem Foto</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ carro.nome }}</td>
+                    <td>{{ carro.placa or '-' }}</td>
+                    <td>{{ carro.cor or '-' }}</td>
+                    
+                    <td>
+                        {% if carro.is_available %}
+                            <span class="status-disponivel">DISPONÍVEL</span>
+                        {% else %}
+                            <span class="status-reservado">RESERVADO</span>
+                        {% endif %}
+                    </td>
+
+                    <td>R$ {{ "%.2f"|format(carro.preco_diaria) }}</td>
+                    
+                    <td class="acoes-admin">
+                        <form action="{{ url_for('toggle_veiculo_status', carro_id=carro.id) }}" method="POST">
+                            {% if not carro.is_available %}
+                                <button type="submit" class="btn-toggle-devolver" title="Marcar como Devolvido/Disponível">Devolvido</button>
+                            {% endif %}
+                        </form>
+                        
+                        <form action="{{ url_for('delete_veiculo', carro_id=carro.id) }}" method="POST">
+                            <button type="submit" class="btn-excluir" 
+                                    onclick="return confirm('ATENÇÃO: Este veículo será EXCLUÍDO PERMANENTEMENTE do banco de dados! Tem certeza que deseja continuar?')">
+                                Excluir
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="8" style="font-size: 20px;">Nenhum veículo cadastrado ainda.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            
+            
+        </table>
+        <table><h3 class="admin-section-title" style="font-size: 25px;">Feedbacks Recebidos</h3>
 
 <div class="feedback-lista" role="region" aria-label="Lista de feedbacks">
     {% for item in feedbacks %}
@@ -170,8 +170,10 @@
             <p class="comentario">"{{ item.comentario }}"</p>
         </div>
     {% else %}
-        <p class="feedback-vazio">Nenhum feedback recebido ainda.</p>
+        <p class="feedback-vazio" style="font-size: 20px;">Nenhum feedback recebido ainda.</p>
     {% endfor %}
-</div>
-
+</div></table>
+    </div>
+    
+    
 {% endblock %}

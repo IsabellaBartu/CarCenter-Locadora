@@ -332,74 +332,51 @@ nav a:hover {
 
 .lista-carros {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); 
-    gap: 40px; 
-    grid-row-gap: 80px; 
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    grid-row-gap: 80px;
 }
 
 .carro-card {
-
-    background: #ffffff; /* Fundo branco */
-
+    background: #ffffff;
     border: 1px solid #ddd;
-
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05); /* Sombra suave */
-
-    border-radius: 16px; /* Cantos arredondados */
-
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    border-radius: 16px;
     position: relative;
-
-    padding-top:90px;
-
+    padding-top: 110px; /* garante espaço para a imagem flutuante */
     display: flex;
-
     flex-direction: column;
-
     transition: transform 0.3s, box-shadow 0.3s;
     margin-bottom: 0 !important;
-    padding-top: 100px;
-
 }
 
 .carro-card:hover {
-
     transform: translateY(-10px);
-
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
-
 }
 
 /* A IMAGEM (O "VAZADO" 3D) */
 
 .carro-card-img {
-    /* Aumenta a altura para 250px para maior consistência */
-    height: 250px; 
     width: 100%;
+    height: 180px; 
     position: absolute; 
-    
-    /* Puxada mais forte para o efeito 3D (para bater com o 150px do gap) */
-    top: -100px; 
-    
+    top: -70px; /* ajustado para o padding-top */
     left: 50%;
     transform: translateX(-50%);
-    z-index: 2; /* Garante que o carro flutuante fique por cima */
-    
+    z-index: 2;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 0 10px;
+    overflow: hidden; 
 }
 
 .carro-card-img img {
-
-    width: auto; /* Deixa o flex controlar a largura */
-
+    width: 100%;
     height: 100%;
-
-    max-width: 90%;
-
-    object-fit: contain;
-
+    object-fit: cover; /* mantém proporção e preenche todo o espaço */
+    border-radius: 8px; /* opcional: cantos arredondados na imagem */
 }
 
 /* O CONTEÚDO (Texto/Preço) */
@@ -1461,7 +1438,7 @@ footer {
 }
 
 .tabela-admin th {
-    background-color: #f0f2f5; /* Fundo cinza claro */
+    background-color: #dadee0; /* Fundo cinza claro */
     color: var(--primary);
     font-weight: 800;
     padding: 12px 15px;
