@@ -4,26 +4,26 @@
     Login
 {% endblock %}
 
-
 {% block content %}
-    <h2 style="font-size: 2em; color: var(--primary); margin-bottom: 20px; margin-top: 20px; text-align: center;">
+<h2 style="font-size: 2em; color: var(--primary); margin-bottom: 20px; margin-top: 20px; text-align: center;">
     Login
 </h2>
-    
-    {% if error %}
-        <p class="error-message">{{ error }}</p>
-    {% endif %}
 
-    <form class="form-login-register" action="{{ url_for('login') }}" method="POST">
-        
-        <label for="username">Seu Email (Login):</label>
-        <input type="email" id="username" name="username" 
-               placeholder="seu.email@exemplo.com" required>
+{% if error %}
+    <p class="error-message">{{ error }}</p>
+{% endif %}
 
-        <br><label for="password">Senha:</label>
-        <input type="password" id="password" name="password" required>
+<form class="form-login-register" action="{{ url_for('login') }}" method="POST">
 
-        <button type="submit" class="btn-confirmar">Entrar</button>
-    </form>
-    
+    <label for="username">Seu Email (Login):</label>
+    <input type="email" id="username" name="username" 
+           placeholder="seu.email@exemplo.com" required>
+
+    <br><label for="password">Senha:</label>
+    <input type="password" id="password" name="password" required>
+
+    <button type="submit" class="btn-confirmar">Entrar</button>
+</form>
 {% endblock %}
+
+{% block scripts %}

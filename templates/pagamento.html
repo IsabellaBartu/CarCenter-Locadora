@@ -7,12 +7,14 @@
 {% block content %}
 <div class="pagina-pagamento">
     <h2>Finalize seu Pagamento</h2>
-    
+
     <div class="resumo-pagamento">
         <h3>Resumo da sua Reserva</h3>
         <div class="resumo-item">
             {% if reserva.carro_foto %}
-            <img src="{{ url_for('static', filename='img/' + reserva.carro_foto) }}" alt="{{ reserva.carro_nome }}">
+                <img src="{{ url_for('static', filename='img/' + reserva.carro_foto) }}" 
+                     alt="{{ reserva.carro_nome }}" class="img-tooltip" 
+                     data-desc="Imagem do veículo {{ reserva.carro_nome }}">
             {% endif %}
 
             <div>
@@ -25,10 +27,10 @@
             <span>R$ {{ "%.2f"|format(reserva.preco_total) }}</span>
         </div>
     </div>
-    
+
     <hr>
-    
-   <p class="info-cartao">
+
+    <p class="info-cartao">
         Preencha os dados do seu cartão de crédito com segurança.
     </p>
 

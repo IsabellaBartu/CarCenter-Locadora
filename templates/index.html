@@ -6,13 +6,13 @@
 
 {% block content %}
 
- <section class="hero">
-        <div class="hero-content">
-            </div>
-    </section>
-
+<section class="hero">
+    <div class="hero-content">
+    </div>
+</section>
 
 <div class="container-interno">
+
     <section class="destaques">
         <h2>Veículos em Destaque</h2>
 
@@ -21,7 +21,10 @@
                 <div class="carro-card">
                     <div class="carro-card-img">
                         {% if carro.foto_url %}
-                            <img src="{{ url_for('static', filename='img/' + carro.foto_url) }}" alt="{{ carro.nome }}">
+                            <img src="{{ url_for('static', filename='img/' + carro.foto_url) }}" 
+                                 alt="{{ carro.nome }}" 
+                                 data-desc="{{ carro.descricao }}" 
+                                 class="img-tooltip">
                         {% else %}
                             <div class="carro-placeholder-img"></div>
                         {% endif %}
@@ -74,20 +77,25 @@
         <div class="carousel-container-drag">
             <div class="marcas-track" id="track-marcas">
 
-                <a href="{{ url_for('pagina_veiculos', q='Fiat') }}" class="marca-card"><img src="{{ url_for('static', filename='img/fiat.png') }}" alt="Fiat"></a>
-                <a href="{{ url_for('pagina_veiculos', q='Chevrolet') }}" class="marca-card"><img src="{{ url_for('static', filename='img/chevrolet.png') }}" alt="Chevrolet"></a>
-                <a href="{{ url_for('pagina_veiculos', q='Volkswagen') }}" class="marca-card"><img src="{{ url_for('static', filename='img/volkswagen.png') }}" alt="Volkswagen"></a>
-                <a href="{{ url_for('pagina_veiculos', q='BYD') }}" class="marca-card"><img src="{{ url_for('static', filename='img/byd.svg') }}" alt="BYD"></a>
-                <a href="{{ url_for('pagina_veiculos', q='Renault') }}" class="marca-card"><img src="{{ url_for('static', filename='img/renaultlogo.png') }}" alt="Renault"></a>
-                <a href="{{ url_for('pagina_veiculos', q='Jeep') }}" class="marca-card"><img src="{{ url_for('static', filename='img/jeep.svg') }}" alt="Jeep"></a>
-                <a href="{{ url_for('pagina_veiculos', q='Hyundai') }}" class="marca-card"><img src="{{ url_for('static', filename='img/hyundailogo.png') }}" alt="Hyundai"></a>
-                <a href="{{ url_for('pagina_veiculos', q='Ford') }}" class="marca-card"><img src="{{ url_for('static', filename='img/fordlogo.png') }}" alt="Ford"></a>
+                {% set marcas = [
+                    ['Fiat', 'fiat.png'], ['Chevrolet', 'chevrolet.png'], ['Volkswagen', 'volkswagen.png'],
+                    ['BYD', 'byd.svg'], ['Renault', 'renaultlogo.png'], ['Jeep', 'jeep.svg'],
+                    ['Hyundai', 'hyundailogo.png'], ['Ford', 'fordlogo.png']
+                ] %}
+
+                {% for marca, img_file in marcas %}
+                    <a href="{{ url_for('pagina_veiculos', q=marca) }}" class="marca-card">
+                        <img src="{{ url_for('static', filename='img/' + img_file) }}" 
+                             alt="{{ marca }}" 
+                             data-desc="Veículos da marca {{ marca }}" 
+                             class="img-tooltip">
+                    </a>
+                {% endfor %}
 
             </div>
         </div>
     </section>
 
-    
     <!-- ===========================
          VANTAGENS
     =========================== -->
@@ -120,7 +128,6 @@
         </div>
     </section>
 
-
     <!-- ===========================
          FAQ
     =========================== -->
@@ -128,7 +135,7 @@
         <h2>Dúvidas Frequentes</h2>
 
         <div class="faq-container">
-            
+
             <details class="faq-item">
                 <summary>Preciso de cartão de crédito para alugar?</summary>
                 <p>Sim. Para garantir a segurança da locação, é necessário apresentar um cartão de crédito físico em nome do titular da reserva com limite disponível para a caução.</p>
@@ -136,22 +143,22 @@
 
             <details class="faq-item">
                 <summary>Qual a idade mínima para alugar um carro?</summary>
-                <p>A idade mínima é de 21 anos...</p>
+                <p>A idade mínima é de 21 anos.</p>
             </details>
 
             <details class="faq-item">
                 <summary>O carro vem com tanque cheio?</summary>
-                <p>Sim! Entregamos o carro com tanque cheio e limpo...</p>
+                <p>Sim! Entregamos o carro com tanque cheio e limpo.</p>
             </details>
 
             <details class="faq-item">
                 <summary>Posso cancelar minha reserva se desistir?</summary>
-                <p>Sim! O cancelamento é gratuito...</p>
+                <p>Sim! O cancelamento é gratuito.</p>
             </details>
 
             <details class="faq-item">
                 <summary>O que está incluso no valor da diária?</summary>
-                <p>Quilometragem livre, proteção básica, assistência 24h...</p>
+                <p>Quilometragem livre, proteção básica, assistência 24h.</p>
             </details>
 
         </div>

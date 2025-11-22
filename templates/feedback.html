@@ -5,15 +5,14 @@
 {% endblock %}
 
 {% block content %}
-    <div class="feedback-titulo">
+<div class="feedback-titulo">
     <h2>Como foi sua experiência conosco?</h2>
     <p>Adoraremos ouvir sua opinião! Por favor, deixe uma avaliação.</p>
 </div>
-    
-   <form class="form-feedback" action="{{ url_for('processar_feedback') }}" method="POST">
+
+<form class="form-feedback" action="{{ url_for('processar_feedback') }}" method="POST">
 
     <label class="label-grande">Sua Avaliação (Estrelas):</label>
-
     <div class="star-rating estrelas-grandes">
         <input type="radio" id="star5" name="rating" value="5" required><label for="star5">★</label>
         <input type="radio" id="star4" name="rating" value="4"><label for="star4">★</label>
@@ -30,6 +29,4 @@
 
     <button type="submit" class="btn-confirmar">Enviar Avaliação</button>
 </form>
-
-    
 {% endblock %}

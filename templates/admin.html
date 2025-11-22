@@ -8,17 +8,16 @@
 
 <div class="admin-intro">
     <h2>Painel de Administração</h2>
-
     <hr>
     <h3>Gerenciar Frota</h3>
     <h4>Adicionar Novo Veículo</h4>
 </div>
 
-<form class="form-admin-grid" action="{{ url_for('pagina_admin') }}" method="POST">
+<form class="form-admin-grid" action="{{ url_for('pagina_admin') }}" method="POST" aria-label="Formulário de adição de veículos">
 
     <div class="form-grupo-admin">
         <label for="nome_veiculo">Nome do Veículo:</label>
-        <input type="text" id="nome_veiculo" name="nome_veiculo" placeholder="Ex: Fiat Fastback" required>
+        <input type="text" id="nome_veiculo" name="nome_veiculo" placeholder="Ex: Fiat Fastback" required aria-required="true">
     </div>
 
     <div class="form-grupo-admin">
@@ -33,7 +32,7 @@
 
     <div class="form-grupo-admin">
         <label for="preco_veiculo">Preço da Diária (R$):</label>
-        <input type="text" id="preco_veiculo" name="preco_veiculo" placeholder="Ex: 99.05 (use ponto)" required>
+        <input type="text" id="preco_veiculo" name="preco_veiculo" placeholder="Ex: 99.05 (use ponto)" required aria-required="true">
     </div>
 
     <div class="form-grupo-admin">
@@ -61,19 +60,24 @@
         <textarea id="desc_veiculo" name="desc_veiculo" rows="3" placeholder="Descrição rápida sobre o veículo"></textarea>
     </div>
 
-   <div class="btn-admin-wrapper">
-    <button type="submit" class="btn-confirmar">Salvar Alterações</button>
-</div>
+    <div class="btn-admin-wrapper">
+        <button type="submit" class="btn-confirmar" aria-label="Salvar alterações do veículo">Salvar Alterações</button>
+    </div>
 
 </form>
-    <h4 class="admin-section-title">Frota Cadastrada</h4>
-<table class="tabela-admin">
-    <thead>
+
+<h4 class="admin-section-title">Frota Cadastrada</h4>
+
+<table class="tabela-admin" role="table" aria-label="Tabela da frota cadastrada">
+    <caption style="font-size: 22px;">Lista de veículos cadastrados no sistema</caption>
+    
+    <thead style="margin-bottom: 5%;">
         <tr>
             <th>ID</th>
             <th>Foto</th>
             <th>Nome</th>
-            <th>Placa</th> <th>Cor</th> 
+            <th>Placa</th>
+            <th>Cor</th>
             <th>Status</th>
             <th>Preço/Dia</th>
             <th>Ação</th>
@@ -85,7 +89,8 @@
             <td>{{ carro.id }}</td>
             <td>
                 {% if carro.foto_url %}
-                    <img src="{{ url_for('static', filename='img/' + carro.foto_url) }}" alt="{{ carro.nome }}" width="100">
+                    <img src="{{ url_for('static', filename='img/' + carro.foto_url) }}" 
+                         alt="Foto do veículo {{ carro.nome }}" width="100">
                 {% else %}
                     <span>Sem Foto</span>
                 {% endif %}
@@ -93,23 +98,23 @@
             <td>{{ carro.nome }}</td>
             <td>{{ carro.placa or '-' }}</td>
             <td>{{ carro.cor or '-' }}</td>
-            
             <td>
                 {% if carro.is_available %}
-                    <span class="status-disponivel">DISPONÍVEL</span>
+                    <span class="status-disponivel" aria-label="Disponível">DISPONÍVEL</span>
                 {% else %}
-                    <span class="status-reservado">RESERVADO</span>
+                    <span class="status-reservado" aria-label="Reservado">RESERVADO</span>
                 {% endif %}
             </td>
-
             <td>R$ {{ "%.2f"|format(carro.preco_diaria) }}</td>
-            
-           <td class="acoes-admin">
-    <form action="{{ url_for('delete_veiculo', carro_id=carro.id) }}" method="POST">
-                    <button class="btn-tabela btn-excluir" onclick="return confirm('ATENÇÃO: Este veículo será EXCLUÍDO PERMANENTEMENTE! Tem certeza que deseja continuar?')"
-            title="Excluir Permanentemente">Excluir</button>
+            <td class="acoes-admin">
+                <form action="{{ url_for('delete_veiculo', carro_id=carro.id) }}" method="POST">
+                    <button class="btn-tabela btn-excluir" 
+                            onclick="return confirm('ATENÇÃO: Este veículo será EXCLUÍDO PERMANENTEMENTE! Tem certeza que deseja continuar?')"
+                            aria-label="Excluir veículo {{ carro.nome }}" title="Excluir Permanentemente">
+                        Excluir
+                    </button>
                 </form>
-</td>
+            </td>
         </tr>
         {% else %}
         <tr>
@@ -119,54 +124,54 @@
     </tbody>
 </table>
 
-    <hr>
-    <h3 class="admin-section-title">Usuários Cadastrados</h3>
+<hr>
+<h3 class="admin-section-title">Usuários Cadastrados</h3>
 
-    <table class="tabela-admin">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Username</th>
-                <th>Cargo</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for usuario in usuarios %}
-            <tr>
-                <td>{{ usuario.id }}</td>
-                <td>{{ usuario.username }}</td>
-                <td>
-                    {% if usuario.role == 'admin' %}
-                        <strong>{{ usuario.role.upper() }}</strong>
-                    {% else %}
-                        {{ usuario.role }}
-                    {% endif %}
-                </td>
-            </tr>
-            {% else %}
-            <tr>
-                <td colspan="3">Nenhum usuário cadastrado.</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-
-    <hr>
-    <h3 class="admin-section-title">Feedbacks Recebidos</h3>
-
-    <div class="feedback-lista">
-        {% for item in feedbacks %}
-            <div class="feedback-item">
-                <h4>Avaliação: {{ item.rating }} / 5 Estrelas</h4>
-                {% if item.nome != 'Anônimo' %}
-                    <p><strong>De:</strong> {{ item.nome }}</p>
+<table class="tabela-admin" role="table" aria-label="Tabela de usuários cadastrados">
+    <caption style="font-size: 22px;">Lista de usuários registrados no sistema</caption>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Cargo</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for usuario in usuarios %}
+        <tr>
+            <td>{{ usuario.id }}</td>
+            <td>{{ usuario.username }}</td>
+            <td>
+                {% if usuario.role == 'admin' %}
+                    <strong>{{ usuario.role.upper() }}</strong>
+                {% else %}
+                    {{ usuario.role }}
                 {% endif %}
-                <p class="comentario">"{{ item.comentario }}"</p>
-            </div>
+            </td>
+        </tr>
         {% else %}
-            <p class="feedback-vazio">Nenhum feedback recebido ainda.</p>
-
+        <tr>
+            <td colspan="3">Nenhum usuário cadastrado.</td>
+        </tr>
         {% endfor %}
-    </div>
-    
+    </tbody>
+</table>
+
+<hr>
+<h3 class="admin-section-title">Feedbacks Recebidos</h3>
+
+<div class="feedback-lista" role="region" aria-label="Lista de feedbacks">
+    {% for item in feedbacks %}
+        <div class="feedback-item">
+            <h4>Avaliação: {{ item.rating }} / 5 Estrelas</h4>
+            {% if item.nome != 'Anônimo' %}
+                <p><strong>De:</strong> {{ item.nome }}</p>
+            {% endif %}
+            <p class="comentario">"{{ item.comentario }}"</p>
+        </div>
+    {% else %}
+        <p class="feedback-vazio">Nenhum feedback recebido ainda.</p>
+    {% endfor %}
+</div>
+
 {% endblock %}

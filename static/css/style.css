@@ -331,13 +331,10 @@ nav a:hover {
 }
 
 .lista-carros {
-
     display: grid;
-
-    grid-template-columns: repeat(3, 1fr);
-
-    gap: 40px;
-
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 40px; 
+    grid-row-gap: 80px; 
 }
 
 .carro-card {
@@ -352,8 +349,6 @@ nav a:hover {
 
     position: relative;
 
-    /* Ponto de Início do Conteúdo (Puxa o texto para cima) */
-
     padding-top:90px;
 
     display: flex;
@@ -361,6 +356,8 @@ nav a:hover {
     flex-direction: column;
 
     transition: transform 0.3s, box-shadow 0.3s;
+    margin-bottom: 0 !important;
+    padding-top: 100px;
 
 }
 
@@ -375,31 +372,22 @@ nav a:hover {
 /* A IMAGEM (O "VAZADO" 3D) */
 
 .carro-card-img {
-
-    height: 310px; /* BEM GRANDE */
-
+    /* Aumenta a altura para 250px para maior consistência */
+    height: 250px; 
     width: 100%;
-
-    position: absolute;
-
-    top: -140px; /* PUXADA AGRESSIVA */
-
-    z-index: 2;
-
-    /* CENTRALIZAÇÃO FORÇADA */
-
+    position: absolute; 
+    
+    /* Puxada mais forte para o efeito 3D (para bater com o 150px do gap) */
+    top: -100px; 
+    
     left: 50%;
-
     transform: translateX(-50%);
-
-    /* Garante que a imagem se centre DENTRO do container */
-
+    z-index: 2; /* Garante que o carro flutuante fique por cima */
+    
     display: flex;
-
     justify-content: center;
-
     align-items: center;
-
+    padding: 0 10px;
 }
 
 .carro-card-img img {
@@ -1455,7 +1443,7 @@ footer {
     border-radius: 12px;
     border: 1px solid #333;
     margin-top: 25px;
-    /* ... (o resto do grid e inputs escuros continuam) ... */
+    margin-bottom: 1%;
 }
 .form-admin-grid label {
     color: white;
@@ -1466,6 +1454,7 @@ footer {
     width: 100%;
     border-collapse: collapse; /* Colapsa bordas */
     margin-top: 20px;
+    margin-bottom: 40px;
     border-radius: 8px;
     overflow: hidden; /* Importante para a borda arredondada */
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
@@ -2043,6 +2032,7 @@ h2 {
 .form-atualizar {
     max-width: 550px;
     margin: 40px auto;
+    margin-top: 40px;
     padding: 25px;
     background: #fff;
     border-radius: 12px;

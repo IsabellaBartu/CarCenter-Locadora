@@ -5,15 +5,15 @@
 {% endblock %}
 
 {% block content %}
-    
-    <div class="container-sucesso">
-        <span class="icone-sucesso">💳</span>
-        
-        <h2>Pagamento Aprovado!</h2>
-        
-        <p>Recebemos seu pagamento. Seu veículo está reservado com sucesso.</p>
-        
-        <a href="{{ url_for('homepage') }}" class="btn-confirmar">Voltar para a página inicial</a>
-    </div>
-    
+
+<div class="container-sucesso">
+    <span class="icone-sucesso" role="img" aria-label="Pagamento aprovado">💳</span>
+
+    <h2>Pagamento Aprovado!</h2>
+
+    <p>Recebemos seu pagamento. Seu veículo está reservado com sucesso.</p>
+
+    <a href="{{ url_for('homepage') }}" class="btn-confirmar">Voltar para a página inicial</a>
+</div>
+
 {% endblock %}

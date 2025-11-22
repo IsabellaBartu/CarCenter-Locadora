@@ -30,7 +30,7 @@
             text-align: left;
         }
         
-        .contato-box.ativo { display: block; } /* Classe mágica */
+        .contato-box.ativo { display: block; }
 
         .seta-box {
             position: absolute; top: -8px; right: 30px;
@@ -47,64 +47,65 @@
 </head>
 <body>
 
-    <header>
-        <div class="header-container">
-            <div class="header-left">
-                <a href="{{ url_for('homepage') }}">
-                    <img src="{{ url_for('static', filename='img/logoog.png') }}" alt="Car Center" class="logo-img">
-                </a>
-                <nav class="nav-links">
-                    <a href="{{ url_for('pagina_veiculos') }}">VEÍCULOS</a>
-                    <a href="{{ url_for('pagina_feedback') }}">AVALIE-NOS</a>
-                    
-                    <div class="dropdown-container">
-                        <a href="#" id="btn-contatos" class="link-contato">CONTATO ▾</a>
-                        <div class="contato-box" id="box-contatos">
-                            <div class="seta-box"></div>
-                            <div class="contato-item">
-                                <h4>Central 24h</h4>
-                                <p>0800 606 8686</p>
-                            </div>
-                            <div class="contato-item">
-                                <h4>WhatsApp</h4>
-                                <p>(11) 99999-9999</p>
-                            </div>
-                            <hr>
-                            <div class="contato-item">
-                                <a href="mailto:contato@carcenter.com" class="email-link" style="font-size: 17px;">✉️ sac_carcenter@gmail.com</a>
-                            </div>
+<header>
+    <div class="header-container">
+        <div class="header-left">
+            <a href="{{ url_for('homepage') }}">
+                <img src="{{ url_for('static', filename='img/logoog.png') }}" alt="Car Center" class="logo-img">
+            </a>
+            <nav class="nav-links">
+                <a href="{{ url_for('pagina_veiculos') }}">VEÍCULOS</a>
+                <a href="{{ url_for('pagina_feedback') }}">AVALIE-NOS</a>
+                
+                <div class="dropdown-container">
+                    <a href="#" id="btn-contatos" class="link-contato" aria-haspopup="true" aria-expanded="false">CONTATO ▾</a>
+                    <div class="contato-box" id="box-contatos">
+                        <div class="seta-box"></div>
+                        <div class="contato-item">
+                            <h4>Central 24h</h4>
+                            <p>0800 606 8686</p>
+                        </div>
+                        <div class="contato-item">
+                            <h4>WhatsApp</h4>
+                            <p>(11) 99999-9999</p>
+                        </div>
+                        <hr>
+                        <div class="contato-item">
+                            <a href="mailto:contato@carcenter.com" class="email-link" style="font-size: 17px;">✉️ sac_carcenter@gmail.com</a>
                         </div>
                     </div>
-                </nav>
-            </div>
-
-            <div class="header-center">
-                <form action="{{ url_for('homepage') }}" method="GET" class="search-bar">
-                    <input type="text" name="q" placeholder="Qual carro você procura?" value="{{ request.args.get('q', '') }}">
-                    <button type="submit">🔍</button>
-                </form>
-            </div>
-
-            <div class="header-right">
-                {% if current_user.is_authenticated %}
-                    <div class="user-menu">
-                        <a href="{{ url_for('pagina_perfil') }}" class="user-link">👤 {{ current_user.nome.split()[0] }}</a>
-                        {% if current_user.role == 'admin' %}
-                            <a href="{{ url_for('pagina_admin') }}" class="btn-header-solid">PAINEL</a>
-                        {% endif %}
-                        <a href="{{ url_for('logout') }}" class="btn-header-outline">Sair</a>
-                    </div>
-                {% else %}
-                    <a href="{{ url_for('login') }}" class="user-link">ACESSAR CONTA</a>
-                    <a href="{{ url_for('register') }}" class="btn-header-solid">CADASTRE-SE</a>
-                {% endif %}
-            </div>
+                </div>
+            </nav>
         </div>
-    </header>
 
-    <main>
-        {% block content %}{% endblock %}
-    </main>
+        <div class="header-center">
+            <form action="{{ url_for('homepage') }}" method="GET" class="search-bar">
+                <input type="text" name="q" placeholder="Qual carro você procura?" value="{{ request.args.get('q', '') }}">
+                <button type="submit" style="font-size: 25px;">🔍</button>
+            </form>
+        </div>
+
+        <div class="header-right">
+            {% if current_user.is_authenticated %}
+                <div class="user-menu">
+                    <a href="{{ url_for('pagina_perfil') }}" class="user-link">👤 {{ current_user.nome.split()[0] }}</a>
+                    {% if current_user.role == 'admin' %}
+                        <a href="{{ url_for('pagina_admin') }}" class="btn-header-solid">PAINEL</a>
+                    {% endif %}
+                    <a href="{{ url_for('logout') }}" class="btn-header-outline">Sair</a>
+                </div>
+            {% else %}
+                <a href="{{ url_for('login') }}" class="user-link">ACESSAR CONTA</a>
+                <a href="{{ url_for('register') }}" class="btn-header-solid">CADASTRE-SE</a>
+            {% endif %}
+        </div>
+    </div>
+</header>
+
+<main>
+    {% block content %}{% endblock %}
+</main>
+
 <footer>
     <div class="footer-content">
         <div class="footer-container">
@@ -115,7 +116,7 @@
                 </div>
 
                 <div class="footer-phone-block">
-                    <h3>SAC: 0800 722 2212 <span></span></h3>
+                    <h3>SAC: 0800 722 2212</h3>
                 </div>
 
                 <div class="footer-info-text">
@@ -144,9 +145,9 @@
                     <h4>Formas de pagamento aceitas:</h4>
                     <div class="payment-icons">
                         <img src="{{ url_for('static', filename='img/visa.png') }}" alt="Visa" style="height: 35px; background: white; padding: 2px; border-radius: 4px;">
-                       <img src="{{ url_for('static', filename='img/mastercard.png') }}" alt="Mastercard" style="height: 35px; background: white; padding: 2px; border-radius: 4px;">
+                        <img src="{{ url_for('static', filename='img/mastercard.png') }}" alt="Mastercard" style="height: 35px; background: white; padding: 2px; border-radius: 4px;">
                         <img src="{{ url_for('static', filename='img/elo.png') }}" alt="Elo" style="height: 35px; background: white; padding: 2px; border-radius: 4px;">
-                       <img src="{{ url_for('static', filename='img/hipercard.png') }}" alt="Hipercard" style="height: 35px; background: white; padding: 2px; border-radius: 4px;">
+                        <img src="{{ url_for('static', filename='img/hipercard.png') }}" alt="Hipercard" style="height: 35px; background: white; padding: 2px; border-radius: 4px;">
                         <img src="{{ url_for('static', filename='img/amex.png') }}" alt="Amex" style="height: 35px; background: white; padding: 2px; border-radius: 4px;">
                     </div>
                 </div>
@@ -167,28 +168,45 @@
         </div>
     </div>
 </footer>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const btn = document.getElementById('btn-contatos');
-            const box = document.getElementById('box-contatos');
 
-            if (btn && box) {
-                // Abre/Fecha ao clicar
-                btn.addEventListener('click', function(e) {
-                    e.preventDefault(); // Impede de pular a tela
-                    e.stopPropagation(); // Impede que o clique feche imediatamente
-                    box.classList.toggle('ativo');
-                });
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    // Dropdown Contatos
+    const btnContatos = document.getElementById('btn-contatos');
+    const boxContatos = document.getElementById('box-contatos');
 
-                // Fecha ao clicar fora
-                document.addEventListener('click', function(e) {
-                    if (!box.contains(e.target) && e.target !== btn) {
-                        box.classList.remove('ativo');
-                    }
-                });
+    if (btnContatos && boxContatos) {
+        btnContatos.setAttribute('aria-haspopup', 'true');
+        btnContatos.setAttribute('aria-expanded', 'false');
+
+        btnContatos.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            boxContatos.classList.toggle('ativo');
+
+            btnContatos.setAttribute('aria-expanded', boxContatos.classList.contains('ativo'));
+        });
+
+        // Fecha clicando fora
+        document.addEventListener('click', function(e) {
+            if (!boxContatos.contains(e.target) && e.target !== btnContatos) {
+                boxContatos.classList.remove('ativo');
+                btnContatos.setAttribute('aria-expanded', 'false');
             }
         });
-    </script>
-     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+        // Fecha com ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && boxContatos.classList.contains('ativo')) {
+                boxContatos.classList.remove('ativo');
+                btnContatos.setAttribute('aria-expanded', 'false');
+                btnContatos.focus();
+            }
+        });
+    }
+});
+</script>
+
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>

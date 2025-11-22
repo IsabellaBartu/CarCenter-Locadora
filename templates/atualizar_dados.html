@@ -5,55 +5,54 @@
 {% endblock %}
 
 {% block content %}
-    
-    <div class="container-interno">
-        
-        <h2 style="font-size: 2em; color: var(--primary); margin-bottom: 20px; margin-top: 5%; text-align: center;">
-    Atualizar Minhas Informações
-</h2>
-        
-        <form class="form-atualizar" action="{{ url_for('atualizar_dados') }}" method="POST">
-            
-            <h4 style="color:white; margin-bottom: 15px; border-bottom: 1px solid #555; padding-bottom: 5px;">Informações Básicas</h4>
+<div class="container-interno">
+    <h2 class="pagina-titulo" style="margin-top: 3%;">Atualizar Minhas Informações</h2>
 
-            <label for="nome">Nome Completo:</label>
-            <input type="text" id="nome" name="nome" value="{{ user.nome or '' }}" required>
-            
-            <br><label for="telefone">Telefone:</label>
-            <input type="tel" id="telefone" name="telefone" value="{{ user.telefone or '' }}" required>
-            
-            <hr style="border-top: 1px solid #555; margin: 30px 0;">
+    <form class="form-atualizar" action="{{ url_for('atualizar_dados') }}" method="POST" aria-label="Formulário de atualização de dados do usuário">
 
-            <h4 style="color:white; margin-bottom: 15px; border-bottom: 1px solid #555; padding-bottom: 5px;">Endereço de Faturamento</h4>
+        <!-- Informações Básicas -->
+        <h4 class="form-secao-titulo">Informações Básicas</h4>
 
-            <label for="endereco">Endereço (Rua e Número):</label>
-            <input type="text" id="endereco" name="endereco" value="{{ user.endereco or '' }}" required>
-            
-            <div class="form-linha" style="gap: 20px; display: flex;">
-                <div class="form-grupo" style="flex: 1;">
-                    <label for="cidade">Cidade:</label>
-                    <input type="text" id="cidade" name="cidade" value="{{ user.cidade or '' }}" required>
-                </div>
-                <div class="form-grupo" style="flex: 1;">
-                    <label for="estado">Estado:</label>
-                    <input type="text" id="estado" name="estado" value="{{ user.estado or '' }}" required>
-                </div>
+        <label for="nome">Nome Completo:</label>
+        <input type="text" id="nome" name="nome" value="{{ user.nome or '' }}" required aria-required="true">
+
+        <label for="telefone">Telefone:</label>
+        <input type="tel" id="telefone" name="telefone" value="{{ user.telefone or '' }}" required aria-required="true">
+
+        <hr class="separador-secao">
+
+        <!-- Endereço de Faturamento -->
+        <h4 class="form-secao-titulo">Endereço de Faturamento</h4>
+
+        <label for="endereco">Endereço (Rua e Número):</label>
+        <input type="text" id="endereco" name="endereco" value="{{ user.endereco or '' }}" required aria-required="true">
+
+        <div class="form-linha">
+            <div class="form-grupo">
+                <label for="cidade">Cidade:</label>
+                <input type="text" id="cidade" name="cidade" value="{{ user.cidade or '' }}" required aria-required="true">
             </div>
+            <div class="form-grupo">
+                <label for="estado">Estado:</label>
+                <input type="text" id="estado" name="estado" value="{{ user.estado or '' }}" required aria-required="true">
+            </div>
+        </div>
 
-            <label for="cep">CEP:</label>
-            <input type="text" id="cep" name="cep" value="{{ user.cep or '' }}" required>
-            
-            <hr style="border-top: 1px solid #555; margin: 30px 0;">
-            
-            <h4 style="color:white; margin-bottom: 15px; border-bottom: 1px solid #555; padding-bottom: 5px;">Alterar Senha (Opcional)</h4>
+        <label for="cep">CEP:</label>
+        <input type="text" id="cep" name="cep" value="{{ user.cep or '' }}" required aria-required="true">
 
-            <label for="new_password">Nova Senha:</label>
-            <input type="password" id="new_password" name="new_password" placeholder="Deixe em branco para não alterar">
-            
-            <button type="submit" class="btn-confirmar">Salvar Alterações</button>
-        </form>
+        <hr class="separador-secao">
 
-        <a href="{{ url_for('pagina_perfil') }}" class="voltar-perfil">Voltar ao Perfil</a>
-    </div>
-    
+        <!-- Alterar Senha -->
+        <h4 class="form-secao-titulo">Alterar Senha (Opcional)</h4>
+
+        <label for="new_password">Nova Senha:</label>
+        <input type="password" id="new_password" name="new_password" placeholder="Deixe em branco para não alterar">
+
+        <button type="submit" class="btn-confirmar" aria-label="Salvar alterações dos dados do usuário">Salvar Alterações</button>
+
+    </form>
+
+    <a href="{{ url_for('pagina_perfil') }}" class="voltar-perfil">Voltar ao Perfil</a>
+</div>
 {% endblock %}

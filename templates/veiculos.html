@@ -5,10 +5,9 @@
 {% endblock %}
 
 {% block content %}
-    
-    <div class="container-interno">
+<div class="container-interno">
 
-       <section class="filtro-box">
+   <section class="filtro-box">
     <form action="{{ url_for('pagina_veiculos') }}" method="GET" class="form-filtro">
         
         <div class="filtro-grupo">
@@ -45,61 +44,62 @@
         <a href="{{ url_for('pagina_veiculos') }}" class="btn-limpar-filtro">Limpar Filtros</a>
     </form>
 </section>
-         <div class="result-counter">
-        Exibindo <strong>{{ carro_count }}</strong> resultado{% if carro_count != 1 %}s{% endif %}
-    </div>
-        <section class="destaques" id="frota-completa">
-            <h2>Nossa Frota Completa</h2>
-            
-            <div class="lista-carros">
-                
-                {% for carro in veiculos %}
-                    
-                    <div class="carro-card">
-                        <div class="carro-card-img">
-                            {% if carro.foto_url %}
-                                <img src="{{ url_for('static', filename='img/' + carro.foto_url) }}" alt="{{ carro.nome }}">
-                            {% else %}
-                                <div class="carro-placeholder-img"></div>
-                            {% endif %}
-                        </div>
-                        
-                        <div class="carro-card-content">
-                            <div class="card-header">
-                                <h3>{{ carro.nome }}</h3>
-                                <p class="subtitulo">{{ carro.modelo }} (Ano: {{ carro.ano }})</p>
-                            </div>
-                            
-                            <ul class="features">
-                                {% if carro.destaques %}
-                                    {% for destaque in carro.destaques.split(',') %}
-                                        <li><span class="check">✔</span> {{ destaque }}</li>
-                                    {% endfor %}
-                                {% else %}
-                                    <li><span class="check">✔</span> Revisado</li>
-                                    <li><span class="check">✔</span> Higienizado</li>
-                                {% endif %}
-                            </ul>
 
-                            <div class="card-divider"></div>
+<div class="result-counter">
+    Exibindo <strong>{{ carro_count }}</strong> resultado{% if carro_count != 1 %}s{% endif %}
+</div>
 
-                            <div class="card-footer">
-                                <div class="bloco-preco">
-                                    <p class="a-partir-de">A partir de</p>
-                                    <span class="preco">R$ {{ "%.2f"|format(carro.preco_diaria) }}<small>/dia</small></span>
-                                    <p class="detalhe-preco">Taxas inclusas</p>
-                                </div>
-                                
-                                <a href="{{ url_for('pagina_detalhe_veiculo', carro_id=carro.id) }}" class="btn-alugar">Eu quero!</a>
-                            </div>
-                        </div>
-                    </div>
-
+<section class="destaques" id="frota-completa">
+    <h2>Nossa Frota Completa</h2>
+    
+    <div class="lista-carros">
+        {% for carro in veiculos %}
+        <div class="carro-card">
+            <div class="carro-card-img">
+                {% if carro.foto_url %}
+                    <img src="{{ url_for('static', filename='img/' + carro.foto_url) }}" 
+                         alt="{{ carro.nome }}" class="img-tooltip" 
+                         data-desc="Veículo: {{ carro.nome }} - Modelo: {{ carro.modelo }} - Ano: {{ carro.ano }}">
                 {% else %}
-                    <p>Nenhum veículo cadastrado no momento. Use a aba Admin para adicionar!</p>
-                {% endfor %}
-            </div> 
+                    <div class="carro-placeholder-img"></div>
+                {% endif %}
+            </div>
             
-            </section>
+            <div class="carro-card-content">
+                <div class="card-header">
+                    <h3>{{ carro.nome }}</h3>
+                    <p class="subtitulo">{{ carro.modelo }} (Ano: {{ carro.ano }})</p>
+                </div>
+                
+                <ul class="features">
+                    {% if carro.destaques %}
+                        {% for destaque in carro.destaques.split(',') %}
+                            <li><span class="check">✔</span> {{ destaque }}</li>
+                        {% endfor %}
+                    {% else %}
+                        <li><span class="check">✔</span> Revisado</li>
+                        <li><span class="check">✔</span> Higienizado</li>
+                    {% endif %}
+                </ul>
 
-    </div> {% endblock %}
+                <div class="card-divider"></div>
+
+                <div class="card-footer">
+                    <div class="bloco-preco">
+                        <p class="a-partir-de">A partir de</p>
+                        <span class="preco">R$ {{ "%.2f"|format(carro.preco_diaria) }}<small>/dia</small></span>
+                        <p class="detalhe-preco">Taxas inclusas</p>
+                    </div>
+                    
+                    <a href="{{ url_for('pagina_detalhe_veiculo', carro_id=carro.id) }}" class="btn-alugar">Eu quero!</a>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <p>Nenhum veículo cadastrado no momento. Use a aba Admin para adicionar!</p>
+        {% endfor %}
+    </div>
+</section>
+
+</div>
+{% endblock %}
