@@ -1,16 +1,16 @@
 :root {
 
-    --primary: #253237;   /* Dark Slate (Botões, Header) */
+    --primary: #253237;   
 
-    --secondary: #5C6B73; /* Grey (Textos secundários) */
+    --secondary: #5C6B73;
 
-    --accent: #C2DFE3;    /* Light Blue (Detalhes, fundos) */
+    --accent: #C2DFE3; 
 
     --white: #FFFFFF;
 
     --black: #000000;
 
-    --bg-page: #ececec;   /* Fundo cinza gelo (Estilo Movida) */
+    --bg-page: #ececec;
 
 }
 
@@ -28,22 +28,20 @@ body {
 
     background-color: var(--bg-page);
 
-    font-family: 'Montserrat', sans-serif; /* Fonte moderna */
+    font-family: 'Montserrat', sans-serif; 
 
     color: var(--primary);
 
-   min-height: 100vh; /* Ocupa no mínimo 100% da altura da tela */
+   min-height: 100vh; 
     display: flex;
     flex-direction: column;
-    
-    /* ESSENCIAL: Remove a margem quebra a altura total */
     margin: 0 !important;
     padding: 0;
 }
 main {
     margin-top: 0; /* Remove margem desnecessária no topo */
     flex-grow: 1; /* Estica para empurrar o footer */
-    padding: 0; /* Zera padding vertical, o container interno cuida disso */
+    padding: 0; 
 }
 
 header {

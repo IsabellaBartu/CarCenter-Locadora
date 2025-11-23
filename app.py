@@ -97,10 +97,7 @@ class Reserva(db.Model):
 def load_user(user_id):
     return User.query.get(int(user_id)) 
 
-# ==================================
 # 6. ROTAS (PÁGINAS) DO SITE
-# ==================================
-
 @app.route('/')
 def homepage():
     termo_busca = request.args.get('q')
@@ -109,14 +106,12 @@ def homepage():
         query = Veiculo.query.filter_by(is_available=True)
         
         if termo_busca:
-            # Se houver busca, filtre e aplique o limite de 3
             query = query.filter(
                 (Veiculo.nome.ilike(f'%{termo_busca}%')) | 
                 (Veiculo.modelo.ilike(f'%{termo_busca}%'))
-            ).limit(3) # <--- LIMITE DE 3 CARROS AQUI!
+            ).limit(3) 
         else:
-            # Se não houver busca, mostre apenas os 3 primeiros
-            query = query.limit(3) # <--- LIMITE DE 3 CARROS AQUI!
+            query = query.limit(3) 
 
         todos_veiculos = query.all()
         
@@ -148,10 +143,9 @@ def processar_pagamento():
             veiculo_id = reserva_dados['carro_id']
         )
         db.session.add(nova_reserva)
-        
-        # BLOQUEIA O CARRO NO INVENTÁRIO
+
         carro_reservado = Veiculo.query.get(reserva_dados['carro_id'])
-        carro_reservado.is_available = False # Marque como indisponível
+        carro_reservado.is_available = False 
         
         db.session.commit() # Salva as duas mudanças (Reserva e Veiculo)
         
@@ -204,7 +198,6 @@ def pagina_admin():
             nome = request.form['nome_veiculo']
             modelo = request.form['modelo_veiculo']
             ano = request.form['ano_veiculo']
-            # Garante que o preço seja um float
             preco_diaria = float(request.form['preco_veiculo']) 
             foto_url = request.form['foto_veiculo']
             placa = request.form['placa_veiculo']
@@ -244,12 +237,10 @@ def pagina_admin():
             return redirect(url_for('pagina_admin'))
 
     # 3. Lógica para EXIBIR DADOS (GET)
-    try: 
-        # ESTA QUERY BUSCA AS RESERVAS, JUNTA COM O NOME DO USUÁRIO E O NOME DO VEÍCULO.
-        # É aqui que o sistema "sabe" quem pegou o quê.
+    try:
+        # Reserva do cliente aparece em tempo real na tabela de reservas do adm
         reservas_ativas = db.session.query(Reserva, User, Veiculo).join(User, Reserva.user_id == User.id).join(Veiculo, Reserva.veiculo_id == Veiculo.id).filter(Reserva.status == 'Confirmada').order_by(Reserva.data_inicio.asc()).all()
         
-        # Query normal de veículos para a tabela de inventário
         todos_veiculos = Veiculo.query.all() 
         
     except Exception as e: 
@@ -261,19 +252,20 @@ def pagina_admin():
     return render_template(
         'admin.html', 
         veiculos=todos_veiculos,
-        reservas_ativas=reservas_ativas # <--- NOVO: O dado de rastreamento é enviado aqui!
+        reservas_ativas=reservas_ativas
     )
-# app.py - ROTA DE PERFIL
+
+# 1. ROTA DE PERFIL
 
 @app.route('/perfil')
 @login_required
 def pagina_perfil():
     
-    # === BLOQUEIO DE ADMIN: ===
+    # BLOQUEIO DE ADMIN
     if current_user.role == 'admin':
         return redirect(url_for('pagina_admin')) # Admin é sempre redirecionado para o painel!
     
-    # === LÓGICA DO CLIENTE (MOSTRAR HISTÓRICO) ===
+    # LÓGICA DO CLIENTE (MOSTRAR HISTÓRICO)
     try:
         # A query só roda se o usuário for um cliente
         reservas_do_usuario = Reserva.query.filter_by(user_id=current_user.id).order_by(Reserva.data_inicio.desc()).all()
@@ -347,7 +339,7 @@ def iniciar_reserva():
         }
         return redirect(url_for('pagina_pagamento'))
 
-# app.py - ROTA DE LOGIN
+# 2. ROTA DE LOGIN
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -360,7 +352,7 @@ def login():
         if user and bcrypt.check_password_hash(user.password_hash, request.form['password']):
             login_user(user, remember=True)
             
-            # === VERIFICAÇÃO DE CARGO ===
+            # VERIFICAÇÃO DE CARGO
             if user.role == 'admin':
                 return redirect(url_for('pagina_admin')) # ADMIN VAI PARA O PAINEL
             else:
@@ -434,7 +426,7 @@ def pagina_veiculos():
     sort_by = request.args.get('sort') 
     
     try:
-        # 2. Lógica de Filtragem (igual a que fizemos)
+        # 2. Lógica de Filtragem
         query = Veiculo.query.filter_by(is_available=True)
         
         if categoria:
@@ -455,17 +447,15 @@ def pagina_veiculos():
             )
             
         todos_veiculos = query.all()
-        
-        # === A MUDANÇA ESTÁ AQUI ===
+
         carro_count = len(todos_veiculos) # Conta os carros
-        # ===========================
         
     except Exception as e:
         print(f"Erro ao buscar veículos: {e}")
         todos_veiculos = []
         carro_count = 0 # Se der erro, a contagem é 0
         
-    # 3. Envia o count para o template
+    # 3. Envia a contagem para o template
     return render_template('veiculos.html', 
                            veiculos=todos_veiculos,
                            carro_count=carro_count)
@@ -504,12 +494,12 @@ def cancelar_reserva(reserva_id):
 @app.route('/admin/delete_veiculo/<int:carro_id>', methods=['POST'])
 @admin_required
 def delete_veiculo(carro_id):
-    # --- O RECHEIO INTEIRO PRECISA DE 1 RECUO (TAB) ---
+
     try:
         # 1. Encontra o carro no banco
         carro_para_deletar = Veiculo.query.get_or_404(carro_id)
         
-        # 2. Verifique se há reservas ativas
+        # 2. Verifica se há reservas ativas
         reservas_ativas = Reserva.query.filter_by(veiculo_id=carro_id, status='Confirmada').first()
         if reservas_ativas:
             print("Tentativa de deletar carro com reservas ativas.")
