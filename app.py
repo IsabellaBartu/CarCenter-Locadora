@@ -160,29 +160,17 @@ def processar_pagamento():
 def pagina_feedback():
     return render_template('feedback.html')
 
-@app.route('/processar-feedback', methods=['POST'])
-def processar_feedback():
-    if request.method == 'POST':
-        rating = request.form['rating']
-        nome = request.form['nome_feedback']
-        comentario = request.form['comentario_feedback']
-        if nome:
-            nome_criptografado = cipher.encrypt(nome.encode()).decode()
-        else:
-            nome_criptografado = None
-        novo_feedback = Feedback(
-            rating=rating,
-            nome=nome_criptografado,
-            comentario=comentario
-        )
-        try:
-            db.session.add(novo_feedback)
-            db.session.commit()
-            return redirect(url_for('homepage'))
-        except Exception as e:
-            print(e)
-            return "Erro ao salvar"
-    return redirect(url_for('homepage'))
+@app.route('/enviar_feedback', methods=['POST'], endpoint='enviar_feedback_post')
+def processar_feedback(): 
+    nome = request.form.get('nome') or 'Anônimo'
+    comentario = request.form['comentario']
+    rating = int(request.form['rating'])
+
+    novo_feedback = Feedback(nome=nome, comentario=comentario, rating=rating)
+    db.session.add(novo_feedback)
+    db.session.commit()
+    
+    return redirect(url_for('pagina_feedback'))
 
 @app.route('/admin', methods=['GET', 'POST'])
 @login_required
@@ -239,20 +227,29 @@ def pagina_admin():
     # 3. Lógica para EXIBIR DADOS (GET)
     try:
         # Reserva do cliente aparece em tempo real na tabela de reservas do adm
-        reservas_ativas = db.session.query(Reserva, User, Veiculo).join(User, Reserva.user_id == User.id).join(Veiculo, Reserva.veiculo_id == Veiculo.id).filter(Reserva.status == 'Confirmada').order_by(Reserva.data_inicio.asc()).all()
+        reservas_ativas = db.session.query(Reserva, User, Veiculo)\
+            .join(User, Reserva.user_id == User.id)\
+            .join(Veiculo, Reserva.veiculo_id == Veiculo.id)\
+            .filter(Reserva.status == 'Confirmada')\
+            .order_by(Reserva.data_inicio.asc()).all()
         
         todos_veiculos = Veiculo.query.all() 
+
+        # Feedbacks recebidos
+        feedbacks = Feedback.query.order_by(Feedback.id.desc()).all()
         
     except Exception as e: 
         print(f"Erro ao buscar dados: {e}")
         reservas_ativas = []
         todos_veiculos = []
+        feedbacks = []
 
-    # 4. Renderiza o template com os dois conjuntos de dados
+    # 4. Renderiza o template com todos os dados
     return render_template(
         'admin.html', 
         veiculos=todos_veiculos,
-        reservas_ativas=reservas_ativas
+        reservas_ativas=reservas_ativas,
+        feedbacks=feedbacks  # agora os feedbacks aparecem no admin
     )
 
 # 1. ROTA DE PERFIL

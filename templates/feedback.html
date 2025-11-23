@@ -1,32 +1,55 @@
 {% extends "base.html" %}
 
 {% block title %}
-    Deixe seu Feedback
+Enviar Feedback
 {% endblock %}
 
 {% block content %}
-<div class="feedback-titulo">
-    <h2>Como foi sua experiência conosco?</h2>
-    <p>Adoraremos ouvir sua opinião! Por favor, deixe uma avaliação.</p>
-</div>
-
-<form class="form-feedback" action="{{ url_for('processar_feedback') }}" method="POST">
-
-    <label class="label-grande">Sua Avaliação (Estrelas):</label>
-    <div class="star-rating estrelas-grandes">
-        <input type="radio" id="star5" name="rating" value="5" required><label for="star5">★</label>
-        <input type="radio" id="star4" name="rating" value="4"><label for="star4">★</label>
-        <input type="radio" id="star3" name="rating" value="3"><label for="star3">★</label>
-        <input type="radio" id="star2" name="rating" value="2"><label for="star2">★</label>
-        <input type="radio" id="star1" name="rating" value="1"><label for="star1">★</label>
+<div class="form-feedback">
+    <div class="feedback-titulo">
+        <h2>Como foi sua experiência na CarCenter?</h2>
+        <p style="font-size: 20px;">Sua opinião é importante para nós! Por favor, avalie nosso serviço e deixe seu comentário.</p>
     </div>
 
-    <label for="nome_feedback" class="label-grande">Seu Nome (Opcional):</label>
-    <input type="text" id="nome_feedback" name="nome_feedback" class="input-grande" placeholder="Como podemos te chamar?">
+    <form action="{{ url_for('enviar_feedback_post') }}" method="POST">
+    
+        <label for="nome" class="label-grande">Nome (opcional):</label>
+        <input type="text" id="nome" name="nome" placeholder="Seu nome ou deixe em branco para anônimo" class="input-grande">
 
-    <label for="comentario_feedback" class="label-grande">Seu Comentário:</label>
-    <textarea id="comentario_feedback" name="comentario_feedback" rows="5" class="input-grande" placeholder="Conte-nos mais..." required></textarea>
+        <label class="label-grande">Avaliação:</label>
+        <div class="star-rating estrelas-grandes">
+            <input type="radio" id="star5" name="rating" value="5">
+            <label for="star5" title="5 estrelas">★</label>
 
-    <button type="submit" class="btn-confirmar">Enviar Avaliação</button>
-</form>
+            <input type="radio" id="star4" name="rating" value="4">
+            <label for="star4" title="4 estrelas">★</label>
+
+            <input type="radio" id="star3" name="rating" value="3">
+            <label for="star3" title="3 estrelas">★</label>
+
+            <input type="radio" id="star2" name="rating" value="2">
+            <label for="star2" title="2 estrelas">★</label>
+
+            <input type="radio" id="star1" name="rating" value="1" required>
+            <label for="star1" title="1 estrela">★</label>
+        </div>
+
+        <label for="comentario" class="label-grande">Comentário:</label>
+        <textarea id="comentario" name="comentario" rows="4" placeholder="Escreva aqui sua avaliação:" class="input-grande" required></textarea>
+
+        <button type="submit" class="btn-confirmar">Enviar Avaliação</button>
+    </form>
+
+    {% if feedbacks %}
+        <div class="feedback-lista">
+            {% for fb in feedbacks %}
+            <div class="feedback-item">
+                <h4>{{ fb.nome }}</h4>
+                <p><strong>{{ fb.rating }} estrelas</strong></p>
+                <p class="comentario">{{ fb.comentario }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
 {% endblock %}

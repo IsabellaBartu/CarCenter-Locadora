@@ -36,7 +36,7 @@
             </div>
 
             <div class="reserva-info">
-                <h4>{{ reserva.veiculo_alugado.nome }}</h4>
+                <h4>{{ reserva.veiculo_alugado.nome }} - <small style="font-size: 20px;">Reserva #{{ reserva.id }}</small></h4>
                 <p>
                     <strong>Status:</strong> 
                     {% if reserva.status == 'Confirmada' %}
