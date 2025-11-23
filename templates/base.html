@@ -11,12 +11,12 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     
     <style>
-        /* CSS DO MENU CONTATOS (EMBUTIDO PARA GARANTIR) */
+        /* CSS DO MENU CONTATOS */
         .dropdown-container { position: relative; display: inline-block; }
         .link-contato { cursor: pointer; }
         
         .contato-box {
-            display: none; /* Escondido */
+            display: none; 
             position: absolute;
             top: 40px;
             right: -20px;
@@ -194,8 +194,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 btnContatos.setAttribute('aria-expanded', 'false');
             }
         });
-
-        // Fecha com ESC
+        
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape' && boxContatos.classList.contains('ativo')) {
                 boxContatos.classList.remove('ativo');

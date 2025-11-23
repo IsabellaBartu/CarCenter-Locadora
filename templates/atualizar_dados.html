@@ -10,7 +10,6 @@
 
     <form class="form-atualizar" action="{{ url_for('atualizar_dados') }}" method="POST" aria-label="Formulário de atualização de dados do usuário">
 
-        <!-- Informações Básicas -->
         <h4 class="form-secao-titulo">Informações Básicas</h4>
 
         <label for="nome">Nome Completo:</label>
@@ -21,7 +20,6 @@
 
         <hr class="separador-secao">
 
-        <!-- Endereço de Faturamento -->
         <h4 class="form-secao-titulo">Endereço de Faturamento</h4>
 
         <label for="endereco">Endereço (Rua e Número):</label>
@@ -42,8 +40,7 @@
         <input type="text" id="cep" name="cep" value="{{ user.cep or '' }}" required aria-required="true">
 
         <hr class="separador-secao">
-
-        <!-- Alterar Senha -->
+        
         <h4 class="form-secao-titulo">Alterar Senha (Opcional)</h4>
 
         <label for="new_password">Nova Senha:</label>

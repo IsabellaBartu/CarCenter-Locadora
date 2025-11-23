@@ -343,7 +343,7 @@ nav a:hover {
     box-shadow: 0 4px 12px rgba(0,0,0,0.05);
     border-radius: 16px;
     position: relative;
-    padding-top: 110px; /* garante espaço para a imagem flutuante */
+    padding-top: 100px; /* garante espaço para a imagem flutuante */
     display: flex;
     flex-direction: column;
     transition: transform 0.3s, box-shadow 0.3s;

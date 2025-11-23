@@ -6,9 +6,7 @@ from flask_login import LoginManager, UserMixin, login_user, logout_user, login_
 from functools import wraps
 from datetime import datetime
 
-# ==================================
-# 2. CONFIGURAÇÃO DO APP
-# ==================================
+# 1. CONFIGURAÇÃO DO APP
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'uma-chave-secreta-muito-longa-e-dificil-de-adivinhar'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///meu_site.db'
@@ -22,9 +20,7 @@ login_manager.login_message_category = 'info'
 chave_secreta = b'J7gpuJ8t0DAwQshL6C_Rq2RG37_zkrcBtbSQIlJdk7M=' 
 cipher = Fernet(chave_secreta)
 
-# ==================================
-# 3. PORTEIRO DE ADMIN
-# ==================================
+# 2. PORTEIRO DE ADMIN
 def admin_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
@@ -35,16 +31,13 @@ def admin_required(f):
         return f(*args, **kwargs)
     return decorated_function
 
-# ==================================
-# 4. MODELOS DO BANCO DE DADOS
-# ==================================
+# 3. MODELOS DO BANCO DE DADOS
 class Feedback(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     rating = db.Column(db.Integer, nullable=False)
     nome = db.Column(db.String(100), nullable=True)
     comentario = db.Column(db.String(500), nullable=False)
     
-    # Eu removi o 'is_available' daqui, ele pertence ao Veiculo!
     def __repr__(self):
         return f'<Feedback {self.id}: {self.rating} estrelas>'
 
@@ -67,9 +60,7 @@ class User(db.Model, UserMixin):
 
     def __repr__(self):
         return f'<User {self.username}>'
-
-# --- BUG DE INDENTAÇÃO CORRIGIDO ---
-# A 'class Veiculo' foi movida para o nível principal
+    
 class Veiculo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(100), nullable=False)
@@ -102,9 +93,6 @@ class Reserva(db.Model):
     def __repr__(self):
         return f'<Reserva {self.id}>'
 
-# ==================================
-# 5. CARREGADOR DE USUÁRIO (Flask-Login)
-# ==================================
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id)) 
