@@ -359,9 +359,9 @@ nav a:hover {
 
 .carro-card-img {
     width: 100%;
-    height: 180px; 
+    height: 250px; 
     position: absolute; 
-    top: -70px; /* ajustado para o padding-top */
+    top: -100px; /* ajustado para o padding-top */
     left: 50%;
     transform: translateX(-50%);
     z-index: 2;
@@ -396,6 +396,7 @@ nav a:hover {
     position: relative;
 
     z-index: 1;
+    margin-top: 15px;
 
 }
 
@@ -2510,4 +2511,25 @@ h2 {
     color: #333;
     margin-bottom: 30px; /* espaço entre o parágrafo e o formulário */
     margin: 1%;
+}
+/* Botão Excluir Admin */
+.btn-excluir {
+    background-color: #e74c3c; /* Vermelho forte */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+.btn-excluir:hover {
+    background-color: #c0392b; /* Vermelho mais escuro ao passar o mouse */
+    transform: scale(1.05);
+}
+
+.btn-excluir:active {
+    transform: scale(0.95);
 }

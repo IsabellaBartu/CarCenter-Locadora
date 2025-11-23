@@ -238,10 +238,11 @@ def pagina_admin():
                 placa=placa,
                 cor=cor,
                 destaques=destaques,
-                descricao_curta=descricao
+                descricao=descricao
             )
             db.session.add(novo_veiculo)
             db.session.commit()
+            print("Foto cadastrada:", foto_url)
             flash('Veículo cadastrado com sucesso!', 'success')
             return redirect(url_for('pagina_admin'))
             
