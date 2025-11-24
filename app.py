@@ -8,7 +8,9 @@ from datetime import datetime
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'uma-chave-secreta-muito-longa-e-dificil-de-adivinhar'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///meu_site.db'
+import os
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL")
+
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
