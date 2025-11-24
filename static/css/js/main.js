@@ -1,35 +1,53 @@
-document.addEventListener("DOMContentLoaded", function() {
-    
-    // =============================================
-    // 1. HEADER (Menu Mobile, Dropdown Contatos)
-    // =============================================
-    const menuHamburger = document.getElementById('menu-hamburger');
-    const menuLinks = document.getElementById('menu-links');
-    const btnContatos = document.getElementById('btn-contatos');
-    const boxContatos = document.getElementById('box-contatos');
-    
-    if (menuHamburger && menuLinks) {
-        menuHamburger.addEventListener('click', function() {
-            menuLinks.classList.toggle('ativo');
-        });
+ document.addEventListener("DOMContentLoaded", function () {
+
+    let fontSize = parseInt(localStorage.getItem("fontSize")) || 100;
+    let contrast = localStorage.getItem("contrast") || "off";
+
+    applyAccessibility();
+
+    const btnIncrease = document.getElementById("btn-increase");
+    const btnDecrease = document.getElementById("btn-decrease");
+    const btnContrast = document.getElementById("btn-contrast");
+    const btnReset = document.getElementById("btn-reset");
+
+    btnIncrease?.addEventListener("click", () => {
+        fontSize += 10;
+        if (fontSize > 200) fontSize = 200;
+        localStorage.setItem("fontSize", fontSize);
+        applyAccessibility();
+    });
+
+    btnDecrease?.addEventListener("click", () => {
+        fontSize -= 10;
+        if (fontSize < 60) fontSize = 60;
+        localStorage.setItem("fontSize", fontSize);
+        applyAccessibility();
+    });
+
+    btnContrast?.addEventListener("click", () => {
+        contrast = contrast === "off" ? "on" : "off";
+        localStorage.setItem("contrast", contrast);
+        applyAccessibility();
+    });
+
+    btnReset?.addEventListener("click", () => {
+        fontSize = 100;
+        contrast = "off";
+        localStorage.setItem("fontSize", fontSize);
+        localStorage.setItem("contrast", contrast);
+        applyAccessibility();
+    });
+
+    function applyAccessibility() {
+        document.documentElement.style.fontSize = fontSize + "%";
+
+        if (contrast === "on") {
+            document.body.classList.add("high-contrast");
+        } else {
+            document.body.classList.remove("high-contrast");
+        }
     }
 
-    if (btnContatos && boxContatos) {
-        btnContatos.addEventListener('click', function(e) {
-            e.preventDefault(); 
-            e.stopPropagation();
-            boxContatos.classList.toggle('ativo');
-        });
-        document.addEventListener('click', function(e) {
-            if (!boxContatos.contains(e.target) && e.target !== btnContatos) {
-                boxContatos.classList.remove('ativo');
-            }
-        });
-    }
-
-    // =============================================
-    // 3. CARROSSEL DE MARCAS
-    // =============================================
     const trackMarcas = document.querySelector('.marcas-track');
     if (trackMarcas) {
         let isDown = false;
@@ -38,26 +56,23 @@ document.addEventListener("DOMContentLoaded", function() {
 
         trackMarcas.addEventListener('mousedown', (e) => {
             isDown = true;
-            trackMarcas.classList.add('active');
             startX = e.pageX - trackMarcas.offsetLeft;
             scrollLeft = trackMarcas.scrollLeft;
         });
 
         trackMarcas.addEventListener('mouseleave', () => {
             isDown = false;
-            trackMarcas.classList.remove('active');
         });
 
         trackMarcas.addEventListener('mouseup', () => {
             isDown = false;
-            trackMarcas.classList.remove('active');
         });
 
         trackMarcas.addEventListener('mousemove', (e) => {
             if (!isDown) return;
             e.preventDefault();
             const x = e.pageX - trackMarcas.offsetLeft;
-            const walk = (x - startX) * 1.5; 
+            const walk = (x - startX) * 1.5;
             trackMarcas.scrollLeft = scrollLeft - walk;
         });
 
@@ -72,10 +87,7 @@ document.addEventListener("DOMContentLoaded", function() {
             trackMarcas.scrollLeft = scrollLeft - walk;
         });
     }
-
-    // =============================================
-    // 4. CÁLCULO DE PREÇO
-    // =============================================
+    
     const areaCalculo = document.getElementById("area-calculo");
     if (areaCalculo) {
         const precoDiaria = parseFloat(areaCalculo.dataset.precoDiaria);
@@ -106,4 +118,5 @@ document.addEventListener("DOMContentLoaded", function() {
 
         atualizarTotal();
     }
-});
+
+}); 

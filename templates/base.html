@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     
     <style>
-        /* CSS DO MENU CONTATOS */
         .dropdown-container { position: relative; display: inline-block; }
         .link-contato { cursor: pointer; }
         
@@ -48,6 +47,12 @@
 <body>
 
 <header>
+     <div id="accessibility-bar" class="accessibility-bar">
+        <button id="btn-increase">A+</button>
+        <button id="btn-decrease">A-</button>
+        <button id="btn-contrast">◐</button>
+        <button id="btn-reset">🔄</button>
+    </div>
     <div class="header-container">
         <div class="header-left">
             <a href="{{ url_for('homepage') }}">
@@ -168,10 +173,63 @@
         </div>
     </div>
 </footer>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    let currentFontSize = parseFloat(localStorage.getItem("fontSize")) || 100;
+    let contrastEnabled = localStorage.getItem("contrast") === "on";
+
+    const root = document.documentElement;
+
+    function applyFontSize() {
+        root.style.fontSize = currentFontSize + "%";
+    }
+
+    function applyContrast() {
+        if (contrastEnabled) {
+            document.body.classList.add("high-contrast");
+        } else {
+            document.body.classList.remove("high-contrast");
+        }
+    }
+
+    document.getElementById("btn-increase").addEventListener("click", function() {
+        if (currentFontSize < 200) {
+            currentFontSize += 10;
+            localStorage.setItem("fontSize", currentFontSize);
+            applyFontSize();
+        }
+    });
+
+    document.getElementById("btn-decrease").addEventListener("click", function() {
+        if (currentFontSize > 70) {
+            currentFontSize -= 10;
+            localStorage.setItem("fontSize", currentFontSize);
+            applyFontSize();
+        }
+    });
+
+    document.getElementById("btn-contrast").addEventListener("click", function() {
+        contrastEnabled = !contrastEnabled;
+        localStorage.setItem("contrast", contrastEnabled ? "on" : "off");
+        applyContrast();
+    });
+
+    document.getElementById("btn-reset").addEventListener("click", function() {
+        currentFontSize = 100;
+        contrastEnabled = false;
+        localStorage.removeItem("fontSize");
+        localStorage.removeItem("contrast");
+        applyFontSize();
+        applyContrast();
+    });
+
+    applyFontSize();
+    applyContrast();
+});
+</script>
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-    // Dropdown Contatos
     const btnContatos = document.getElementById('btn-contatos');
     const boxContatos = document.getElementById('box-contatos');
 
@@ -187,7 +245,6 @@ document.addEventListener("DOMContentLoaded", function() {
             btnContatos.setAttribute('aria-expanded', boxContatos.classList.contains('ativo'));
         });
 
-        // Fecha clicando fora
         document.addEventListener('click', function(e) {
             if (!boxContatos.contains(e.target) && e.target !== btnContatos) {
                 boxContatos.classList.remove('ativo');

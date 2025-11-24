@@ -6,7 +6,6 @@ from flask_login import LoginManager, UserMixin, login_user, logout_user, login_
 from functools import wraps
 from datetime import datetime
 
-# 1. CONFIGURAÇÃO DO APP
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'uma-chave-secreta-muito-longa-e-dificil-de-adivinhar'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///meu_site.db'
@@ -20,7 +19,6 @@ login_manager.login_message_category = 'info'
 chave_secreta = b'J7gpuJ8t0DAwQshL6C_Rq2RG37_zkrcBtbSQIlJdk7M=' 
 cipher = Fernet(chave_secreta)
 
-# 2. PORTEIRO DE ADMIN
 def admin_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
@@ -31,7 +29,6 @@ def admin_required(f):
         return f(*args, **kwargs)
     return decorated_function
 
-# 3. MODELOS DO BANCO DE DADOS
 class Feedback(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     rating = db.Column(db.Integer, nullable=False)
@@ -55,7 +52,6 @@ class User(db.Model, UserMixin):
     estado = db.Column(db.String(50), nullable=True)
     cep = db.Column(db.String(10), nullable=True)
     
-    # Relação com Reservas
     reservas_cliente = db.relationship('Reserva', backref='cliente', lazy=True)
 
     def __repr__(self):
@@ -97,7 +93,6 @@ class Reserva(db.Model):
 def load_user(user_id):
     return User.query.get(int(user_id)) 
 
-# 6. ROTAS (PÁGINAS) DO SITE
 @app.route('/')
 def homepage():
     termo_busca = request.args.get('q')
@@ -147,7 +142,7 @@ def processar_pagamento():
         carro_reservado = Veiculo.query.get(reserva_dados['carro_id'])
         carro_reservado.is_available = False 
         
-        db.session.commit() # Salva as duas mudanças (Reserva e Veiculo)
+        db.session.commit() 
         
     except Exception as e:
         db.session.rollback()
@@ -175,12 +170,11 @@ def processar_feedback():
 @app.route('/admin', methods=['GET', 'POST'])
 @login_required
 def pagina_admin():
-    # 1. Verificação de Permissão
+
     if current_user.role != 'admin':
         flash('Acesso negado. Apenas administradores podem acessar esta página.', 'danger')
         return redirect(url_for('homepage'))
 
-    # 2. Lógica para ADICIONAR NOVO VEÍCULO (POST)
     if request.method == 'POST':
         try:
             nome = request.form['nome_veiculo']
@@ -193,7 +187,6 @@ def pagina_admin():
             destaques = request.form['destaques_veiculo']
             descricao = request.form['desc_veiculo']
             
-            # Verificação de unicidade da placa
             if Veiculo.query.filter_by(placa=placa).first():
                 flash('Erro: Já existe um veículo com esta placa cadastrado.', 'danger')
                 return redirect(url_for('pagina_admin'))
@@ -224,9 +217,7 @@ def pagina_admin():
             db.session.rollback()
             return redirect(url_for('pagina_admin'))
 
-    # 3. Lógica para EXIBIR DADOS (GET)
     try:
-        # Reserva do cliente aparece em tempo real na tabela de reservas do adm
         reservas_ativas = db.session.query(Reserva, User, Veiculo)\
             .join(User, Reserva.user_id == User.id)\
             .join(Veiculo, Reserva.veiculo_id == Veiculo.id)\
@@ -235,7 +226,6 @@ def pagina_admin():
         
         todos_veiculos = Veiculo.query.all() 
 
-        # Feedbacks recebidos
         feedbacks = Feedback.query.order_by(Feedback.id.desc()).all()
         
     except Exception as e: 
@@ -244,27 +234,21 @@ def pagina_admin():
         todos_veiculos = []
         feedbacks = []
 
-    # 4. Renderiza o template com todos os dados
     return render_template(
         'admin.html', 
         veiculos=todos_veiculos,
         reservas_ativas=reservas_ativas,
-        feedbacks=feedbacks  # agora os feedbacks aparecem no admin
+        feedbacks=feedbacks 
     )
-
-# 1. ROTA DE PERFIL
 
 @app.route('/perfil')
 @login_required
 def pagina_perfil():
     
-    # BLOQUEIO DE ADMIN
     if current_user.role == 'admin':
-        return redirect(url_for('pagina_admin')) # Admin é sempre redirecionado para o painel!
+        return redirect(url_for('pagina_admin')) 
     
-    # LÓGICA DO CLIENTE (MOSTRAR HISTÓRICO)
     try:
-        # A query só roda se o usuário for um cliente
         reservas_do_usuario = Reserva.query.filter_by(user_id=current_user.id).order_by(Reserva.data_inicio.desc()).all()
     except Exception as e:
         reservas_do_usuario = []
@@ -277,7 +261,6 @@ def atualizar_dados():
     user = current_user
     
     if request.method == 'POST':
-        # 1. Atualiza os campos do formulário
         user.nome = request.form.get('nome', user.nome)
         user.telefone = request.form.get('telefone', user.telefone)
         user.endereco = request.form.get('endereco', user.endereco)
@@ -285,13 +268,10 @@ def atualizar_dados():
         user.estado = request.form.get('estado', user.estado)
         user.cep = request.form.get('cep', user.cep)
         
-        # 2. Processa a senha, se foi preenchida
         new_password = request.form.get('new_password')
         if new_password:
-            # Hash da nova senha
             user.password_hash = bcrypt.generate_password_hash(new_password).decode('utf-8')
 
-        # 3. Salva no banco
         try:
             db.session.commit()
             return redirect(url_for('pagina_perfil'))
@@ -299,7 +279,6 @@ def atualizar_dados():
             db.session.rollback()
             return f"Erro ao atualizar dados: {e}"
 
-    # GET request: Renderizar o formulário
     return render_template('atualizar_dados.html', user=user)
 
 @app.route('/iniciar-reserva', methods=['POST'])
@@ -336,8 +315,6 @@ def iniciar_reserva():
         }
         return redirect(url_for('pagina_pagamento'))
 
-# 2. ROTA DE LOGIN
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
@@ -349,11 +326,10 @@ def login():
         if user and bcrypt.check_password_hash(user.password_hash, request.form['password']):
             login_user(user, remember=True)
             
-            # VERIFICAÇÃO DE CARGO
             if user.role == 'admin':
-                return redirect(url_for('pagina_admin')) # ADMIN VAI PARA O PAINEL
+                return redirect(url_for('pagina_admin'))
             else:
-                return redirect(url_for('pagina_perfil')) # CLIENTE VAI PARA O PERFIL
+                return redirect(url_for('pagina_perfil'))
         
         else:
             return render_template('login.html', error="Usuário ou senha inválidos.")
@@ -416,14 +392,12 @@ def pagina_detalhe_veiculo(carro_id):
 
 @app.route('/veiculos')
 def pagina_veiculos():
-    # 1. Pega os parâmetros
     termo_busca = request.args.get('q')
     categoria = request.args.get('categoria')
     ano = request.args.get('ano')
     sort_by = request.args.get('sort') 
     
     try:
-        # 2. Lógica de Filtragem
         query = Veiculo.query.filter_by(is_available=True)
         
         if categoria:
@@ -445,14 +419,13 @@ def pagina_veiculos():
             
         todos_veiculos = query.all()
 
-        carro_count = len(todos_veiculos) # Conta os carros
+        carro_count = len(todos_veiculos) 
         
     except Exception as e:
         print(f"Erro ao buscar veículos: {e}")
         todos_veiculos = []
-        carro_count = 0 # Se der erro, a contagem é 0
+        carro_count = 0 
         
-    # 3. Envia a contagem para o template
     return render_template('veiculos.html', 
                            veiculos=todos_veiculos,
                            carro_count=carro_count)
@@ -493,16 +466,13 @@ def cancelar_reserva(reserva_id):
 def delete_veiculo(carro_id):
 
     try:
-        # 1. Encontra o carro no banco
         carro_para_deletar = Veiculo.query.get_or_404(carro_id)
         
-        # 2. Verifica se há reservas ativas
         reservas_ativas = Reserva.query.filter_by(veiculo_id=carro_id, status='Confirmada').first()
         if reservas_ativas:
             print("Tentativa de deletar carro com reservas ativas.")
             return redirect(url_for('pagina_admin'))
 
-        # 3. Se não há reservas, pode deletar
         db.session.delete(carro_para_deletar)
         db.session.commit()
         print(f"Veículo '{carro_para_deletar.nome}' DELETADO do banco.")
@@ -511,7 +481,6 @@ def delete_veiculo(carro_id):
         print(f"Erro ao deletar veículo: {e}")
         db.session.rollback()
 
-    # Redireciona o usuário de volta para o painel
     return redirect(url_for('pagina_admin'))
 @app.route('/admin/toggle_veiculo_status/<int:carro_id>', methods=['POST'])
 @admin_required
@@ -519,7 +488,6 @@ def toggle_veiculo_status(carro_id):
     try:
         carro = Veiculo.query.get_or_404(carro_id)
         
-        # Inverte o valor (Se for True, vira False, e vice-versa)
         carro.is_available = not carro.is_available 
         db.session.commit()
         
@@ -527,7 +495,6 @@ def toggle_veiculo_status(carro_id):
         print(f"Erro ao alterar status do veículo: {e}")
         db.session.rollback()
 
-    # Redireciona de volta para o painel
     return redirect(url_for('pagina_admin'))
 
 if __name__ == '__main__':

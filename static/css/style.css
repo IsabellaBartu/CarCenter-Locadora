@@ -11,6 +11,7 @@
     padding: 0;
     box-sizing: border-box;
 }
+
 body {
     background-color: var(--bg-page);
     font-family: 'Montserrat', sans-serif; 
@@ -827,7 +828,6 @@ footer {
         max-width: 100%;
     }
 }
-/* Este ID só existe na página de Veículos, então o CSS só aplica lá */
 #frota-completa h2 {
     margin-top: -190px;
     
@@ -1163,14 +1163,12 @@ footer {
     border-color: var(--primary);
     box-shadow: 0 0 5px var(--primary);
 }
-
 .form-grupo-admin {
     display: flex;
     flex-direction: column;
 }
-
 .form-grupo-admin-full {
-    grid-column: span 3; /* antes era span 2 */
+    grid-column: span 3;
 }
 .btn-confirmar {
     background-color: var(--primary);
@@ -1969,4 +1967,54 @@ h2 {
     font-style: italic;
     color: #444;
     margin-top: 10px;
+}
+.accessibility-bar {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: var(--primary);
+    padding: 8px 12px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    z-index: 99999; 
+    display: flex;
+    gap: 8px;
+}
+.accessibility-bar button {
+    background: transparent;
+    border: 1px solid white;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-size: 1.1rem;
+}
+.accessibility-bar button:hover {
+    background-color: var(--red-btn);
+}
+
+body.high-contrast {
+    background-color: #000 !important;
+    color: #FFF !important;
+    border-top: 5px solid rgb(225, 206, 0) !important;
+}
+body.high-contrast .container-interno {
+    background-color: #000 !important;
+    border: 1px solid #FFF !important;
+    box-shadow: none !important;
+}
+body.high-contrast h2,
+body.high-contrast h3,
+body.high-contrast strong {
+    color: rgb(225, 206, 0) !important;
+}
+body.high-contrast a:link,
+body.high-contrast a:visited {
+    color: rgb(0, 224, 224) !important;
+}
+body.high-contrast .form-login-register {
+    background-color: #111 !important;
+    border-color: rgb(225, 206, 0) !important;
 }
